@@ -1,0 +1,5 @@
+# binary file
+*.out
+
+# log file
+# *.log

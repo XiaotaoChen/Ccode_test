@@ -1,0 +1,16 @@
+EXEC=test_mpi_bcast
+#MPI_ROOT=/opt/intel/impi/2017.3.196/intel64
+#MPI_ROOT=/opt/intel/impi/latest/compilers_and_libraries_2017/linux/mpi/intel64
+#MPI_ROOT=/opt/intel/impi/2017.3.196/compilers_and_libraries_2017.4.196/linux/mpi/intel64
+#MPI_ROOT=/opt/intel/compiler/latest/impi/2017.2.191/intel64
+
+MPI_ROOT=/opt/intel/compilers_and_libraries_2018.1.163/linux/mpi_2019/intel64
+
+all: ${EXEC}
+${EXEC}: test_mpi_bcast.o
+	icc -o ${EXEC} test_mpi_bcast.o -g -pthread -L /opt/intel/compiler/2017u3/compilers_and_libraries_2017.3.191/linux/compiler/lib/intel64_lin/ -L${MPI_ROOT}/lib/release -L./ -ldl -liomp5 -lmpi
+
+test_mpi_bcast.o: test_mpi_bcast.cpp
+	icc -c -g -std=c++11 -qopenmp -xHOST test_mpi_bcast.cpp -o test_mpi_bcast.o -I${MPI_ROOT}/include
+clean:
+	rm -f ${EXEC} test_mpi_bcast.o

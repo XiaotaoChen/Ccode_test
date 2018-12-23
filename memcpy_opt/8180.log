@@ -1,0 +1,102 @@
+================================
+ running with icpc
+================================
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+./run.sh: line 14: ./memory_test.icpc: No such file or directory
+================================
+ running with g++
+================================
+--------------------------------------------------
+num_threads=56	test_loop=30
+--------------------------------------------------
+omp 56    size 20          memset_t(us) 0.446567       omp_set_t(us) 105.02         ompset/memset 0.00      memcpy_t(us) 0.257200       omp_copy_t(us) 24.928967      ompcopy/memcy 0.01      
+omp 56    size 200         memset_t(us) 0.381233       omp_set_t(us) 23.371000      ompset/memset 0.02      memcpy_t(us) 2.697833       omp_copy_t(us) 23.483767      ompcopy/memcy 0.11      
+omp 56    size 2000        memset_t(us) 0.674100       omp_set_t(us) 20.614100      ompset/memset 0.03      memcpy_t(us) 6.537066       omp_copy_t(us) 22.149099      ompcopy/memcy 0.30      
+omp 56    size 20000       memset_t(us) 2.242900       omp_set_t(us) 26.137667      ompset/memset 0.09      memcpy_t(us) 23.793867      omp_copy_t(us) 30.996666      ompcopy/memcy 0.77      
+omp 56    size 200000      memset_t(us) 38.977665      omp_set_t(us) 59.123032      ompset/memset 0.66      memcpy_t(us) 199.268539     omp_copy_t(us) 80.028603      ompcopy/memcy 2.49      
+omp 56    size 2000000     memset_t(us) 338.382294     omp_set_t(us) 152.410660     ompset/memset 2.22      memcpy_t(us) 1447.891724    omp_copy_t(us) 287.951202     ompcopy/memcy 5.03      
+omp 56    size 20000000    memset_t(us) 6184.174316    omp_set_t(us) 1575.605347    ompset/memset 3.92      memcpy_t(us) 16641.351562   omp_copy_t(us) 2973.405029    ompcopy/memcy 5.60      
+omp 56    size 200000000   memset_t(us) 67504.523438   omp_set_t(us) 24392.908203   ompset/memset 2.77      memcpy_t(us) 165247.468750  omp_copy_t(us) 34187.691406   ompcopy/memcy 4.83      
+--------------------------------------------------
+num_threads=32	test_loop=30
+--------------------------------------------------
+omp 32    size 20          memset_t(us) 0.0583667      omp_set_t(us) 27.436         ompset/memset 0.00      memcpy_t(us) 0.134933       omp_copy_t(us) 9.244100       ompcopy/memcy 0.01      
+omp 32    size 200         memset_t(us) 0.081533       omp_set_t(us) 8.556100       ompset/memset 0.01      memcpy_t(us) 0.244933       omp_copy_t(us) 8.798966       ompcopy/memcy 0.03      
+omp 32    size 2000        memset_t(us) 0.423967       omp_set_t(us) 8.780633       ompset/memset 0.05      memcpy_t(us) 1.019967       omp_copy_t(us) 9.871834       ompcopy/memcy 0.10      
+omp 32    size 20000       memset_t(us) 2.128900       omp_set_t(us) 12.551200      ompset/memset 0.17      memcpy_t(us) 11.715633      omp_copy_t(us) 16.102367      ompcopy/memcy 0.73      
+omp 32    size 200000      memset_t(us) 36.667435      omp_set_t(us) 41.271465      ompset/memset 0.89      memcpy_t(us) 135.886063     omp_copy_t(us) 52.123466      ompcopy/memcy 2.61      
+omp 32    size 2000000     memset_t(us) 327.345154     omp_set_t(us) 146.602829     ompset/memset 2.23      memcpy_t(us) 1428.481201    omp_copy_t(us) 275.600830     ompcopy/memcy 5.18      
+omp 32    size 20000000    memset_t(us) 6165.695312    omp_set_t(us) 1639.470337    ompset/memset 3.76      memcpy_t(us) 15899.242188   omp_copy_t(us) 3084.411865    ompcopy/memcy 5.15      
+omp 32    size 200000000   memset_t(us) 67539.921875   omp_set_t(us) 24081.638672   ompset/memset 2.80      memcpy_t(us) 164342.578125  omp_copy_t(us) 33431.210938   ompcopy/memcy 4.92      
+--------------------------------------------------
+num_threads=28	test_loop=30
+--------------------------------------------------
+omp 28    size 20          memset_t(us) 0.0527         omp_set_t(us) 23.423         ompset/memset 0.00      memcpy_t(us) 0.155200       omp_copy_t(us) 10.206667      ompcopy/memcy 0.02      
+omp 28    size 200         memset_t(us) 0.089167       omp_set_t(us) 7.566033       ompset/memset 0.01      memcpy_t(us) 0.212400       omp_copy_t(us) 7.409534       ompcopy/memcy 0.03      
+omp 28    size 2000        memset_t(us) 0.362967       omp_set_t(us) 8.236500       ompset/memset 0.04      memcpy_t(us) 1.051467       omp_copy_t(us) 8.831100       ompcopy/memcy 0.12      
+omp 28    size 20000       memset_t(us) 1.927767       omp_set_t(us) 11.188566      ompset/memset 0.17      memcpy_t(us) 10.103000      omp_copy_t(us) 13.643633      ompcopy/memcy 0.74      
+omp 28    size 200000      memset_t(us) 31.115334      omp_set_t(us) 37.145332      ompset/memset 0.84      memcpy_t(us) 132.051041     omp_copy_t(us) 49.083065      ompcopy/memcy 2.69      
+omp 28    size 2000000     memset_t(us) 320.863007     omp_set_t(us) 146.332062     ompset/memset 2.19      memcpy_t(us) 1435.647827    omp_copy_t(us) 271.517853     ompcopy/memcy 5.29      
+omp 28    size 20000000    memset_t(us) 6121.810059    omp_set_t(us) 1550.699585    ompset/memset 3.95      memcpy_t(us) 15923.043945   omp_copy_t(us) 3077.740234    ompcopy/memcy 5.17      
+omp 28    size 200000000   memset_t(us) 67634.476562   omp_set_t(us) 23828.312500   ompset/memset 2.84      memcpy_t(us) 164493.203125  omp_copy_t(us) 32966.000000   ompcopy/memcy 4.99      
+--------------------------------------------------
+num_threads=16	test_loop=30
+--------------------------------------------------
+omp 16    size 20          memset_t(us) 0.063          omp_set_t(us) 14.5426        ompset/memset 0.00      memcpy_t(us) 0.181500       omp_copy_t(us) 6.999000       ompcopy/memcy 0.03      
+omp 16    size 200         memset_t(us) 0.061200       omp_set_t(us) 6.180600       ompset/memset 0.01      memcpy_t(us) 0.310233       omp_copy_t(us) 5.908700       ompcopy/memcy 0.05      
+omp 16    size 2000        memset_t(us) 0.185533       omp_set_t(us) 6.496533       ompset/memset 0.03      memcpy_t(us) 0.948900       omp_copy_t(us) 7.293267       ompcopy/memcy 0.13      
+omp 16    size 20000       memset_t(us) 1.955133       omp_set_t(us) 9.424000       ompset/memset 0.21      memcpy_t(us) 10.527634      omp_copy_t(us) 12.330267      ompcopy/memcy 0.85      
+omp 16    size 200000      memset_t(us) 34.136101      omp_set_t(us) 35.642765      ompset/memset 0.96      memcpy_t(us) 129.315170     omp_copy_t(us) 47.433765      ompcopy/memcy 2.73      
+omp 16    size 2000000     memset_t(us) 318.438110     omp_set_t(us) 160.753372     ompset/memset 1.98      memcpy_t(us) 1428.380981    omp_copy_t(us) 293.946228     ompcopy/memcy 4.86      
+omp 16    size 20000000    memset_t(us) 6186.858887    omp_set_t(us) 1728.208740    ompset/memset 3.58      memcpy_t(us) 15893.033203   omp_copy_t(us) 3180.347900    ompcopy/memcy 5.00      
+omp 16    size 200000000   memset_t(us) 67623.703125   omp_set_t(us) 23986.156250   ompset/memset 2.82      memcpy_t(us) 164472.031250  omp_copy_t(us) 34218.765625   ompcopy/memcy 4.81      
+--------------------------------------------------
+num_threads=8	test_loop=30
+--------------------------------------------------
+omp 8     size 20          memset_t(us) 0.0873         omp_set_t(us) 11.3991        ompset/memset 0.01      memcpy_t(us) 0.162167       omp_copy_t(us) 4.286133       ompcopy/memcy 0.04      
+omp 8     size 200         memset_t(us) 0.060700       omp_set_t(us) 4.250333       ompset/memset 0.01      memcpy_t(us) 0.280233       omp_copy_t(us) 4.310033       ompcopy/memcy 0.07      
+omp 8     size 2000        memset_t(us) 0.355333       omp_set_t(us) 4.379533       ompset/memset 0.08      memcpy_t(us) 1.098367       omp_copy_t(us) 4.731333       ompcopy/memcy 0.23      
+omp 8     size 20000       memset_t(us) 1.923100       omp_set_t(us) 7.110133       ompset/memset 0.27      memcpy_t(us) 10.003667      omp_copy_t(us) 10.347867      ompcopy/memcy 0.97      
+omp 8     size 200000      memset_t(us) 28.959034      omp_set_t(us) 34.445766      ompset/memset 0.84      memcpy_t(us) 119.517502     omp_copy_t(us) 46.426434      ompcopy/memcy 2.57      
+omp 8     size 2000000     memset_t(us) 314.838867     omp_set_t(us) 188.122833     ompset/memset 1.67      memcpy_t(us) 1312.731323    omp_copy_t(us) 313.928925     ompcopy/memcy 4.18      
+omp 8     size 20000000    memset_t(us) 6044.884277    omp_set_t(us) 1877.877075    ompset/memset 3.22      memcpy_t(us) 15790.168945   omp_copy_t(us) 3567.532471    ompcopy/memcy 4.43      
+omp 8     size 200000000   memset_t(us) 67566.484375   omp_set_t(us) 22889.564453   ompset/memset 2.95      memcpy_t(us) 164050.718750  omp_copy_t(us) 36593.484375   ompcopy/memcy 4.48      
+--------------------------------------------------
+num_threads=4	test_loop=30
+--------------------------------------------------
+omp 4     size 20          memset_t(us) 0.0708         omp_set_t(us) 7.05343        ompset/memset 0.01      memcpy_t(us) 0.141333       omp_copy_t(us) 2.614000       ompcopy/memcy 0.05      
+omp 4     size 200         memset_t(us) 0.089467       omp_set_t(us) 2.984300       ompset/memset 0.03      memcpy_t(us) 0.215533       omp_copy_t(us) 2.922400       ompcopy/memcy 0.07      
+omp 4     size 2000        memset_t(us) 0.226400       omp_set_t(us) 3.440467       ompset/memset 0.07      memcpy_t(us) 1.344400       omp_copy_t(us) 4.250767       ompcopy/memcy 0.32      
+omp 4     size 20000       memset_t(us) 1.880900       omp_set_t(us) 6.684533       ompset/memset 0.28      memcpy_t(us) 9.221633       omp_copy_t(us) 8.583834       ompcopy/memcy 1.07      
+omp 4     size 200000      memset_t(us) 31.237667      omp_set_t(us) 39.811932      ompset/memset 0.78      memcpy_t(us) 115.099899     omp_copy_t(us) 58.976700      ompcopy/memcy 1.95      
+omp 4     size 2000000     memset_t(us) 310.041534     omp_set_t(us) 328.801361     ompset/memset 0.94      memcpy_t(us) 1227.348877    omp_copy_t(us) 509.058990     ompcopy/memcy 2.41      
+omp 4     size 20000000    memset_t(us) 5986.054688    omp_set_t(us) 2927.682129    ompset/memset 2.04      memcpy_t(us) 15741.352539   omp_copy_t(us) 5191.969238    ompcopy/memcy 3.03      
+omp 4     size 200000000   memset_t(us) 67610.085938   omp_set_t(us) 29464.232422   ompset/memset 2.29      memcpy_t(us) 163635.171875  omp_copy_t(us) 50960.968750   ompcopy/memcy 3.21      
+--------------------------------------------------
+num_threads=2	test_loop=30
+--------------------------------------------------
+omp 2     size 20          memset_t(us) 0.0301667      omp_set_t(us) 4.15133        ompset/memset 0.01      memcpy_t(us) 0.181833       omp_copy_t(us) 2.056200       ompcopy/memcy 0.09      
+omp 2     size 200         memset_t(us) 0.116200       omp_set_t(us) 2.050267       ompset/memset 0.06      memcpy_t(us) 0.374733       omp_copy_t(us) 2.193167       ompcopy/memcy 0.17      
+omp 2     size 2000        memset_t(us) 0.507200       omp_set_t(us) 3.165300       ompset/memset 0.16      memcpy_t(us) 1.859967       omp_copy_t(us) 3.240533       ompcopy/memcy 0.57      
+omp 2     size 20000       memset_t(us) 2.000667       omp_set_t(us) 8.552700       ompset/memset 0.23      memcpy_t(us) 8.297667       omp_copy_t(us) 11.550034      ompcopy/memcy 0.72      
+omp 2     size 200000      memset_t(us) 28.507334      omp_set_t(us) 63.061466      ompset/memset 0.45      memcpy_t(us) 100.908768     omp_copy_t(us) 94.071602      ompcopy/memcy 1.07      
+omp 2     size 2000000     memset_t(us) 304.197754     omp_set_t(us) 644.004517     ompset/memset 0.47      memcpy_t(us) 1167.160889    omp_copy_t(us) 924.670044     ompcopy/memcy 1.26      
+omp 2     size 20000000    memset_t(us) 5807.242676    omp_set_t(us) 5201.328125    ompset/memset 1.12      memcpy_t(us) 15569.651367   omp_copy_t(us) 9311.110352    ompcopy/memcy 1.67      
+omp 2     size 200000000   memset_t(us) 67426.906250   omp_set_t(us) 50525.960938   ompset/memset 1.33      memcpy_t(us) 163985.515625  omp_copy_t(us) 91955.460938   ompcopy/memcy 1.78      
+--------------------------------------------------
+num_threads=1	test_loop=30
+--------------------------------------------------
+omp 1     size 20          memset_t(us) 0.026          omp_set_t(us) 0.5315         ompset/memset 0.05      memcpy_t(us) 0.038567       omp_copy_t(us) 0.232367       ompcopy/memcy 0.17      
+omp 1     size 200         memset_t(us) 0.032400       omp_set_t(us) 0.290767       ompset/memset 0.11      memcpy_t(us) 0.038567       omp_copy_t(us) 0.228367       ompcopy/memcy 0.17      
+omp 1     size 2000        memset_t(us) 0.155900       omp_set_t(us) 0.305867       ompset/memset 0.51      memcpy_t(us) 0.162900       omp_copy_t(us) 0.367533       ompcopy/memcy 0.44      
+omp 1     size 20000       memset_t(us) 1.786300       omp_set_t(us) 1.528267       ompset/memset 1.17      memcpy_t(us) 2.204567       omp_copy_t(us) 2.532433       ompcopy/memcy 0.87      
+omp 1     size 200000      memset_t(us) 28.997499      omp_set_t(us) 15.131900      ompset/memset 1.92      memcpy_t(us) 77.945366      omp_copy_t(us) 49.462467      ompcopy/memcy 1.58      
+omp 1     size 2000000     memset_t(us) 307.893158     omp_set_t(us) 307.109558     ompset/memset 1.00      memcpy_t(us) 994.003418     omp_copy_t(us) 605.185120     ompcopy/memcy 1.64      
+omp 1     size 20000000    memset_t(us) 6104.137207    omp_set_t(us) 6017.508301    ompset/memset 1.01      memcpy_t(us) 15778.552734   omp_copy_t(us) 11554.041992   ompcopy/memcy 1.37      
+omp 1     size 200000000   memset_t(us) 67633.054688   omp_set_t(us) 67566.195312   ompset/memset 1.00      memcpy_t(us) 162761.312500  omp_copy_t(us) 126724.445312  ompcopy/memcy 1.28

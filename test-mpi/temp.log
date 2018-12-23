@@ -1,0 +1,400 @@
+rank: 0 bcast number: 0
+rank: 0 bcast number: 1
+rank: 0 bcast number: 2
+rank: 0 bcast number: 3
+rank: 0 bcast number: 4
+rank: 0 bcast number: 5
+rank: 0 bcast number: 6
+rank: 0 bcast number: 7
+rank: 0 bcast number: 8
+rank: 0 bcast number: 9
+rank: 0 bcast number: 10
+rank: 0rank: 1 recev_length: 0
+rank: 1 recev_length: 1
+rank: 1 recev_length: 2
+rank: 1 recev_length: 3
+rank: 1 recev_length: 4
+rank: 1 recev_length: 5
+rank: 1 recev_length: 6
+rank: 1 recev_length: 7
+rank: 1 recev_length: 8
+rank: 1 recev_length: 9
+rank: 1 recev_length: 10
+rank: 1 recev_length: 11
+rank: 1 recev_length: 12
+rank: 1 recev_length: 13
+rank: 1 recev_length: 14
+rank: 1 recev_length: 15
+rank: 2 recev_length: 0
+rank: 2 recev_length: 1
+rank: 2 recev_length: 2
+rank: 2 recev_length: 3
+rank: 2 recev_length: 4
+rank: 2 recev_length: 5
+rank: 2 recev_length: 6
+rank: 2 recev_length: 7
+rank: 2 recev_length: 8
+rank: 2 recev_length: 9
+rank: 2 recev_length: 10
+rank: 2 recev_length: 11
+rank: 2 recev_length: 12
+rank: 2 recev_length: 13
+rank: 2 recev_length: 14
+rank: 2 recev_length: 15
+rank: 2 recev_length: 16
+rank: 2 recev_length: rank: 3 recev_length: 0
+rank: 3 recev_length: 1
+rank: 3 recev_length: 2
+rank: 3 recev_length: 3
+rank: 3 recev_length: 4
+rank: 3 recev_length: 5
+rank: 3 recev_length: 6
+rank: 3 recev_length: 7
+rank: 3 recev_length: 8
+rank: 3 recev_length: 9
+rank: 3 recev_length: 10
+rank: 3 recev_length: 11
+rank: 3 recev_length: 12
+rank: 3 recev_length: 13
+rank: 3 recev_length: 14
+rank: 3 recev_length: 15
+rank: 3 recev_length: 16
+rank: 3 recev_length: 17
+rank: 3 recev_length:  bcast number: 11
+rank: 0 bcast number: 12
+rank: 0 bcast number: 13
+rank: 0 bcast number: 14
+rank: 0 bcast number: 15
+rank: 0 bcast number: 16
+rank: 0 bcast number: 17
+rank: 0 bcast number: 18
+rank: 0 bcast number: 19
+rank: 0 bcast number: 20
+rank: 0 bcast number: 21rank: 1 recev_length: 16
+rank: 1 recev_length: 17
+rank: 1 recev_length: 18
+rank: 1 recev_length: 19
+rank: 1 recev_length: 20
+rank: 1 recev_length: 21
+rank: 117
+rank: 2 recev_length: 18
+rank: 2 recev_length: 19
+rank: 2 recev_length: 20
+rank: 2 recev_length: 21
+rank: 2 recev_length: 22
+rank: 2 recev_length: 2318
+rank: 3 recev_length: 19
+rank: 3 recev_length: 20
+rank: 3 recev_length: 21
+rank: 3 recev_length: 22
+rank: 3 recev_length: 23
+rank: 3
+rank: 0 bcast number: 22
+rank: 0 bcast number: 23
+rank: 0 bcast number: 24
+rank: 0 bcast number: 25
+ recev_length: 22
+rank: 1 recev_length: 23
+rank: 1 recev_length: 24
+rank: 1 recev_length: 25
+rank: 1 recev_length: 26
+
+rank: 2 recev_length: 24
+rank: 2 recev_length: 25
+rank: 2 recev_length: 26
+rank: 2 recev_length: 27 recev_length: 24
+rank: 3 recev_length: 25
+rank: 3 recev_length: 26
+rank: 3 recev_length: 27
+rank: 3 recev_length: rank: 0 bcast number: 26
+rank: 0 bcast number: 27
+rank: 0 bcast number: 28
+rank: 0 bcast number: 29
+rank: rank: 1 recev_length: 27
+rank: 1 recev_length: 28
+rank: 1 recev_length: 29
+rank: 1 recev_length: 30
+
+rank: 2 recev_length: 28
+rank: 2 recev_length: 29
+rank: 2 recev_length: 30
+rank: 2 recev_length: 31
+28
+rank: 3 recev_length: 29
+rank: 3 recev_length: 30
+rank: 3 recev_length: 31
+rank: 3 recev_length: 0 bcast number: 30
+rank: 0 bcast number: 31
+rank: 0 bcast number: 32
+rank: 0 bcast number: 33
+rank: 0 bcast number: 34
+rank: 0 bcast number: 35
+rank: 0 bcast number: 36
+rank: 0 bcast number: rank: 1 recev_length: 31
+rank: 1 recev_length: 32
+rank: 1 recev_length: 33
+rank: 1 recev_length: 34
+rank: 1 recev_length: 35
+rank: 1 recev_length: 36
+rank: 1 recev_length: 37
+rank: 2 recev_length: 32
+rank: 2 recev_length: 33
+rank: 2 recev_length: 34
+rank: 2 recev_length: 35
+rank: 2 recev_length: 36
+rank: 2 recev_length: 37
+rank: 2 recev_length: 38
+rank: 2 recev_length: 39
+32
+rank: 3 recev_length: 33
+rank: 3 recev_length: 34
+rank: 3 recev_length: 35
+rank: 3 recev_length: 36
+rank: 3 recev_length: 37
+rank: 3 recev_length: 38
+rank: 3 recev_length: 39
+37
+rank: 0 bcast number: 38
+rank: 0 bcast number: 39
+rank: 0 bcast number: 40
+rank: 0 bcast number: 41
+rank: 1 recev_length: 38
+rank: 1 recev_length: 39
+rank: 1 recev_length: 40
+rank: 1 recev_length: 41
+rank: 1 recev_length: rank: 2 recev_length: 40
+rank: 2 recev_length: 41
+rank: 2 recev_length: 42
+rank: 2 recev_length: rank: 3 recev_length: 40
+rank: 3 recev_length: 41
+rank: 3 recev_length: 42
+rank: 3 recev_length: 43
+rank: 3rank: 0 bcast number: 42
+rank: 0 bcast number: 43
+rank: 0 bcast number: 44
+rank: 0 bcast number: 45
+42
+rank: 1 recev_length: 43
+rank: 1 recev_length: 44
+rank: 1 recev_length: 45
+rank: 1 recev_length: 43
+rank: 2 recev_length: 44
+rank: 2 recev_length: 45
+rank: 2 recev_length: 46
+rank: 2 recev_length: 47 recev_length: 44
+rank: 3 recev_length: 45
+rank: 3 recev_length: 46
+rank: 3 recev_length: 47
+rank: rank: 0 bcast number: 46
+rank: 0 bcast number: 47
+rank: 0 bcast number: 48
+rank: 0 bcast number: 4946
+rank: 1 recev_length: 47
+rank: 1 recev_length: 48
+rank: 1 recev_length: 49
+
+rank: 2 recev_length: 48
+rank: 2 recev_length: 49
+rank: 2 recev_length: 50
+rank: 2 recev_length: 51
+3 recev_length: 48
+rank: 3 recev_length: 49
+rank: 3 recev_length: 50
+rank: 3 recev_length: 51
+rank: 3 recev_length: 52
+
+rank: 0 bcast number: 50
+rank: 0 bcast number: 51
+rank: 0 bcast number: 52
+rank: 0 bcast number: 53
+rank: 0 bcast number: 54
+rank: 1 recev_length: 50
+rank: 1 recev_length: 51
+rank: 1 recev_length: 52
+rank: 1 recev_length: 53
+rank: 1 recev_length: 54
+rank: 1 recev_length: 55
+rank: 2 recev_length: 52
+rank: 2 recev_length: 53
+rank: 2 recev_length: 54
+rank: 2 recev_length: 55
+rank: 2 recev_length: 56
+rank: 3 recev_length: 53
+rank: 3 recev_length: 54
+rank: 3 recev_length: 55
+rank: 3 recev_length: 56
+rank: 3 recev_length: rank: 0 bcast number: 55
+rank: 0 bcast number: 56
+rank: 0 bcast number: 57
+rank: 0 bcast number: 58
+rank: rank: 1 recev_length: 56
+rank: 1 recev_length: 57
+rank: 1 recev_length: 58
+rank: 1 recev_length: 59
+rank: 2 recev_length: 57
+rank: 2 recev_length: 58
+rank: 2 recev_length: 59
+57
+rank: 3 recev_length: 58
+rank: 3 recev_length: 59
+0 bcast number: 59
+rank: 0 bcast number: 60
+rank: rank: 1 recev_length: 60
+rank: 1 recev_length: 61
+rank: 2 recev_length: 60
+rank: 2 recev_length: 61
+rank: 2 recev_length: 62rank: 3 recev_length: 60
+rank: 3 recev_length: 61
+rank: 3 recev_length: 62
+rank: 3 recev_length: 630 bcast number: 61
+rank: 0 bcast number: 62
+rank: 0 bcast number: 63
+rank: 0 bcast number: 64
+rank: 0 bcast number: 65
+rank: 1 recev_length: 62
+rank: 1 recev_length: 63
+rank: 1 recev_length: 64
+rank: 1 recev_length: 65
+rank: 1 recev_length: 66
+
+rank: 2 recev_length: 63
+rank: 2 recev_length: 64
+rank: 2 recev_length: 65
+rank: 2 recev_length: 66
+rank: 2 recev_length: 67
+rank: 3 recev_length: 64
+rank: 3 recev_length: 65
+rank: 3 recev_length: 66
+rank: 3 recev_length: 67
+rank: 3 recev_length: 68rank: 0 bcast number: 66
+rank: 0 bcast number: 67
+rank: 0 bcast number: 68
+rank: 0 bcast number: 69
+rank: 0 bcast number: rank: 1 recev_length: 67
+rank: 1 recev_length: 68
+rank: 1 recev_length: 69
+rank: 1 recev_length: 70
+
+rank: 2 recev_length: 68
+rank: 2 recev_length: 69
+rank: 2 recev_length: 70
+rank: 2 recev_length: 71
+rank: 2 recev_length: 
+rank: 3 recev_length: 69
+rank: 3 recev_length: 70
+rank: 3 recev_length: 71
+rank: 3 recev_length: 72
+70
+rank: 0 bcast number: 71
+rank: 0 bcast number: 72
+rank: 0 bcast number: 73
+rank: 0 bcast number: 74rank: 1 recev_length: 71
+rank: 1 recev_length: 72
+rank: 1 recev_length: 73
+rank: 1 recev_length: 74
+rank: 1 recev_length: 72
+rank: 2 recev_length: 73
+rank: 2 recev_length: 74
+rank: 2 recev_length: 75
+rank: 2 recev_length: rank: 3 recev_length: 73
+rank: 3 recev_length: 74
+rank: 3 recev_length: 75
+rank: 3 recev_length: 76
+rank: 3 recev_length: 77
+
+rank: 0 bcast number: 75
+rank: 0 bcast number: 76
+rank: 0 bcast number: 77
+rank: 0 bcast number: 78
+rank: 0 bcast number: 79
+75
+rank: 1 recev_length: 76
+rank: 1 recev_length: 77
+rank: 1 recev_length: 78
+rank: 1 recev_length: 79
+rank: 1 recev_length: 80
+76
+rank: 2 recev_length: 77
+rank: 2 recev_length: 78
+rank: 2 recev_length: 79
+rank: 2 recev_length: 80
+rank: 2 recev_length: 81
+rank: 3 recev_length: 78
+rank: 3 recev_length: 79
+rank: 3 recev_length: 80
+rank: 3 recev_length: 81
+rank: 3 recev_length: 82
+rank: rank: 0 bcast number: 80
+rank: 0 bcast number: 81
+rank: 0 bcast number: 82
+rank: 0 bcast number: 83
+rank: 0 bcast number: 84
+rank: 1 recev_length: 81
+rank: 1 recev_length: 82
+rank: 1 recev_length: 83
+rank: 1 recev_length: 84
+rank: 1 recev_length: 85
+rank: 2 recev_length: 82
+rank: 2 recev_length: 83
+rank: 2 recev_length: 84
+rank: 2 recev_length: 85
+rank: 2 recev_length: 3 recev_length: 83
+rank: 3 recev_length: 84
+rank: 3 recev_length: 85
+rank: 3 recev_length: 86
+rank: 3 recev_length: rank: 0 bcast number: 85
+rank: 0 bcast number: 86
+rank: 0 bcast number: 87
+rank: 0 bcast number: 88
+rank: rank: 1 recev_length: 86
+rank: 1 recev_length: 87
+rank: 1 recev_length: 88
+rank: 1 recev_length: 89
+86
+rank: 2 recev_length: 87
+rank: 2 recev_length: 88
+rank: 2 recev_length: 89
+rank: 2 recev_length: 90
+87
+rank: 3 recev_length: 88
+rank: 3 recev_length: 89
+rank: 3 recev_length: 90
+rank: 3 recev_length: 910 bcast number: 89
+rank: 0 bcast number: 90
+rank: 0 bcast number: 91
+rank: 0 bcast number: 92
+rank: 0 bcast number: rank: 1 recev_length: 90
+rank: 1 recev_length: 91
+rank: 1 recev_length: 92
+rank: 1 recev_length: 93
+rank: 2 recev_length: 91
+rank: 2 recev_length: 92
+rank: 2 recev_length: 93
+rank: 2 recev_length: 94
+rank: 2 recev_length: 
+rank: 3 recev_length: 92
+rank: 3 recev_length: 93
+rank: 3 recev_length: 94
+rank: 3 recev_length: 95
+93
+rank: 0 bcast number: 94
+rank: 0 bcast number: 95
+rank: 0 bcast number: 96
+rank: 0 bcast number: rank: 1 recev_length: 94
+rank: 1 recev_length: 95
+rank: 1 recev_length: 96
+rank: 1 recev_length: 97
+95
+rank: 2 recev_length: 96
+rank: 2 recev_length: 97
+rank: 2 recev_length: 98
+rank: 2rank: 3 recev_length: 96
+rank: 3 recev_length: 97
+rank: 3 recev_length: 98
+rank: 3 recev_length: 99
+97
+rank: 0 bcast number: 98
+rank: 0 bcast number: 99
+rank: 1 recev_length: 98
+rank: 1 recev_length: 99
+ recev_length: 99
