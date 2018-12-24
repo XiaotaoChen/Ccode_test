@@ -4,7 +4,7 @@ ifeq ($(CXX), icpc)
 	OBJ=memory_test.icpc
 else
 	CXXFLAGS=-O3 -fopenmp -std=c++11 -march=native
-	OBJ=memory_test.g++
+	OBJ=memory_test.out
 endif
 
 SRC=memory_test.cc
@@ -15,4 +15,4 @@ all: $(SRC)
 	$(CXX) $(CXXFLAGS) $< -o $(OBJ)
 
 clean:
-	@rm -vf memory_test.g++ memory_test.icpc
+	@rm -vf memory_test.out memory_test.icpc
