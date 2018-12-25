@@ -1,0 +1,33 @@
+len:128 f32 convert to bf16 avg time: 0.118940 us
+len:128 bf16 convert to f32 avg time: 0.152970 us
+len:1280 f32 convert to bf16 avg time: 0.754520 us
+len:1280 bf16 convert to f32 avg time: 1.226590 us
+len:12800 f32 convert to bf16 avg time: 7.594590 us
+len:12800 bf16 convert to f32 avg time: 12.149300 us
+len:128000 f32 convert to bf16 avg time: 76.708633 us
+len:128000 bf16 convert to f32 avg time: 119.572739 us
+len:1280000 f32 convert to bf16 avg time: 741.168396 us
+len:1280000 bf16 convert to f32 avg time: 1157.256226 us
+[xiaotaoc@mlt-skx086 test_bf16]$ ./compile.sh
+len:128 f32 convert to bf16 avg time: 0.203240 us
+len:128 bf16 convert to f32 avg time: 0.084860 us
+len:1280 f32 convert to bf16 avg time: 0.482960 us
+len:1280 bf16 convert to f32 avg time: 0.487450 us
+len:12800 f32 convert to bf16 avg time: 4.823290 us
+len:12800 bf16 convert to f32 avg time: 4.829400 us
+len:128000 f32 convert to bf16 avg time: 46.944550 us
+len:128000 bf16 convert to f32 avg time: 51.528278 us
+len:1280000 f32 convert to bf16 avg time: 452.368866 us
+len:1280000 bf16 convert to f32 avg time: 506.363403 us
+[xiaotaoc@mlt-skx086 test_bf16]$ ./compile.sh
+len:128 f32 convert to bf16 avg time: 0.310170 us
+len:128 bf16 convert to f32 avg time: 0.302070 us
+len:1280 f32 convert to bf16 avg time: 2.844920 us
+len:1280 bf16 convert to f32 avg time: 2.804910 us
+len:12800 f32 convert to bf16 avg time: 28.555220 us
+len:12800 bf16 convert to f32 avg time: 27.528099 us
+len:128000 f32 convert to bf16 avg time: 272.272766 us
+len:128000 bf16 convert to f32 avg time: 262.611725 us
+len:1280000 f32 convert to bf16 avg time: 2606.477783 us
+len:1280000 bf16 convert to f32 avg time: 2469.205566 us
+
