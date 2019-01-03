@@ -1,4 +1,3 @@
-#include <x86intrin.h>
 #include <immintrin.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,12 +50,12 @@ inline void BF16ToFloat(unsigned short* src, float* dest, int len, int type_flag
  {
    case 0:
      for(int i=0; i < len; i+=16){
-       convert_b16_to_f32(*(__m256i*)(src+i), (__m256i*)(dest+i), (__m256i*)(dest+i+8));
+       convert_b16_to_f32(*(__m256i*)(src+i), (__m512i*)(dest+i));
      }
      break;
    case 1:
      for(int i=0; i < len; i+=16){
-       convert_b16_to_f32(*(__m256i*)(src+i), (__m512i*)(dest+i));
+       convert_b16_to_f32(*(__m256i*)(src+i), (__m256i*)(dest+i), (__m256i*)(dest+i+8));
      }
      break;
    default:
@@ -72,15 +71,13 @@ inline void FloatToBF16(float* src, unsigned short* dest, int len, int type_flag
  switch (type_flag)
  {
    case 0:
-     {
      for(int i=0; i < len; i+=16){
-       convert_f32_to_b16(*(__m256i*)(src+i), *(__m256i*)(src+i+8), (__m256i*)(dest+i));
-     }
+       convert_f32_to_b16(*(__m512i*)(src+i), (__m256i*)(dest+i));
      }
      break;
    case 1:
      for(int i=0; i < len; i+=16){
-       convert_f32_to_b16(*(__m512i*)(src+i), (__m256i*)(dest+i));
+       convert_f32_to_b16(*(__m256i*)(src+i), *(__m256i*)(src+i+8), (__m256i*)(dest+i));
      }
      break;
   default:
@@ -151,5 +148,11 @@ void test_len(int len, int type_flag){
 int main(){
   for(int i=128; i<=10000000; i*=10){
     test_len(i, 0);
+  }
+  for(int i=128; i<=10000000; i*=10){
+    test_len(i, 1);
+  }
+  for(int i=128; i<=10000000; i*=10){
+    test_len(i, 2);
   }
 }
