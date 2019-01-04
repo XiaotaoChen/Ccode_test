@@ -181,10 +181,8 @@ void FloatToBF16_naive(const float* src, uint16_t* dst, int size, int type_flag)
 }
 
 void bf16_sum(void* invec, void* inoutvec, int* len){
-  int type_flag = 0;
+  int type_flag = 1;
   int i=0;
-  int zero[8] = {0,0,0,0,0,0,0,0};
-  __m256i zeros = *(__m256i*)zero;
   uint16_t* invec_16 = reinterpret_cast<uint16_t*>(invec);
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
   if(type_flag == 0){
@@ -199,8 +197,9 @@ void bf16_sum(void* invec, void* inoutvec, int* len){
       *(__m256i*)(inoutvec_16 + i) = _mm512_cvtepi32_epi16(_mm512_bsrli_epi128((__m512i)newout_m512, 2));
     }
   } else if(type_flag == 1){
-//    int zero[8] = {0,0,0,0,0,0,0,0};
-//    __m256i zeros = *(__m256i*)zero;
+    // alignas 64 for __m256i requested
+    alignas(64) int zero[8] = {0,0,0,0,0,0,0,0};
+    __m256i zeros = *(__m256i*)zero;
     for(; i< (*len / 16) * 16; i += 16){
       // convert in & out to m256
       __m256i invec0 = _mm256_unpacklo_epi16(zeros, *(__m256i*)(invec_16 + i));
@@ -408,7 +407,7 @@ int main(){
 //      test_b16Tof32(len);
 //      // test cvt0 cvt1 sum is equal or not
 //      test_cvt1_cvt2_sum_equal(len);
-      // test bf17=6 sum
+//       test bf17=6 sum
       test_sum(len);
     }
 
