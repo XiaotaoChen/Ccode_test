@@ -3,7 +3,8 @@
 #include <cmath>      // fabs
 #include <cstdio>     // printf
 #include <stdlib.h>   // rand
-#include <ctime>      // time
+#include <vector>
+#include "../utils/utils.h"
 
 inline uint16_t* bf16_alloc(size_t size){
   // TODO set alignment to 256/512, it's performance may be better.
@@ -227,13 +228,58 @@ void test_float_variance(int len) {
   printf("fp32 to fp16 range: max: %f, min: %f\n", max_diff, min_diff);
 }
 
+double test_f32Tof16_time(int len, int type_flag){
+  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+//    src0[i] = 0x7aaa7bbb;
+    src0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  FP32ToFP16(reinterpret_cast<const float*>(src0), dst0, len, type_flag);
+  tmp_time->stop();
+  free(src0);
+  free(dst0);
+  return tmp_time->get_time();
+}
+
+double test_f16Tof32_time(int len, int type_flag){
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len * sizeof(uint16_t)));
+  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len * sizeof(unsigned int)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+    src0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  FP16ToFP32(reinterpret_cast<const uint16_t*>(src0), reinterpret_cast<float*>(dst0), len, type_flag);
+  tmp_time->stop();
+  return tmp_time->get_time();
+}
+
 int main() {
   for(int len = 100; len< 10000000; len *= 10){
 //    // test fp32 to fp16
 //    test_fp32Tofp16(len);
 //    // test fp16 to fp32
 //    test_fp16Tofp32(len);
-    // test variance of float
-    test_float_variance(len);
+//    // test variance of float
+//    test_float_variance(len);
+     // test time
+     for(int type_flag=0; type_flag < 3; type_flag++){
+       std::vector<double> f32tof16_times, f16tof32_times;
+       for(int i=0; i< 100; i++){
+         double f32tof16_time = test_f32Tof16_time(len, type_flag);
+         double f16tof32_time = test_f16Tof32_time(len, type_flag);
+         f32tof16_times.push_back(f32tof16_time);
+         f16tof32_times.push_back(f16tof32_time);
+       }
+       float avg_f32tof16_time = utils::average(f32tof16_times);
+       float avg_f16tof32_time = utils::average(f16tof32_times);
+       printf("len:%d type_flag:%d, f32 convert to f16 avg time: %f us\n", len, type_flag, avg_f32tof16_time);
+       printf("len:%d type_flag:%d, f16 convert to f32 avg time: %f us\n", len, type_flag, avg_f16tof32_time);
+     }
   }
 }
