@@ -8,12 +8,12 @@
 inline uint16_t* bf16_alloc(size_t size){
   // TODO set alignment to 256/512, it's performance may be better.
   //size must be an integral multiple of 64.
-  if (size % 256 == 0) {
-    return reinterpret_cast<uint16_t*>(aligned_alloc(256, size));
+  if (size % 64 == 0) {
+    return reinterpret_cast<uint16_t*>(aligned_alloc(64, size));
   }
   else {
-    size_t new_size = (size / 256 + 1 ) * 256;
-    return reinterpret_cast<uint16_t*>(aligned_alloc(256, new_size));
+    size_t new_size = (size / 64 + 1 ) * 64;
+    return reinterpret_cast<uint16_t*>(aligned_alloc(64, new_size));
   }
 }
 
@@ -181,7 +181,7 @@ void FloatToBF16_naive(const float* src, uint16_t* dst, int size, int type_flag)
 }
 
 void bf16_sum(void* invec, void* inoutvec, int* len){
-  int type_flag = 1;
+  int type_flag = 0;
   int i=0;
   uint16_t* invec_16 = reinterpret_cast<uint16_t*>(invec);
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
@@ -189,30 +189,25 @@ void bf16_sum(void* invec, void* inoutvec, int* len){
     for(; i < (*len / 16) * 16; i += 16)
     {
       // convert in & inout to m512
-      __m512i in_m512 = _mm512_bslli_epi128(_mm512_cvtepu16_epi32(*(__m256i*)(invec_16+i)), 2);
-      __m512i out_m512 = _mm512_bslli_epi128(_mm512_cvtepu16_epi32(*(__m256i*)(inoutvec_16+i)), 2);
+      __m512i in_m512, out_m512;
+      convert_b16_to_f32(*(__m256i*)(invec_16+i), &in_m512);
+      convert_b16_to_f32(*(__m256i*)(inoutvec_16+i), &out_m512);
       // add them together to new_inout_m256
       __m512 newout_m512 = _mm512_add_ps((__m512)in_m512, (__m512)out_m512);
       // convert back and store in inout
-      *(__m256i*)(inoutvec_16 + i) = _mm512_cvtepi32_epi16(_mm512_bsrli_epi128((__m512i)newout_m512, 2));
+      convert_f32_to_b16((__m512i)newout_m512, ( __m256i*)(inoutvec_16+i));
     }
   } else if(type_flag == 1){
-    // alignas 64 for __m256i requested
-    alignas(64) int zero[8] = {0,0,0,0,0,0,0,0};
-    __m256i zeros = *(__m256i*)zero;
     for(; i< (*len / 16) * 16; i += 16){
       // convert in & out to m256
-      __m256i invec0 = _mm256_unpacklo_epi16(zeros, *(__m256i*)(invec_16 + i));
-      __m256i invec1 = _mm256_unpackhi_epi16(zeros, *(__m256i*)(invec_16 + i));
-      __m256i outvec0 = _mm256_unpacklo_epi16(zeros, *(__m256i*)(inoutvec_16 + i));
-      __m256i outvec1 = _mm256_unpackhi_epi16(zeros, *(__m256i*)(inoutvec_16 + i));
+      __m256i invec0, invec1, outvec0, outvec1;
+      convert_b16_to_f32(*(__m256i*)(invec_16 + i), &invec0, &invec1);
+      convert_b16_to_f32(*(__m256i*)(inoutvec_16 + i), &outvec0, &outvec1);
       // add them together to new_inout_m256
       __m256 new_inout0_m256 = _mm256_add_ps((__m256)invec0, (__m256)outvec0);
       __m256 new_inout1_m256 = _mm256_add_ps((__m256)invec1, (__m256)outvec1);
       // convert back and store in inout
-      __m256i inout0_m256i = _mm256_srli_epi32((__m256i)new_inout0_m256, 16);
-      __m256i inout1_m256i = _mm256_srli_epi32((__m256i)new_inout1_m256, 16);
-      *(__m256i*)(inoutvec_16 + i) = _mm256_packus_epi32(inout0_m256i, inout1_m256i);
+      convert_f32_to_b16((__m256i)new_inout0_m256, (__m256i)new_inout1_m256, (__m256i*)(inoutvec_16 + i));
     }
   }
   // process the remaining data
