@@ -4,6 +4,9 @@
 #include <cstdio> // printf
 #include <cmath> // fabs
 #include <ctime>  // time
+#include <omp.h>  // omp
+#include <vector>  // vector
+#include "../utils/utils.h"  // for calculate time
 
 inline uint16_t* bf16_alloc(size_t size){
   // TODO set alignment to 256/512, it's performance may be better.
@@ -182,11 +185,14 @@ void FloatToBF16_naive(const float* src, uint16_t* dst, int size, int type_flag)
 
 void bf16_sum(void* invec, void* inoutvec, int* len){
   int type_flag = 0;
-  int i=0;
+  int i;
   uint16_t* invec_16 = reinterpret_cast<uint16_t*>(invec);
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
   if(type_flag == 0){
-    for(; i < (*len / 16) * 16; i += 16)
+    int num_thread = omp_get_max_threads();
+    num_thread = num_thread > 20 ? num_thread : 20;
+    #pragma omp parallel for num_threads(num_thread) private(i)
+    for(i=0; i < (*len / 16) * 16; i += 16)
     {
       // convert in & inout to m512
       __m512i in_m512, out_m512;
@@ -198,7 +204,10 @@ void bf16_sum(void* invec, void* inoutvec, int* len){
       convert_f32_to_b16((__m512i)newout_m512, ( __m256i*)(inoutvec_16+i));
     }
   } else if(type_flag == 1){
-    for(; i< (*len / 16) * 16; i += 16){
+    int num_thread = omp_get_max_threads();
+    num_thread = num_thread > 20 ? num_thread : 20;
+    #pragma omp parallel for num_threads(num_thread) private(i)
+    for(i=0; i< (*len / 16) * 16; i += 16){
       // convert in & out to m256
       __m256i invec0, invec1, outvec0, outvec1;
       convert_b16_to_f32(*(__m256i*)(invec_16 + i), &invec0, &invec1);
@@ -211,7 +220,7 @@ void bf16_sum(void* invec, void* inoutvec, int* len){
     }
   }
   // process the remaining data
-  for(; i < *len; i++){
+  for(i=(*len / 16) * 16; i < *len; i++){
     unsigned int tmp_in = (*(invec_16 + i)) << 16;
     unsigned int tmp_out = (*(inoutvec_16 + i)) << 16;
     float in_float = *reinterpret_cast<float*>(&tmp_in);
@@ -222,11 +231,14 @@ void bf16_sum(void* invec, void* inoutvec, int* len){
 }
 
 void bf16_sum_naive(void* invec, void* inoutvec, int* len){
-  int i=0;
+  int i;
   // process the remaining data
   uint16_t* in_short = reinterpret_cast<uint16_t*>(invec);
   uint16_t* out_short = reinterpret_cast<uint16_t*>(inoutvec);
-  for(; i < *len; i++){
+  int num_thread = omp_get_max_threads();
+  num_thread = num_thread > 20 ? num_thread : 20;
+  #pragma omp parallel for num_threads(num_thread) private(i)
+  for(i=0; i < *len; i++){
     unsigned int tmp_in = (*(in_short + i)) << 16;
     unsigned int tmp_out = (*(out_short + i)) << 16;
     float in_float = *reinterpret_cast<float*>(&tmp_in);
@@ -368,7 +380,6 @@ void test_sum(int len){
     dst0[i] = 0x0bb;
     dst1[i] = 0x0bb;
   }
-
   bf16_sum_naive(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
   bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst1), &len);
 
@@ -376,6 +387,7 @@ void test_sum(int len){
   for(int i=0; i < len; i++){
     if(*(dst0+i) != *(dst1+i)){
       sum_flag =  false;
+      printf("bf16 sum diff, i: %d, naive sum: %x, sum: %x\n", i, *(dst0+i), *(dst1+i));
       break;
     }
     if(2*i % len == 0){
@@ -383,9 +395,9 @@ void test_sum(int len){
     }
   }
   if(sum_flag){
-    printf("bf16 sum is equal!\n");
+    printf("size: %d, bf16 sum is equal!\n", len);
   } else {
-    printf("bf16 sum is not equal!\n");
+    printf("size: %d, bf16 sum is not equal!\n", len);
   }
   free(src0);
   free(src1);
@@ -393,9 +405,45 @@ void test_sum(int len){
   free(dst1);
 }
 
+double test_naive_sum_time(int len) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+//    src0[i] = 0x7aaa;
+    src0[i] = rand();
+    dst0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  bf16_sum_naive(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
+  tmp_time->stop();
+  free(src0);
+  free(dst0);
+  return tmp_time->get_time();
+}
+
+double test_intrinsic_sum_time(int len) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+//    src0[i] = 0x7aaa;
+    src0[i] = rand();
+    dst0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
+  tmp_time->stop();
+  free(src0);
+  free(dst0);
+  return tmp_time->get_time();
+}
+
 int main(){
   int len = 10000;
-    for(len = 100; len< 10000000; len *= 10){
+  for(len = 100; len< 10000000; len *= 10){
 //      // test fp32 to bf16
 //      test_f32Tob16(len);
 //      // test bf16 to fp32
@@ -403,17 +451,19 @@ int main(){
 //      // test cvt0 cvt1 sum is equal or not
 //      test_cvt1_cvt2_sum_equal(len);
 //       test bf17=6 sum
-      test_sum(len);
-    }
-
-
-
-
-
-
-
-
-
-
-
+//      test_sum(len);
+//       test sum time
+      std::vector<double> naive_times, intrinsic_times;
+      for(int i=0; i<100; i++){
+        double naive_time = test_naive_sum_time(len);
+        double intrinsic_time = test_intrinsic_sum_time(len);
+        naive_times.push_back(naive_time);
+        intrinsic_times.push_back(intrinsic_time);
+      }
+      float avg_naive_time = utils::average(naive_times);
+      float avg_intrinsic_time = utils::average(intrinsic_times);
+      printf("bf16 sum avg time, size: %d, naive: %f us, intrinsic: %f us\n",
+              len, avg_naive_time, avg_intrinsic_time);
+  }
+  return 0;
 }

@@ -9,5 +9,6 @@ rm -rf *.out
 #g++ -mavx512f -mavx512bw -o array_convert.out test_array_convert.cpp
 #./array_convert.out
 
-g++ -mavx512f -mavx512bw -o intrinsic_correctness.out test_intrinsic_correctness.cc -g
+g++ -mavx512f -mavx512bw -fopenmp -o intrinsic_correctness.out test_intrinsic_correctness.cc ../utils/utils.cc -g
+export OMP_NUM_THREADS=40
 ./intrinsic_correctness.out
