@@ -1,0 +1,64 @@
+size: 100 fp32 convert to bf16 is equal !
+alignment: 64 float to bf16 time, size: 100, naive: 0.297465 us, intrinsic0: 0.116545 us, intrinsic1: 0.147960 us
+size: 1000 fp32 convert to bf16 is equal !
+alignment: 64 float to bf16 time, size: 1000, naive: 2.308828 us, intrinsic0: 0.479848 us, intrinsic1: 0.735950 us
+size: 10000 fp32 convert to bf16 is equal !
+alignment: 64 float to bf16 time, size: 10000, naive: 22.611879 us, intrinsic0: 3.923424 us, intrinsic1: 6.183353 us
+size: 100000 fp32 convert to bf16 is equal !
+alignment: 64 float to bf16 time, size: 100000, naive: 216.403503 us, intrinsic0: 41.075577 us, intrinsic1: 63.767574 us
+size: 1000000 fp32 convert to bf16 is equal !
+alignment: 64 float to bf16 time, size: 1000000, naive: 2039.862915 us, intrinsic0: 374.644928 us, intrinsic1: 586.142029 us
+size: 100 bf16 convert to fp32 is equal !
+alignment: 64 bf16 to float time, size: 100, naive: 0.279101 us, intrinsic0: 0.109495 us, intrinsic1: 0.169222 us
+size: 1000 bf16 convert to fp32 is equal !
+alignment: 64 bf16 to float time, size: 1000, naive: 2.116929 us, intrinsic0: 0.441576 us, intrinsic1: 0.985929 us
+size: 10000 bf16 convert to fp32 is equal !
+alignment: 64 bf16 to float time, size: 10000, naive: 20.492445 us, intrinsic0: 3.795222 us, intrinsic1: 9.129252 us
+size: 100000 bf16 convert to fp32 is equal !
+alignment: 64 bf16 to float time, size: 100000, naive: 267.662323 us, intrinsic0: 103.112518 us, intrinsic1: 158.060928 us
+size: 1000000 bf16 convert to fp32 is equal !
+alignment: 64 bf16 to float time, size: 1000000, naive: 2715.713379 us, intrinsic0: 1188.977417 us, intrinsic1: 1658.944092 us
+size: 100, bf16 sum is equal!
+alignment: 64 bf16 sum time, size: 100, naive: 0.456455 us, intrinsic0: 0.199737 us, intrinsic1: 0.314081 us
+size: 1000, bf16 sum is equal!
+alignment: 64 bf16 sum time, size: 1000, naive: 3.992677 us, intrinsic0: 1.089313 us, intrinsic1: 2.528293 us
+size: 10000, bf16 sum is equal!
+alignment: 64 bf16 sum time, size: 10000, naive: 39.258324 us, intrinsic0: 9.740182 us, intrinsic1: 23.866970 us
+size: 100000, bf16 sum is equal!
+alignment: 64 bf16 sum time, size: 100000, naive: 404.552765 us, intrinsic0: 113.088791 us, intrinsic1: 253.198257 us
+size: 1000000, bf16 sum is equal!
+alignment: 64 bf16 sum time, size: 1000000, naive: 3898.512939 us, intrinsic0: 981.623596 us, intrinsic1: 2390.525635 us
+cvt0 cvt1 sum is equal!
+(conda3_base2) [xiaotaoc@mlt-skx122 test_bf16]$ ./compile.sh 
+size: 100 fp32 convert to bf16 is equal !
+alignment: 4 float to bf16 time, size: 100, naive: 0.301990 us, intrinsic0: 0.114980 us, intrinsic1: 0.131707 us
+size: 1000 fp32 convert to bf16 is equal !
+alignment: 4 float to bf16 time, size: 1000, naive: 2.299081 us, intrinsic0: 0.552636 us, intrinsic1: 0.725101 us
+size: 10000 fp32 convert to bf16 is equal !
+alignment: 4 float to bf16 time, size: 10000, naive: 22.126757 us, intrinsic0: 4.873626 us, intrinsic1: 6.594636 us
+size: 100000 fp32 convert to bf16 is equal !
+alignment: 4 float to bf16 time, size: 100000, naive: 217.205276 us, intrinsic0: 44.634960 us, intrinsic1: 68.645912 us
+size: 1000000 fp32 convert to bf16 is equal !
+alignment: 4 float to bf16 time, size: 1000000, naive: 2065.685059 us, intrinsic0: 448.197998 us, intrinsic1: 668.522156 us
+size: 100 bf16 convert to fp32 is equal !
+alignment: 4 bf16 to float time, size: 100, naive: 0.270990 us, intrinsic0: 0.112101 us, intrinsic1: 0.163919 us
+size: 1000 bf16 convert to fp32 is equal !
+alignment: 4 bf16 to float time, size: 1000, naive: 2.316131 us, intrinsic0: 0.550424 us, intrinsic1: 1.178919 us
+size: 10000 bf16 convert to fp32 is equal !
+alignment: 4 bf16 to float time, size: 10000, naive: 20.026596 us, intrinsic0: 4.217091 us, intrinsic1: 10.704364 us
+size: 100000 bf16 convert to fp32 is equal !
+alignment: 4 bf16 to float time, size: 100000, naive: 201.754532 us, intrinsic0: 41.307999 us, intrinsic1: 106.132736 us
+size: 1000000 bf16 convert to fp32 is equal !
+alignment: 4 bf16 to float time, size: 1000000, naive: 2010.030518 us, intrinsic0: 468.342163 us, intrinsic1: 1093.562134 us
+size: 100, bf16 sum is equal!
+alignment: 4 bf16 sum time, size: 100, naive: 0.468162 us, intrinsic0: 0.196848 us, intrinsic1: 0.328313 us
+size: 1000, bf16 sum is equal!
+alignment: 4 bf16 sum time, size: 1000, naive: 3.904535 us, intrinsic0: 1.482141 us, intrinsic1: 3.291697 us
+size: 10000, bf16 sum is equal!
+alignment: 4 bf16 sum time, size: 10000, naive: 38.693111 us, intrinsic0: 13.607626 us, intrinsic1: 30.898363 us
+size: 100000, bf16 sum is equal!
+alignment: 4 bf16 sum time, size: 100000, naive: 404.770325 us, intrinsic0: 151.816910 us, intrinsic1: 324.620483 us
+size: 1000000, bf16 sum is equal!
+alignment: 4 bf16 sum time, size: 1000000, naive: 3916.427734 us, intrinsic0: 1378.377075 us, intrinsic1: 3124.415527 us
+cvt0 cvt1 sum is equal!
+
