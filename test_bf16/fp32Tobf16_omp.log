@@ -1,5 +1,0 @@
-float to bf16 time, size: 100, naive: 25.807314 us, intrinsic0: 16.556253 us, intrinsic1: 17.004484 us
-float to bf16 time, size: 1000, naive: 16.713747 us, intrinsic0: 16.958536 us, intrinsic1: 17.008787 us
-float to bf16 time, size: 10000, naive: 16.646687 us, intrinsic0: 16.818010 us, intrinsic1: 16.335676 us
-float to bf16 time, size: 100000, naive: 40.653587 us, intrinsic0: 46.241081 us, intrinsic1: 45.960766 us
-float to bf16 time, size: 1000000, naive: 329.721039 us, intrinsic0: 224.184387 us, intrinsic1: 231.888992 us
