@@ -6,17 +6,18 @@
 #include <ctime>  // time
 #include <omp.h>  // omp
 #include <vector>  // vector
+#include <string> // string
 #include "../utils/utils.h"  // for calculate time
 
-inline uint16_t* bf16_alloc(size_t size){
+inline uint16_t* bf16_alloc(size_t size, int alignment){
   // TODO set alignment to 256/512, it's performance may be better.
   //size must be an integral multiple of 64.
-  if (size % 64 == 0) {
-    return reinterpret_cast<uint16_t*>(aligned_alloc(64, size));
+  if (size % alignment == 0) {
+    return reinterpret_cast<uint16_t*>(aligned_alloc(alignment, size));
   }
   else {
-    size_t new_size = (size / 64 + 1 ) * 64;
-    return reinterpret_cast<uint16_t*>(aligned_alloc(64, new_size));
+    size_t new_size = (size / alignment + 1 ) * alignment;
+    return reinterpret_cast<uint16_t*>(aligned_alloc(alignment, new_size));
   }
 }
 
@@ -205,16 +206,10 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
-         int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((__m512i*)(src+i), (__m256i*)(dst+i));
          }
        } else {
-         int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((const void*)(src+i), (void*)(dst+i));
          }
@@ -390,9 +385,9 @@ bool check_f32Tob16_equal(const unsigned int* src, const uint16_t* naive_cvt, co
       printf("check f32 to b16 naive VS intrinsics is not equal, i: %d, naive:%x, intrinsics: %x\n", i, *(naive_cvt+i), *(intrinsics_cvt+i));
       return false;
     }
-    if(2*i%len == 0){
-      printf("check f32 to b16, i; %d, fp32: %x, naive bf16: %x, bf16: %x\n", i, *(src+i), *(naive_cvt+i), *(intrinsics_cvt+i));
-    }
+//    if(2*i%len == 0){
+//      printf("check f32 to b16, i; %d, fp32: %x, naive bf16: %x, bf16: %x\n", i, *(src+i), *(naive_cvt+i), *(intrinsics_cvt+i));
+//    }
   }
   return true;
 }
@@ -407,17 +402,17 @@ bool check_b16Tof32_equal(const uint16_t* src, const unsigned int* naive_cvt, co
       printf("check b16 to f32 intrinsics VS src is not equal, i: %d, intrinsics:%x, src: %x\n", i, *(intrinsics_cvt+i), *(src+i));
       return false;
     }
-    if(2*i%len == 0){
-        printf("check b16 to f32, i; %d, bf16: %x, naive fp32: %x, fp32: %x\n", i, *(src+i), *(naive_cvt+i), *(intrinsics_cvt+i));
-    }
+//    if(2*i%len == 0){
+//        printf("check b16 to f32, i; %d, bf16: %x, naive fp32: %x, fp32: %x\n", i, *(src+i), *(naive_cvt+i), *(intrinsics_cvt+i));
+//    }
   }
   return true;
 }
 
-void test_f32Tob16(int len){
-  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
-  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+void test_f32Tob16(int len, int alignment){
+  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
    srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa7bbb;
@@ -439,10 +434,10 @@ void test_f32Tob16(int len){
   free(dst1);
 }
 
-void test_b16Tof32(int len){
-  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
-  unsigned int* dst1 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
+void test_b16Tof32(int len, int alignment){
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
+  unsigned int* dst1 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
    srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa;
@@ -464,13 +459,13 @@ void test_b16Tof32(int len){
   free(dst1);
 }
 
-void test_cvt1_cvt2_sum_equal(int len){
-  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
-  unsigned int* src1 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
-  uint16_t* cvt0_dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* cvt0_dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* cvt1_dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* cvt1_dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+void test_cvt1_cvt2_sum_equal(int len, int alignment){
+  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
+  unsigned int* src1 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
+  uint16_t* cvt0_dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* cvt0_dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* cvt1_dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* cvt1_dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
    srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa7bbb;
@@ -498,13 +493,19 @@ void test_cvt1_cvt2_sum_equal(int len){
   } else {
     printf("cvt0 cvt1 sum is not equal!\n");
   }
+  free(src0);
+  free(src1);
+  free(cvt0_dst0);
+  free(cvt0_dst1);
+  free(cvt1_dst0);
+  free(cvt1_dst1);
 }
 
-void test_sum(int len){
-  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* src1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+void test_sum(int len, int alignment){
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* src1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* dst1 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
   srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa;
@@ -522,9 +523,6 @@ void test_sum(int len){
       printf("bf16 sum diff, i: %d, naive sum: %x, sum: %x\n", i, *(dst0+i), *(dst1+i));
       break;
     }
-    if(2*i % len == 0){
-      printf("bf16 sum, i: %d, naive sum: %x, sum: %x\n", i, *(dst0+i), *(dst1+i));
-    }
   }
   if(sum_flag){
     printf("size: %d, bf16 sum is equal!\n", len);
@@ -537,9 +535,9 @@ void test_sum(int len){
   free(dst1);
 }
 
-double test_naive_sum_time(int len) {
-  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+double test_naive_sum_time(int len, int alignment) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
   srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa;
@@ -555,9 +553,9 @@ double test_naive_sum_time(int len) {
   return tmp_time->get_time();
 }
 
-double test_intrinsic_sum_time(int len, int type_flag) {
-  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+double test_intrinsic_sum_time(int len, int type_flag, int alignment) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
   srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa;
@@ -577,9 +575,9 @@ double test_intrinsic_sum_time(int len, int type_flag) {
   return tmp_time->get_time();
 }
 
-double test_FloatToBF16_time(int len, int type_flag) {
-  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
-  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+double test_FloatToBF16_time(int len, int type_flag, int alignment) {
+  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
   srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa7bbb;
@@ -594,9 +592,9 @@ double test_FloatToBF16_time(int len, int type_flag) {
   return tmp_time->get_time();
 }
 
-double test_BF16ToFloat_time(int len, int type_flag) {
-  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
-  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
+double test_BF16ToFloat_time(int len, int type_flag, int alignment) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t), alignment));
+  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int), alignment));
   srand((unsigned)time(NULL));
   for(int i=0; i < len; i++){
 //    src0[i] = 0x7aaa7bbb;
@@ -611,32 +609,45 @@ double test_BF16ToFloat_time(int len, int type_flag) {
   return tmp_time->get_time();
 }
 
-int main(){
+void test(int test_type, int alignment) {
   int len = 10000;
-  for(len = 100; len< 10000000; len *= 10){
-//      // test fp32 to bf16
-//      test_f32Tob16(len);
-//      // test bf16 to fp32
-//      test_b16Tof32(len);
-//      // test cvt0 cvt1 sum is equal or not
-//      test_cvt1_cvt2_sum_equal(len);
-//      // test bf16 sum
-//      test_sum(len);
+  for(len = 100; len< 10000000; len *= 10) {
+      if ( test_type == 0) {
+        // test fp32 to bf16
+        test_f32Tob16(len, alignment);
+      } else if (test_type == 1) {
+        // test bf16 to fp32
+        test_b16Tof32(len, alignment);
+      } else if (test_type == 2) {
+        // test bf16 sum
+        test_sum(len, alignment);
+      } else if (test_type == 3) {
+        // test cvt0 cvt1 sum is equal or not
+        test_cvt1_cvt2_sum_equal(len, alignment);
+        return;
+      }
       // test sum time
       std::vector<double> naive_times, intrinsic0_times;
       std::vector<double> intrinsic1_times;
       for(int i=0; i<105; i++){
-//        double naive_time = test_naive_sum_time(len);
-//        double intrinsic_time = test_intrinsic_sum_time(len);
-//        // test bf16 to float time
-//        double naive_time = test_BF16ToFloat_time(len, 2);
-//        double intrinsic_time = test_BF16ToFloat_time(len, 0);
+        double naive_time = 0;
+        double intrinsic0_time = 0;
+        double intrinsic1_time = 0;
+        if (test_type == 0) {
+          naive_time = test_FloatToBF16_time(len, 2, alignment);
+          intrinsic0_time = test_FloatToBF16_time(len, 0, alignment);
+          intrinsic1_time = test_FloatToBF16_time(len, 1, alignment);
+        } else if (test_type == 1) {
+          naive_time = test_BF16ToFloat_time(len, 2, alignment);
+          intrinsic0_time = test_BF16ToFloat_time(len, 0, alignment);
+          intrinsic1_time = test_BF16ToFloat_time(len, 1, alignment);
+        } else if (test_type == 2) {
+          naive_time = test_intrinsic_sum_time(len, 2, alignment);
+          intrinsic0_time = test_intrinsic_sum_time(len, 0, alignment);
+          intrinsic1_time = test_intrinsic_sum_time(len, 1, alignment);
+        }
         // the first 5 step for warmup
         if (i > 5) {
-          // test float to bf16 time
-          double naive_time = test_intrinsic_sum_time(len, 2);
-          double intrinsic0_time = test_intrinsic_sum_time(len, 0);
-          double intrinsic1_time = test_intrinsic_sum_time(len, 1);
           naive_times.push_back(naive_time);
           intrinsic0_times.push_back(intrinsic0_time);
           intrinsic1_times.push_back(intrinsic1_time);
@@ -645,10 +656,23 @@ int main(){
       float avg_naive_time = utils::average(naive_times);
       float avg_intrinsic0_time = utils::average(intrinsic0_times);
       float avg_intrinsic1_time = utils::average(intrinsic1_times);
-//      printf("float to bf16 time, size: %d, naive: %f us, intrinsic0: %f us\n",
-//              len, avg_naive_time, avg_intrinsic0_time);
-      printf("bf16 sum time, size: %d, naive: %f us, intrinsic0: %f us, intrinsic1: %f us\n",
-              len, avg_naive_time, avg_intrinsic0_time, avg_intrinsic1_time);
+      std::string op_type = "None";
+      if (test_type == 0) {
+        op_type = "float to bf16";
+      } else if (test_type == 1) {
+        op_type = "bf16 to float";
+      } else if (test_type == 2) {
+        op_type = "bf16 sum";
+      }
+      printf("alignment: %d %s time, size: %d, naive: %f us, intrinsic0: %f us, intrinsic1: %f us\n",
+              alignment, op_type.c_str(), len, avg_naive_time, avg_intrinsic0_time, avg_intrinsic1_time);
   }
+}
+
+int main(){
+  test(0, 64);
+  test(1, 64);
+  test(2, 64);
+  test(3, 64);
   return 0;
 }
