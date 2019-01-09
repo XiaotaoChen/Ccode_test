@@ -1,0 +1,5 @@
+bf16 sum time, size: 100, naive: 24.658001 us, intrinsic0: 15.951949 us, intrinsic1: 17.466738 us
+bf16 sum time, size: 1000, naive: 15.774152 us, intrinsic0: 16.408051 us, intrinsic1: 16.160273 us
+bf16 sum time, size: 10000, naive: 16.284576 us, intrinsic0: 25.848373 us, intrinsic1: 16.504101 us
+bf16 sum time, size: 100000, naive: 39.176685 us, intrinsic0: 46.292393 us, intrinsic1: 39.157627 us
+bf16 sum time, size: 1000000, naive: 308.788086 us, intrinsic0: 229.486862 us, intrinsic1: 314.397034 us
