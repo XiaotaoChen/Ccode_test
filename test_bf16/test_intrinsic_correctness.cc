@@ -20,31 +20,68 @@ inline uint16_t* bf16_alloc(size_t size){
   }
 }
 
-inline void convert_f32_to_b16(__m512i src, __m256i* dst)
+inline void convert_f32_to_b16(const void* src, void* dst)
 {
-  __m512i y = _mm512_bsrli_epi128(src, 2);
+  __m512i y = _mm512_bsrli_epi128(_mm512_loadu_si512(src), 2);
+  _mm256_storeu_si256((__m256i*)(dst), _mm512_cvtepi32_epi16(y));
+}
+
+inline void convert_b16_to_f32(const void* src, void* dst)
+{
+//  __m256i aligned_m256i = _mm256_loadu_si256((__m256i const*)src);
+//  __m512i y = _mm512_cvtepu16_epi32(aligned_m256i);
+//  __m512i aligned_m512i = _mm512_bslli_epi128(y, 2);
+//  _mm512_storeu_si512(dst, aligned_m512i);
+  __m512i y = _mm512_cvtepu16_epi32(_mm256_loadu_si256((__m256i const*)src));
+  _mm512_storeu_si512(dst, _mm512_bslli_epi128(y, 2));
+}
+
+inline void convert_f32_to_b16(const void* src0, const void* src1, void *dst)
+{
+    __m256i aligned_m256i_src0 = _mm256_srli_epi32(_mm256_loadu_si256((__m256i const*)src0), 16);
+    __m256i aligned_m256i_src1 = _mm256_srli_epi32(_mm256_loadu_si256((__m256i const*)src1), 16);
+    _mm256_storeu_si256((__m256i*)(dst), _mm256_packus_epi32(aligned_m256i_src0, aligned_m256i_src1));
+}
+
+inline void convert_b16_to_f32(const void* src, void *dst0, void *dst1)
+{
+    int zero[8] = {0,0,0,0,0,0,0,0};
+    __m256i aligned_m256i_src = _mm256_loadu_si256((__m256i const*)src);
+    __m256i aligned_m256i_zeros = _mm256_loadu_si256((__m256i const*) zero);
+    _mm256_storeu_si256((__m256i*)(dst0), _mm256_unpacklo_epi16(aligned_m256i_zeros, aligned_m256i_src));
+    _mm256_storeu_si256((__m256i*)(dst1), _mm256_unpackhi_epi16(aligned_m256i_zeros, aligned_m256i_src));
+}
+
+inline void convert_f32_to_b16(__m512i* src, __m256i* dst)
+{
+  __m512i y = _mm512_bsrli_epi128(*src, 2);
   *dst = _mm512_cvtepi32_epi16(y);
 }
 
-inline void convert_b16_to_f32(__m256i src, __m512i* dst)
+inline void convert_b16_to_f32(__m256i* src, __m512i* dst)
 {
-  __m512i y = _mm512_cvtepu16_epi32(src);
+  __m512i y = _mm512_cvtepu16_epi32(*src);
   *dst = _mm512_bslli_epi128(y, 2);
 }
 
-inline void convert_f32_to_b16(__m256i src0, __m256i src1, __m256i *dst)
+inline void convert_f32_to_b16(__m256i* src0, __m256i* src1, __m256i *dst)
 {
-    src0 = _mm256_srli_epi32(src0, 16);
-    src1 = _mm256_srli_epi32(src1, 16);
-    *dst = _mm256_packus_epi32(src0, src1);
+    *src0 = _mm256_srli_epi32(*src0, 16);
+    *src1 = _mm256_srli_epi32(*src1, 16);
+    *dst = _mm256_packus_epi32(*src0, *src1);
 }
 
-inline void convert_b16_to_f32(__m256i src, __m256i *dst0, __m256i *dst1)
+inline void convert_b16_to_f32(__m256i* src, __m256i *dst0, __m256i *dst1)
 {
     int zero[8] = {0,0,0,0,0,0,0,0};
     __m256i zeros = *(__m256i*)zero;
-    *dst0 = _mm256_unpacklo_epi16(zeros, src);
-    *dst1 = _mm256_unpackhi_epi16(zeros, src);
+    *dst0 = _mm256_unpacklo_epi16(zeros, *src);
+    *dst1 = _mm256_unpackhi_epi16(zeros, *src);
+}
+
+bool is_aligned(const void* ptr, int alignment) {
+  auto iptr = reinterpret_cast<uintptr_t>(ptr);
+  return !(iptr % alignment);
 }
 
 bool check_equal(const unsigned int a, const uint16_t b){
@@ -90,16 +127,27 @@ void cal_min_max_var(const unsigned int* fp32_p,
 }
 
 void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
+ bool aligned_flag = is_aligned(reinterpret_cast<const void*>(src), 64)
+                     && is_aligned(reinterpret_cast<const void*>(dst), 64);
  switch (type_flag)
  {
    case 0:
      {
        int i;
-       int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
-       for(i = 0; i < (len / 16) * 16; i += 16){
-         convert_b16_to_f32(*(__m256i*)(src+i), (__m512i*)(dst+i));
+       if (aligned_flag) {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_b16_to_f32((__m256i*)(src+i), (__m512i*)(dst+i));
+         }
+       } else {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_b16_to_f32((const void*)(src+i), (void*)(dst+i));
+         }
        }
        // process the remaining data
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
@@ -111,11 +159,20 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
    case 1:
      {
        int i;
-       int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
-       for(i = 0; i < (len / 16) * 16; i += 16){
-         convert_b16_to_f32(*(__m256i*)(src+i), (__m256i*)(dst+i), (__m256i*)(dst+i+8));
+       if (aligned_flag) {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_b16_to_f32((__m256i*)(src+i), (__m256i*)(dst+i), (__m256i*)(dst+i+8));
+         }
+       } else {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_b16_to_f32((const void*)(src+i), (void*)(dst+i), (void*)(dst+i+8));
+         }
        }
        // process the remaining data
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
@@ -140,16 +197,27 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
 }
 
 void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
+ bool aligned_flag = is_aligned(reinterpret_cast<const void*>(src), 64)
+                     && is_aligned(reinterpret_cast<const void*>(dst), 64);
  switch (type_flag)
  {
    case 0:
      {
        int i;
-       int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
-       for(i = 0; i < (len / 16) * 16; i += 16){
-         convert_f32_to_b16(*(__m512i*)(src+i), (__m256i*)(dst+i));
+       if (aligned_flag) {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_f32_to_b16((__m512i*)(src+i), (__m256i*)(dst+i));
+         }
+       } else {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_f32_to_b16((const void*)(src+i), (void*)(dst+i));
+         }
        }
        // process the remaining data
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
@@ -161,11 +229,20 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
    case 1:
      {
        int i;
-       int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
-       for(i = 0; i < (len / 16) * 16; i += 16){
-         convert_f32_to_b16(*(__m256i*)(src+i), *(__m256i*)(src+i+8), (__m256i*)(dst+i));
+       if (aligned_flag) {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_f32_to_b16((__m256i*)(src+i), (__m256i*)(src+i+8), (__m256i*)(dst+i));
+         }
+       } else {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
+         for(i = 0; i < (len / 16) * 16; i += 16){
+           convert_f32_to_b16((const void*)(src+i), (const void*)(src+i+8), (void*)(dst+i));
+         }
        }
        // process the remaining data
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
@@ -204,38 +281,74 @@ void FloatToBF16_naive(const float* src, uint16_t* dst, int size, int type_flag)
 }
 
 void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
+  bool aligned_flag = is_aligned(reinterpret_cast<const void*>(invec), 64)
+                      && is_aligned(reinterpret_cast<const void*>(inoutvec), 64);
   int i;
   uint16_t* invec_16 = reinterpret_cast<uint16_t*>(invec);
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
   if(type_flag == 0){
-    int num_thread = omp_get_max_threads();
-    num_thread = num_thread > 20 ? num_thread : 20;
-    #pragma omp parallel for num_threads(num_thread) private(i)
-    for(i=0; i < (*len / 16) * 16; i += 16)
-    {
-      // convert in & inout to m512
-      __m512i in_m512, out_m512;
-      convert_b16_to_f32(*(__m256i*)(invec_16+i), &in_m512);
-      convert_b16_to_f32(*(__m256i*)(inoutvec_16+i), &out_m512);
-      // add them together to new_inout_m256
-      __m512 newout_m512 = _mm512_add_ps((__m512)in_m512, (__m512)out_m512);
-      // convert back and store in inout
-      convert_f32_to_b16((__m512i)newout_m512, ( __m256i*)(inoutvec_16+i));
+    if (aligned_flag) {
+      int num_thread = omp_get_max_threads();
+      num_thread = num_thread > 20 ? num_thread : 20;
+      #pragma omp parallel for num_threads(num_thread) private(i)
+      for(i=0; i < (*len / 16) * 16; i += 16)
+      {
+        // convert in & inout to m512
+        __m512i in_m512, out_m512;
+        convert_b16_to_f32((__m256i*)(invec_16+i), (__m512i*)(&in_m512));
+        convert_b16_to_f32((__m256i*)(inoutvec_16+i), (__m512i*)(&out_m512));
+        // add them together to new_inout_m256
+        __m512 newout_m512 = _mm512_add_ps((__m512)in_m512, (__m512)out_m512);
+        // convert back and store in inout
+        convert_f32_to_b16((__m512i*)(&newout_m512), (__m256i*)(inoutvec_16+i));
+      }
+    } else {
+      int num_thread = omp_get_max_threads();
+      num_thread = num_thread > 20 ? num_thread : 20;
+      #pragma omp parallel for num_threads(num_thread) private(i)
+      for(i=0; i < (*len / 16) * 16; i += 16)
+      {
+        // convert in & inout to m512
+        __m512i in_m512, out_m512;
+        convert_b16_to_f32((void*)(invec_16+i), (void*)(&in_m512));
+        convert_b16_to_f32((void*)(inoutvec_16+i), (void*)(&out_m512));
+        // add them together to new_inout_m256
+        __m512 newout_m512 = _mm512_add_ps((__m512)in_m512, (__m512)out_m512);
+        // convert back and store in inout
+        convert_f32_to_b16((const void *)(&newout_m512), (void*)(inoutvec_16+i));
+      }
     }
   } else if(type_flag == 1){
-    int num_thread = omp_get_max_threads();
-    num_thread = num_thread > 20 ? num_thread : 20;
-    #pragma omp parallel for num_threads(num_thread) private(i)
-    for(i=0; i< (*len / 16) * 16; i += 16){
-      // convert in & out to m256
-      __m256i invec0, invec1, outvec0, outvec1;
-      convert_b16_to_f32(*(__m256i*)(invec_16 + i), &invec0, &invec1);
-      convert_b16_to_f32(*(__m256i*)(inoutvec_16 + i), &outvec0, &outvec1);
-      // add them together to new_inout_m256
-      __m256 new_inout0_m256 = _mm256_add_ps((__m256)invec0, (__m256)outvec0);
-      __m256 new_inout1_m256 = _mm256_add_ps((__m256)invec1, (__m256)outvec1);
-      // convert back and store in inout
-      convert_f32_to_b16((__m256i)new_inout0_m256, (__m256i)new_inout1_m256, (__m256i*)(inoutvec_16 + i));
+    if (aligned_flag) {
+      int num_thread = omp_get_max_threads();
+      num_thread = num_thread > 20 ? num_thread : 20;
+      #pragma omp parallel for num_threads(num_thread) private(i)
+      for(i=0; i< (*len / 16) * 16; i += 16){
+        // convert in & out to m256
+        __m256i invec0, invec1, outvec0, outvec1;
+        convert_b16_to_f32((__m256i*)(invec_16+i), (__m256i*)(&invec0), (__m256i*)(&invec1));
+        convert_b16_to_f32((__m256i*)(inoutvec_16+i), (__m256i*)(&outvec0), (__m256i*)(&outvec1));
+        // add them together to new_inout_m256
+        __m256 new_inout0_m256 = _mm256_add_ps((__m256)invec0, (__m256)outvec0);
+        __m256 new_inout1_m256 = _mm256_add_ps((__m256)invec1, (__m256)outvec1);
+        // convert back and store in inout
+        convert_f32_to_b16((__m256i*)(&new_inout0_m256), (__m256i*)(&new_inout1_m256), (__m256i*)(inoutvec_16 + i));
+      }
+    } else {
+      int num_thread = omp_get_max_threads();
+      num_thread = num_thread > 20 ? num_thread : 20;
+      #pragma omp parallel for num_threads(num_thread) private(i)
+      for(i=0; i< (*len / 16) * 16; i += 16){
+        // convert in & out to m256
+        __m256i invec0, invec1, outvec0, outvec1;
+        convert_b16_to_f32((const void*)(invec_16 + i), (void*)(&invec0), (void*)(&invec1));
+        convert_b16_to_f32((const void*)(inoutvec_16 + i), (void*)(&outvec0), (void*)(&outvec1));
+        // add them together to new_inout_m256
+        __m256 new_inout0_m256 = _mm256_add_ps((__m256)invec0, (__m256)outvec0);
+        __m256 new_inout1_m256 = _mm256_add_ps((__m256)invec1, (__m256)outvec1);
+        // convert back and store in inout
+        convert_f32_to_b16((const void*)(&new_inout0_m256), (const void*)(&new_inout1_m256), (void*)(inoutvec_16 + i));
+      }
     }
   }
   // process the remaining data
@@ -505,37 +618,37 @@ int main(){
 //      test_f32Tob16(len);
 //      // test bf16 to fp32
 //      test_b16Tof32(len);
-      // test cvt0 cvt1 sum is equal or not
+//      // test cvt0 cvt1 sum is equal or not
 //      test_cvt1_cvt2_sum_equal(len);
 //      // test bf16 sum
 //      test_sum(len);
       // test sum time
-//      std::vector<double> naive_times, intrinsic0_times;
-//      std::vector<double> intrinsic1_times;
-//      for(int i=0; i<105; i++){
-////        double naive_time = test_naive_sum_time(len);
-////        double intrinsic_time = test_intrinsic_sum_time(len);
-////        // test bf16 to float time
-////        double naive_time = test_BF16ToFloat_time(len, 2);
-////        double intrinsic_time = test_BF16ToFloat_time(len, 0);
-//        // the first 5 step for warmup
-//        if (i > 5) {
-//          // test float to bf16 time
-//          double naive_time = test_intrinsic_sum_time(len, 2);
-//          double intrinsic0_time = test_intrinsic_sum_time(len, 0);
-//          double intrinsic1_time = test_intrinsic_sum_time(len, 1);
-//          naive_times.push_back(naive_time);
-//          intrinsic0_times.push_back(intrinsic0_time);
-//          intrinsic1_times.push_back(intrinsic1_time);
-//        }
-//      }
-//      float avg_naive_time = utils::average(naive_times);
-//      float avg_intrinsic0_time = utils::average(intrinsic0_times);
-//      float avg_intrinsic1_time = utils::average(intrinsic1_times);
-////      printf("float to bf16 time, size: %d, naive: %f us, intrinsic0: %f us\n",
-////              len, avg_naive_time, avg_intrinsic0_time);
-//      printf("bf16 sum time, size: %d, naive: %f us, intrinsic0: %f us, intrinsic1: %f us\n",
-//              len, avg_naive_time, avg_intrinsic0_time, avg_intrinsic1_time);
+      std::vector<double> naive_times, intrinsic0_times;
+      std::vector<double> intrinsic1_times;
+      for(int i=0; i<105; i++){
+//        double naive_time = test_naive_sum_time(len);
+//        double intrinsic_time = test_intrinsic_sum_time(len);
+//        // test bf16 to float time
+//        double naive_time = test_BF16ToFloat_time(len, 2);
+//        double intrinsic_time = test_BF16ToFloat_time(len, 0);
+        // the first 5 step for warmup
+        if (i > 5) {
+          // test float to bf16 time
+          double naive_time = test_intrinsic_sum_time(len, 2);
+          double intrinsic0_time = test_intrinsic_sum_time(len, 0);
+          double intrinsic1_time = test_intrinsic_sum_time(len, 1);
+          naive_times.push_back(naive_time);
+          intrinsic0_times.push_back(intrinsic0_time);
+          intrinsic1_times.push_back(intrinsic1_time);
+        }
+      }
+      float avg_naive_time = utils::average(naive_times);
+      float avg_intrinsic0_time = utils::average(intrinsic0_times);
+      float avg_intrinsic1_time = utils::average(intrinsic1_times);
+//      printf("float to bf16 time, size: %d, naive: %f us, intrinsic0: %f us\n",
+//              len, avg_naive_time, avg_intrinsic0_time);
+      printf("bf16 sum time, size: %d, naive: %f us, intrinsic0: %f us, intrinsic1: %f us\n",
+              len, avg_naive_time, avg_intrinsic0_time, avg_intrinsic1_time);
   }
   return 0;
 }
