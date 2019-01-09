@@ -10,5 +10,5 @@ rm -rf *.out
 #./array_convert.out
 
 g++ -mavx512f -mavx512bw -fopenmp -o intrinsic_correctness.out test_intrinsic_correctness.cc ../utils/utils.cc -g
-export OMP_NUM_THREADS=40
+export OMP_NUM_THREADS=2
 ./intrinsic_correctness.out

@@ -4,10 +4,15 @@
 #include <cstdio> // printf
 #include <cmath> // fabs
 #include <ctime>  // time
-#include <omp.h>  // omp
 #include <vector>  // vector
 #include <string> // string
 #include "../utils/utils.h"  // for calculate time
+
+#ifdef _OPENMP
+#include <omp.h>  // omp
+#define OMP_THRESHOLD_AVX512 50000
+#define OMP_THRESHOLD_NAIVE 5000
+#endif
 
 inline uint16_t* bf16_alloc(size_t size, int alignment){
   // TODO set alignment to 256/512, it's performance may be better.
@@ -136,16 +141,20 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_b16_to_f32((__m256i*)(src+i), (__m512i*)(dst+i));
          }
        } else {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_b16_to_f32((const void*)(src+i), (void*)(dst+i));
          }
@@ -161,16 +170,20 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_b16_to_f32((__m256i*)(src+i), (__m256i*)(dst+i), (__m256i*)(dst+i+8));
          }
        } else {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_b16_to_f32((const void*)(src+i), (void*)(dst+i), (void*)(dst+i+8));
          }
@@ -186,9 +199,11 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
      {
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
        int i;
+     #ifdef _OPENMP
        int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(len > OMP_THRESHOLD_NAIVE) private(i) schedule(static) num_threads(num_thread)
+     #endif
        for(i=0; i < len; i++){
          *(dst_unsigned+i) = *(src+i)<<16;
        }
@@ -206,16 +221,20 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((__m512i*)(src+i), (__m256i*)(dst+i));
          }
        } else {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((const void*)(src+i), (void*)(dst+i));
          }
@@ -231,16 +250,20 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((__m256i*)(src+i), (__m256i*)(src+i+8), (__m256i*)(dst+i));
          }
        } else {
+       #ifdef _OPENMP
          int num_thread = omp_get_max_threads();
-         num_thread = num_thread > 20 ? num_thread : 20;
-         #pragma omp parallel for num_threads(num_thread) private(i)
+         num_thread = num_thread > 20 ? 20 : num_thread;
+         #pragma omp parallel for if(len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+       #endif
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((const void*)(src+i), (const void*)(src+i+8), (void*)(dst+i));
          }
@@ -256,9 +279,11 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
      {
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
        int i;
+     #ifdef _OPENMP
        int num_thread = omp_get_max_threads();
-       num_thread = num_thread > 20 ? num_thread : 20;
-       #pragma omp parallel for num_threads(num_thread) private(i)
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(len > OMP_THRESHOLD_NAIVE) private(i) schedule(static) num_threads(num_thread)
+     #endif
        for(i=0; i < len; i++){
          *(dst+i) = *(src_unsigned+i)>>16;
        }
@@ -289,9 +314,11 @@ void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
   if(type_flag == 0){
     if (aligned_flag) {
-      int num_thread = omp_get_max_threads();
-      num_thread = num_thread > 20 ? num_thread : 20;
-      #pragma omp parallel for num_threads(num_thread) private(i)
+    #ifdef _OPENMP
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(*len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+    #endif
       for(i=0; i < (*len / 16) * 16; i += 16)
       {
         // convert in & inout to m512
@@ -304,9 +331,11 @@ void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
         convert_f32_to_b16((__m512i*)(&newout_m512), (__m256i*)(inoutvec_16+i));
       }
     } else {
-      int num_thread = omp_get_max_threads();
-      num_thread = num_thread > 20 ? num_thread : 20;
-      #pragma omp parallel for num_threads(num_thread) private(i)
+    #ifdef _OPENMP
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(*len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+    #endif
       for(i=0; i < (*len / 16) * 16; i += 16)
       {
         // convert in & inout to m512
@@ -321,9 +350,11 @@ void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
     }
   } else if(type_flag == 1){
     if (aligned_flag) {
-      int num_thread = omp_get_max_threads();
-      num_thread = num_thread > 20 ? num_thread : 20;
-      #pragma omp parallel for num_threads(num_thread) private(i)
+    #ifdef _OPENMP
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(*len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+    #endif
       for(i=0; i< (*len / 16) * 16; i += 16){
         // convert in & out to m256
         __m256i invec0, invec1, outvec0, outvec1;
@@ -336,9 +367,11 @@ void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
         convert_f32_to_b16((__m256i*)(&new_inout0_m256), (__m256i*)(&new_inout1_m256), (__m256i*)(inoutvec_16 + i));
       }
     } else {
-      int num_thread = omp_get_max_threads();
-      num_thread = num_thread > 20 ? num_thread : 20;
-      #pragma omp parallel for num_threads(num_thread) private(i)
+    #ifdef _OPENMP
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? 20 : num_thread;
+       #pragma omp parallel for if(*len > OMP_THRESHOLD_AVX512) private(i) schedule(static) num_threads(num_thread)
+    #endif
       for(i=0; i< (*len / 16) * 16; i += 16){
         // convert in & out to m256
         __m256i invec0, invec1, outvec0, outvec1;
@@ -368,9 +401,11 @@ void bf16_sum_naive(void* invec, void* inoutvec, int* len){
   // process the remaining data
   uint16_t* in_short = reinterpret_cast<uint16_t*>(invec);
   uint16_t* out_short = reinterpret_cast<uint16_t*>(inoutvec);
-  int num_thread = omp_get_max_threads();
-  num_thread = num_thread > 20 ? num_thread : 20;
-  #pragma omp parallel for num_threads(num_thread) private(i)
+  #ifdef _OPENMP
+    int num_thread = omp_get_max_threads();
+    num_thread = num_thread > 20 ? 20 : num_thread;
+    #pragma omp parallel for if(*len > OMP_THRESHOLD_NAIVE) private(i) schedule(static) num_threads(num_thread)
+  #endif
   for(i=0; i < *len; i++){
     unsigned int tmp_in = (*(in_short + i)) << 16;
     unsigned int tmp_out = (*(out_short + i)) << 16;
