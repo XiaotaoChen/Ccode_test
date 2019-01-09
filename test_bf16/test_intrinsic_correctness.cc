@@ -94,26 +94,32 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
  {
    case 0:
      {
-       int i = 0;
-       for(; i < (len / 16) * 16; i += 16){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i = 0; i < (len / 16) * 16; i += 16){
          convert_b16_to_f32(*(__m256i*)(src+i), (__m512i*)(dst+i));
        }
        // process the remaining data
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
-       for(; i < len; i++){
+       for(i = (len / 16) * 16; i < len; i++){
          *(dst_unsigned+i) = *(src+i)<<16;
        }
      }
      break;
    case 1:
      {
-       int i = 0;
-       for(; i < (len / 16) * 16; i += 16){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i = 0; i < (len / 16) * 16; i += 16){
          convert_b16_to_f32(*(__m256i*)(src+i), (__m256i*)(dst+i), (__m256i*)(dst+i+8));
        }
        // process the remaining data
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
-       for(; i < len; i++){
+       for(i = (len / 16) * 16; i < len; i++){
          *(dst_unsigned+i) = *(src+i)<<16;
        }
      }
@@ -121,7 +127,11 @@ void BF16ToFloat(const uint16_t* src, float* dst, int len, int type_flag){
    default:
      {
        unsigned int* dst_unsigned = reinterpret_cast<unsigned int*>(dst);
-       for(int i=0; i < len; i++){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i=0; i < len; i++){
          *(dst_unsigned+i) = *(src+i)<<16;
        }
      }
@@ -134,26 +144,32 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
  {
    case 0:
      {
-       int i = 0;
-       for(; i < (len / 16) * 16; i += 16){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i = 0; i < (len / 16) * 16; i += 16){
          convert_f32_to_b16(*(__m512i*)(src+i), (__m256i*)(dst+i));
        }
        // process the remaining data
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
-       for(; i < len; i++){
+       for(i = (len / 16) * 16; i < len; i++){
          *(dst+i) = *(src_unsigned+i)>>16;
        }
      }
      break;
    case 1:
      {
-       int i = 0;
-       for(; i < (len / 16) * 16; i += 16){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i = 0; i < (len / 16) * 16; i += 16){
          convert_f32_to_b16(*(__m256i*)(src+i), *(__m256i*)(src+i+8), (__m256i*)(dst+i));
        }
        // process the remaining data
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
-       for(; i < len; i++){
+       for(i = (len / 16) * 16; i < len; i++){
          *(dst+i) = *(src_unsigned+i)>>16;
        }
      }
@@ -161,7 +177,11 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
    default:
      {
        const unsigned int* src_unsigned = reinterpret_cast<const unsigned int*>(src);
-       for(int i=0; i < len; i++){
+       int i;
+       int num_thread = omp_get_max_threads();
+       num_thread = num_thread > 20 ? num_thread : 20;
+       #pragma omp parallel for num_threads(num_thread) private(i)
+       for(i=0; i < len; i++){
          *(dst+i) = *(src_unsigned+i)>>16;
        }
      }
@@ -183,8 +203,7 @@ void FloatToBF16_naive(const float* src, uint16_t* dst, int size, int type_flag)
   }
 }
 
-void bf16_sum(void* invec, void* inoutvec, int* len){
-  int type_flag = 0;
+void bf16_sum(void* invec, void* inoutvec, int* len, int type_flag){
   int i;
   uint16_t* invec_16 = reinterpret_cast<uint16_t*>(invec);
   uint16_t* inoutvec_16 = reinterpret_cast<uint16_t*>(inoutvec);
@@ -381,7 +400,7 @@ void test_sum(int len){
     dst1[i] = 0x0bb;
   }
   bf16_sum_naive(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
-  bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst1), &len);
+  bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst1), &len, 0);
 
   bool sum_flag = true;
   for(int i=0; i < len; i++){
@@ -423,7 +442,7 @@ double test_naive_sum_time(int len) {
   return tmp_time->get_time();
 }
 
-double test_intrinsic_sum_time(int len) {
+double test_intrinsic_sum_time(int len, int type_flag) {
   uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
   uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
   srand((unsigned)time(NULL));
@@ -434,7 +453,45 @@ double test_intrinsic_sum_time(int len) {
   }
   utils::Time* tmp_time = new utils::Time();
   tmp_time->start();
-  bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
+  if (type_flag == 2) {
+    bf16_sum_naive(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len);
+  } else {
+    bf16_sum(reinterpret_cast<void*>(src0), reinterpret_cast<void*>(dst0), &len, type_flag);
+  }
+  tmp_time->stop();
+  free(src0);
+  free(dst0);
+  return tmp_time->get_time();
+}
+
+double test_FloatToBF16_time(int len, int type_flag) {
+  unsigned int* src0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
+  uint16_t* dst0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+//    src0[i] = 0x7aaa7bbb;
+    src0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  FloatToBF16(reinterpret_cast<const float*>(src0), dst0, len, type_flag);
+  tmp_time->stop();
+  free(src0);
+  free(dst0);
+  return tmp_time->get_time();
+}
+
+double test_BF16ToFloat_time(int len, int type_flag) {
+  uint16_t* src0 = reinterpret_cast<uint16_t*>(bf16_alloc(len*sizeof(uint16_t)));
+  unsigned int* dst0 = reinterpret_cast<unsigned int*>(bf16_alloc(len*sizeof(unsigned int)));
+  srand((unsigned)time(NULL));
+  for(int i=0; i < len; i++){
+//    src0[i] = 0x7aaa7bbb;
+    src0[i] = rand();
+  }
+  utils::Time* tmp_time = new utils::Time();
+  tmp_time->start();
+  BF16ToFloat(reinterpret_cast<const uint16_t*>(src0), reinterpret_cast<float*>(dst0), len, type_flag);
   tmp_time->stop();
   free(src0);
   free(dst0);
@@ -448,22 +505,37 @@ int main(){
 //      test_f32Tob16(len);
 //      // test bf16 to fp32
 //      test_b16Tof32(len);
-//      // test cvt0 cvt1 sum is equal or not
+      // test cvt0 cvt1 sum is equal or not
 //      test_cvt1_cvt2_sum_equal(len);
-//       test bf17=6 sum
+//      // test bf16 sum
 //      test_sum(len);
-//       test sum time
-      std::vector<double> naive_times, intrinsic_times;
-      for(int i=0; i<100; i++){
-        double naive_time = test_naive_sum_time(len);
-        double intrinsic_time = test_intrinsic_sum_time(len);
-        naive_times.push_back(naive_time);
-        intrinsic_times.push_back(intrinsic_time);
-      }
-      float avg_naive_time = utils::average(naive_times);
-      float avg_intrinsic_time = utils::average(intrinsic_times);
-      printf("bf16 sum avg time, size: %d, naive: %f us, intrinsic: %f us\n",
-              len, avg_naive_time, avg_intrinsic_time);
+      // test sum time
+//      std::vector<double> naive_times, intrinsic0_times;
+//      std::vector<double> intrinsic1_times;
+//      for(int i=0; i<105; i++){
+////        double naive_time = test_naive_sum_time(len);
+////        double intrinsic_time = test_intrinsic_sum_time(len);
+////        // test bf16 to float time
+////        double naive_time = test_BF16ToFloat_time(len, 2);
+////        double intrinsic_time = test_BF16ToFloat_time(len, 0);
+//        // the first 5 step for warmup
+//        if (i > 5) {
+//          // test float to bf16 time
+//          double naive_time = test_intrinsic_sum_time(len, 2);
+//          double intrinsic0_time = test_intrinsic_sum_time(len, 0);
+//          double intrinsic1_time = test_intrinsic_sum_time(len, 1);
+//          naive_times.push_back(naive_time);
+//          intrinsic0_times.push_back(intrinsic0_time);
+//          intrinsic1_times.push_back(intrinsic1_time);
+//        }
+//      }
+//      float avg_naive_time = utils::average(naive_times);
+//      float avg_intrinsic0_time = utils::average(intrinsic0_times);
+//      float avg_intrinsic1_time = utils::average(intrinsic1_times);
+////      printf("float to bf16 time, size: %d, naive: %f us, intrinsic0: %f us\n",
+////              len, avg_naive_time, avg_intrinsic0_time);
+//      printf("bf16 sum time, size: %d, naive: %f us, intrinsic0: %f us, intrinsic1: %f us\n",
+//              len, avg_naive_time, avg_intrinsic0_time, avg_intrinsic1_time);
   }
   return 0;
 }
