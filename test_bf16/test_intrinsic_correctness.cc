@@ -206,10 +206,16 @@ void FloatToBF16(const float* src, uint16_t* dst, int len, int type_flag){
      {
        int i;
        if (aligned_flag) {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((__m512i*)(src+i), (__m256i*)(dst+i));
          }
        } else {
+         int num_thread = omp_get_max_threads();
+         num_thread = num_thread > 20 ? num_thread : 20;
+         #pragma omp parallel for num_threads(num_thread) private(i)
          for(i = 0; i < (len / 16) * 16; i += 16){
            convert_f32_to_b16((const void*)(src+i), (void*)(dst+i));
          }
