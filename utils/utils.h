@@ -27,6 +27,8 @@ private:
 
 void* alloc_mem(size_t size, int alignment);
 
+void free_mem(void* ptr);
+
 void init_mem(void* ptr, size_t len);
 
 }  // namespace utils

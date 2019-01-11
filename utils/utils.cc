@@ -40,6 +40,10 @@ void* alloc_mem(size_t size, int alignment){
   }
 }
 
+void free_mem(void* ptr){
+  free(ptr);
+}
+
 void init_mem(void* ptr, size_t len) {
   char* ch_ptr = reinterpret_cast<char*>(ptr);
   srand((unsigned)time(NULL));
