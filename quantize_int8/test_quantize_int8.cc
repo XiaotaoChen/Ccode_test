@@ -16,22 +16,22 @@ void quantize(const float* src, uint8_t* dst, int len) {
   }
   float max_dist = maximum - minimum;
   for (int i = 0; i < len; i++) {
-    dst[i] = (uint8_t)(255 * (src[i] - minimum) / max_dist);
+    dst[i + 8] = (uint8_t)(255 * (src[i] - minimum) / max_dist);
   }
-  float* fp_ptr = reinterpret_cast<float*>(dst + len);
+  float* fp_ptr = reinterpret_cast<float*>(dst);
   *fp_ptr = maximum;
   *(fp_ptr + 1) = minimum;
 
-//  printf("quantize max, min: %f, %f\n", maximum, minimum);
+  printf("quantize max, min: %f, %f\n", maximum, minimum);
 }
 
 void dequantize(const uint8_t* src, float* dst, int len) {
-  const float* fp_ptr = reinterpret_cast<const float*>(src + len);
+  const float* fp_ptr = reinterpret_cast<const float*>(src);
   float maximum = *fp_ptr;
   float minimum = *(fp_ptr + 1);
   float max_dist = maximum - minimum;
   for(int i = 0; i < len; i++) {
-    dst[i] = max_dist * src[i] / 255 + minimum;
+    dst[i] = max_dist * src[i + 8] / 255 + minimum;
   }
 }
 
