@@ -31,6 +31,8 @@ void free_mem(void* ptr);
 
 void init_mem(void* ptr, size_t len);
 
+bool is_aligned(const void* ptr, int alignment);
+
 }  // namespace utils
 
 #endif // UTILS_H

@@ -52,5 +52,9 @@ void init_mem(void* ptr, size_t len) {
   }
 }
 
+bool is_aligned(const void* ptr, int alignment) {
+  auto iptr = reinterpret_cast<uintptr_t>(ptr);
+  return !(iptr % alignment);
+}
 
 } // namespace utils
