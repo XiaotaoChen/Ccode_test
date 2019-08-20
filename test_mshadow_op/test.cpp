@@ -25,15 +25,6 @@ void assign_tensor(Tensor<cpu, 2, float> &tensor) {
     }
 }
 
-struct maxoftwo {
-    // map can also be normal functions,
-    // however, this can only be applied to float tensor
-    MSHADOW_XINLINE static float Map(float a, float b) {
-        if(a > b) return a;
-        else return b;
-    }
-};
-
 int main() {
     InitTensorEngine<cpu>();
     Shape<2> shape = Shape2(2, 5);
@@ -85,7 +76,12 @@ int main() {
             red::maximum::Reduce(max_dst, tensor1[i][j]);
         }
     }
+
     printf("sum(tensor1): %.2f, max(tensor1): %.2f\n", sum_dst, max_dst);
+
+    *(tensor1.dptr_) = max_dst;
+    *(tensor1.dptr_ +1) = sum_dst;
+    print_tensor<2>(tensor1);
 
     FreeSpace(&tensor1);
     FreeSpace(&tensor2);
