@@ -3,20 +3,27 @@
 __global__
 void revert(int n, float* a, float *b) {
     *b = - (*a);
+    *b = 1.05;
+}
+
+__global__
+void getmax(int n, float* a, float* b) {
+    *b = 1.5;
 }
 
 int main() {
     float* a, *b, *a_d, *b_d;
     a = (float*)malloc(sizeof(float));
     b = (float*)malloc(sizeof(float));
-    *a = 5.0f;
+    *a = 5.2;
+    printf("a:%.2f\n", *a);
     *b = 0;
     cudaMalloc((void**)&a_d, sizeof(float));
     cudaMalloc((void**)&b_d, sizeof(float));
     cudaMemcpy(a_d, a, sizeof(float), cudaMemcpyHostToDevice);
     // *b_d = *a_d;
     int N = 1;
-    revert<<<(N+255)/256, 256>>>(N, a_d, b_d);
+    getmax<<<(N+255)/256, 256>>>(N, a_d, b_d);
     cudaMemcpy(b, b_d, sizeof(float), cudaMemcpyDeviceToHost);
 
     // *a = -(*a);
