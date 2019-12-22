@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <vector>
 #include <string>
-#include "data_structs/Tree.h"
+#include "data_structs/base_struct.h"
 #include "algorithm.h"
 using namespace std;
 
@@ -35,8 +35,17 @@ void test_reverse_polish_notation(){
     printf("%d \n", result);
 }
 
+void test_max_point_on_a_line(){
+    vector<Point> inputs;
+    inputs.push_back(Point(0, 0));
+    int result = max_point_on_a_line(inputs);
+    printf("%d \n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
-    test_reverse_polish_notation();
+    // test_reverse_polish_notation();
+    test_max_point_on_a_line();
+    
 }

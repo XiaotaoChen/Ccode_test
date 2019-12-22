@@ -3,7 +3,7 @@
 #define ALGORITHM_
 #include <vector>
 #include <string>
-#include "data_structs/Tree.h"
+#include "data_structs/base_struct.h"
 
 using namespace std;
 
@@ -18,5 +18,7 @@ vector<string> generate_parentheses(int n);
 vector<string> generate_parentheses2(int n);
 
 int reverse_polish_notation(vector<string> &tokens);
+
+int max_point_on_a_line(vector<Point> &points);
 
 #endif // ALGORITHM_
