@@ -15,6 +15,6 @@ namespace  binary_tree {
 } // binary_tree
 
 vector<string> generate_parentheses(int n);
-
+vector<string> generate_parentheses2(int n);
 
 #endif // ALGORITHM_

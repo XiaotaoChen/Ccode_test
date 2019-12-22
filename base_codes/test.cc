@@ -1,4 +1,6 @@
-#include <stdio.h>
+#include <cstdio>
+#include <vector>
+#include <string>
 #include "data_structs/Tree.h"
 #include "algorithm.h"
 using namespace std;
@@ -17,10 +19,14 @@ void test_minmum_depth_binary_tree() {
 }
 
 void test_generate_parentheses(int n){
-    
+    // vector<string> results = generate_parentheses(n);
+    vector<string> results = generate_parentheses2(n);
+    for (int i=0; i< results.size(); i++) {
+        printf("%s \n", results[i].c_str());
+    }
 }
 
 int main() {
     // test_minmum_depth_binary_tree();
-
+    test_generate_parentheses(3);
 }
