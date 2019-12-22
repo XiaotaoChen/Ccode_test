@@ -17,4 +17,6 @@ namespace  binary_tree {
 vector<string> generate_parentheses(int n);
 vector<string> generate_parentheses2(int n);
 
+int reverse_polish_notation(vector<string> &tokens);
+
 #endif // ALGORITHM_

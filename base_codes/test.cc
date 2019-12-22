@@ -26,7 +26,17 @@ void test_generate_parentheses(int n){
     }
 }
 
+void test_reverse_polish_notation(){
+    vector<string> tokens;
+    // string inputs[5] = {"2", "1", "+", "3", "*"};
+    string inputs[5] = {"4", "13", "5", "/", "+"};
+    for (int i=0; i<5; i++) tokens.push_back(inputs[i]);
+    int result = reverse_polish_notation(tokens);
+    printf("%d \n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
-    test_generate_parentheses(3);
+    // test_generate_parentheses(3);
+    test_reverse_polish_notation();
 }
