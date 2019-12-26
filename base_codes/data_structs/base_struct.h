@@ -19,5 +19,11 @@ struct Point {
     Point(int a, int b) : x(a), y(b) {}
  };
 
+ struct ListNode {
+     int val;
+     ListNode* next;
+     ListNode(int x): val(x), next(NULL) {};
+ };
+
 
 #endif // DATA_STRUCTS_

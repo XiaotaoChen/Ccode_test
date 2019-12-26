@@ -42,10 +42,36 @@ void test_max_point_on_a_line(){
     printf("%d \n", result);
 }
 
+void test_sortListNode(){
+    ListNode* root = new ListNode(1);
+    ListNode* tmp = root;
+    tmp->next = new ListNode(3);
+    tmp = tmp->next;
+    tmp->next = new ListNode(4);
+    tmp = tmp->next;
+    tmp->next = new ListNode(2);
+    tmp = tmp->next;
+    tmp->next = new ListNode(2);
+    ListNode* src = root;
+    while(src != NULL) {
+        printf("%d ,", src->val);
+        src = src->next;
+    }
+    printf("\n");
+
+    ListNode* result = list_node::sortList(root);
+    while(result != NULL) {
+        printf("%d ,", result->val);
+        result = result->next;
+    }
+    printf("\n");
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
     // test_reverse_polish_notation();
-    test_max_point_on_a_line();
+    // test_max_point_on_a_line();
+    test_sortListNode();
     
 }
