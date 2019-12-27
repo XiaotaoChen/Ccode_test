@@ -18,6 +18,21 @@ void test_minmum_depth_binary_tree() {
     printf("result:%d\n", result);
 }
 
+void test_postorderTraversal() {
+    TreeNode* root = new TreeNode(1);
+    TreeNode* r = new TreeNode(2);
+    TreeNode* rr = new TreeNode(3);
+    root->right = r;
+    r->right = rr;
+    vector<int> result;
+    // binary_tree::postorderTraversal(root, result);
+    binary_tree::postorderTraversalWithStack(root, result);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ,", result[i]);
+    }
+    printf("\n");
+}
+
 void test_generate_parentheses(int n){
     // vector<string> results = generate_parentheses(n);
     vector<string> results = generate_parentheses2(n);
@@ -59,7 +74,9 @@ void test_sortListNode(){
     }
     printf("\n");
 
-    ListNode* result = list_node::sortList(root);
+    // ListNode* result = list_node::sortList(root);
+    ListNode* result = list_node::insertSortList(root);
+
     while(result != NULL) {
         printf("%d ,", result->val);
         result = result->next;
@@ -72,6 +89,8 @@ int main() {
     // test_generate_parentheses(3);
     // test_reverse_polish_notation();
     // test_max_point_on_a_line();
-    test_sortListNode();
-    
+    // test_sortListNode();
+    test_postorderTraversal();
+
+    return 0;
 }

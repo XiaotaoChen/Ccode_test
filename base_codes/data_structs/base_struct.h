@@ -6,10 +6,10 @@
 
 struct TreeNode
 {
-    float value;
+    float val;
     TreeNode* left;
     TreeNode* right;
-    TreeNode(int x) : value(x), left(NULL), right(NULL) {}
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
 struct Point {

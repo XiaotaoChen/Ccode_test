@@ -11,6 +11,8 @@ namespace  binary_tree {
     int minimum_depth_binary_tree(TreeNode* root);
     int minimum_depth_binary_tree_by_queue(TreeNode* root);
     int minimum_depth_binary_tree_by_queue2(TreeNode* root);
+    void postorderTraversal(TreeNode *root, vector<int>& result);
+    void postorderTraversalWithStack(TreeNode *root, vector<int>& result);
 
 } // binary_tree
 
@@ -25,6 +27,7 @@ namespace list_node {
     ListNode* sortList(ListNode* head);
     ListNode* getmid(ListNode* head);
     ListNode* merge_list(ListNode* list1, ListNode* list2);
+    ListNode* insertSortList(ListNode* head);
 }
 
 #endif // ALGORITHM_

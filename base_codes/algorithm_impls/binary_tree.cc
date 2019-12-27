@@ -1,5 +1,6 @@
 #include <algorithm>  // min
 #include <queue>
+#include <stack>
 #include "../algorithm.h"
 
 int binary_tree::minimum_depth_binary_tree(TreeNode* root) {
@@ -52,4 +53,30 @@ int binary_tree::minimum_depth_binary_tree_by_queue2(TreeNode* root) {
         if (now.tree->right != NULL) q.push(tree_depth(now.depth + 1, now.tree->right));
     }
     return 0;
+}
+
+void binary_tree::postorderTraversal(TreeNode *root, std::vector<int>& result) {
+    if (root == NULL) return;
+    if (root->left != NULL) {
+        postorderTraversal(root->left, result);
+    }
+    if (root->right != NULL) {
+        postorderTraversal(root->right, result);
+    }
+    result.push_back(root->val);
+}
+
+void binary_tree::postorderTraversalWithStack(TreeNode *root, std::vector<int>& result) {
+    if (root == NULL) return ;
+    std::stack<TreeNode*> s;
+    s.push(root);
+    while(!s.empty()) {
+        TreeNode* tmp = s.top();
+        s.pop();
+        result.push_back(tmp->val);
+        if (tmp->left != NULL) s.push(tmp->left);
+        if (tmp->right != NULL) s.push(tmp->right);
+    }
+    std::reverse(result.begin(), result.end());
+    return;
 }

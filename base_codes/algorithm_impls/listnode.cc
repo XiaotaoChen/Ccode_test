@@ -48,4 +48,27 @@ namespace list_node {
         }
         return root->next;
     }
+
+    ListNode* insertSortList(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        ListNode root_node = ListNode(-1);
+        ListNode* root = &root_node;
+        root->next = head;
+        head = head->next;
+        root->next->next = NULL;
+        while(head != NULL) {
+            ListNode* tmp = head;
+            head = head->next;
+            ListNode* curr = root->next;
+            ListNode* pre = root;
+            while(curr != NULL) {
+                if (curr->val > tmp->val) break;
+                pre = curr;
+                curr = curr->next;
+            }
+            pre->next = tmp;
+            tmp->next = curr;
+        }
+        return root->next;
+    }
 }
