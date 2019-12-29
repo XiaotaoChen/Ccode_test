@@ -15,7 +15,7 @@ void test_minmum_depth_binary_tree() {
     // right1->right = right2;
     // int result = binary_tree::minimum_depth_binary_tree(root);
     int result = binary_tree::minimum_depth_binary_tree_by_queue(root);
-    printf("result:%d\n", result);
+    std::printf("result:%d\n", result);
 }
 
 void test_postorderTraversal() {
@@ -28,16 +28,16 @@ void test_postorderTraversal() {
     // binary_tree::postorderTraversal(root, result);
     binary_tree::postorderTraversalWithStack(root, result);
     for (int i=0; i<result.size(); i++) {
-        printf("%d ,", result[i]);
+        std::printf("%d ,", result[i]);
     }
-    printf("\n");
+    std::printf("\n");
 }
 
 void test_generate_parentheses(int n){
     // vector<string> results = generate_parentheses(n);
     vector<string> results = generate_parentheses2(n);
     for (int i=0; i< results.size(); i++) {
-        printf("%s \n", results[i].c_str());
+        std::printf("%s \n", results[i].c_str());
     }
 }
 
@@ -47,41 +47,45 @@ void test_reverse_polish_notation(){
     string inputs[5] = {"4", "13", "5", "/", "+"};
     for (int i=0; i<5; i++) tokens.push_back(inputs[i]);
     int result = reverse_polish_notation(tokens);
-    printf("%d \n", result);
+    std::printf("%d \n", result);
 }
 
 void test_max_point_on_a_line(){
     vector<Point> inputs;
     inputs.push_back(Point(0, 0));
     int result = max_point_on_a_line(inputs);
-    printf("%d \n", result);
+    std::printf("%d \n", result);
 }
 
 void test_sortListNode(){
     ListNode* root = new ListNode(1);
     ListNode* tmp = root;
+    tmp->next = new ListNode(2);
+    tmp = tmp->next;
     tmp->next = new ListNode(3);
     tmp = tmp->next;
     tmp->next = new ListNode(4);
     tmp = tmp->next;
-    tmp->next = new ListNode(2);
-    tmp = tmp->next;
-    tmp->next = new ListNode(2);
+    tmp->next = new ListNode(5);
+    tmp->next = root->next;
     ListNode* src = root;
-    while(src != NULL) {
-        printf("%d ,", src->val);
-        src = src->next;
-    }
-    printf("\n");
+    // while(src != NULL) {
+    //     std::printf("%d ,", src->val);
+    //     src = src->next;
+    // }
+    // std::printf("\n");
 
     // ListNode* result = list_node::sortList(root);
-    ListNode* result = list_node::insertSortList(root);
-
-    while(result != NULL) {
-        printf("%d ,", result->val);
-        result = result->next;
-    }
-    printf("\n");
+    // ListNode* result = list_node::insertSortList(root);
+    // ListNode* result = list_node::reorderList(root);
+    // ListNode* result = list_node::reorderList_V2(root);
+    ListNode* result = list_node::detectCycle_V2(root);
+    std::printf("%d ,", result->val);
+    // while(result != NULL) {
+    //     std::printf("%d ,", result->val);
+    //     result = result->next;
+    // }
+    std::printf("\n");
 }
 
 int main() {
@@ -89,8 +93,8 @@ int main() {
     // test_generate_parentheses(3);
     // test_reverse_polish_notation();
     // test_max_point_on_a_line();
-    // test_sortListNode();
-    test_postorderTraversal();
+    test_sortListNode();
+    // test_postorderTraversal();
 
     return 0;
 }

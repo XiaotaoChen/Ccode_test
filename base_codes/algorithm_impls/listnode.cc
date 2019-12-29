@@ -1,3 +1,4 @@
+#include <set>
 #include "../algorithm.h"
 
 namespace list_node {
@@ -49,6 +50,24 @@ namespace list_node {
         return root->next;
     }
 
+    ListNode* merge_list_simple(ListNode* list1, ListNode* list2) {
+        ListNode root_node = ListNode(-1);
+        ListNode* root = &root_node;
+        ListNode* root_ptr = root;
+        ListNode* list1_ptr = list1;
+        ListNode* list2_ptr = list2;
+        while (list1_ptr != NULL && list2_ptr != NULL) {
+            root_ptr->next = list1_ptr;
+            ListNode* tmp = list1_ptr;
+            list1_ptr = list1_ptr->next;
+            tmp->next = list2_ptr;
+            tmp = list2_ptr;
+            list2_ptr = list2_ptr->next;
+            root_ptr = tmp;
+        }
+        return root->next;
+    }
+
     ListNode* insertSortList(ListNode* head) {
         if (head == NULL || head->next == NULL) return head;
         ListNode root_node = ListNode(-1);
@@ -70,5 +89,71 @@ namespace list_node {
             tmp->next = curr;
         }
         return root->next;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        ListNode root_node = ListNode(-1);
+        ListNode* root = &root_node;
+        ListNode* head_copy = head;
+        while(head_copy != NULL) {
+            ListNode* tmp = root->next;
+            root->next = head_copy;
+            head_copy = head_copy->next;
+            root->next->next = tmp;
+        }
+        return root->next;
+    }
+
+    ListNode* reorderList_V2(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        ListNode* midnode_ptr = getmid(head);
+        ListNode* reversed_ptr = reverseList(midnode_ptr);
+        // merge to list
+        ListNode root_node = ListNode(-1);
+        ListNode* root = &root_node;
+        ListNode* root_ptr = root;
+        ListNode* head_ptr = head;
+        return merge_list_simple(head_ptr, reversed_ptr);
+    }
+
+    ListNode* detectCycle(ListNode* head) {
+        ListNode* head_ptr = head;
+        if (head == NULL && head->next == NULL) return head;
+        std::set<ListNode*> node_sets;
+        while(head_ptr != NULL) {
+            if (node_sets.find(head_ptr) != node_sets.end()) {
+                return head_ptr;
+            }
+            else {
+                node_sets.insert(head_ptr);
+            }
+            head_ptr = head_ptr->next;
+        }
+        return NULL;
+    }
+
+    ListNode* isCycle(ListNode* head) {
+        ListNode* one = head;
+        ListNode* two = head;
+        while(two != NULL && two->next != NULL) {
+            one = one->next;
+            two = two->next->next;
+            if (one == two) return one;
+        }
+        return NULL;
+    }
+
+    ListNode* detectCycle_V2(ListNode* head) {
+        if (head == NULL || head->next == NULL) return NULL;
+        ListNode* head_ptr = head;
+        ListNode* mid_ptr = isCycle(head_ptr);
+        if (mid_ptr != NULL) {
+            while(head_ptr != mid_ptr) {
+                head_ptr = head_ptr->next;
+                mid_ptr = mid_ptr->next;
+            }
+            return head_ptr;
+        }
+        return NULL;
     }
 }

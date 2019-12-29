@@ -28,6 +28,10 @@ namespace list_node {
     ListNode* getmid(ListNode* head);
     ListNode* merge_list(ListNode* list1, ListNode* list2);
     ListNode* insertSortList(ListNode* head);
+    ListNode* reorderList_V2(ListNode* head);
+    ListNode* detectCycle(ListNode* head);
+    ListNode* isCycle(ListNode* head);
+    ListNode* detectCycle_V2(ListNode* head);
 }
 
 #endif // ALGORITHM_
