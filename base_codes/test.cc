@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <vector>
 #include <string>
+#include <unordered_set>
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 using namespace std;
@@ -88,13 +89,29 @@ void test_sortListNode(){
     std::printf("\n");
 }
 
+void test_wordBreak(){
+    string s = "catsanddog";
+    std::unordered_set<string> dicts;
+    // dicts.insert("leet");
+    // dicts.insert("code");
+    dicts = {"cat", "cats", "and", "sand", "dog"};
+    // bool result = wordBreak(s, dicts);
+    // printf("result:%d\n", result);
+    // vector<string> result = wordBreak_v2(s, dicts);
+    vector<string> result = wordBreak_v3(s, dicts);
+    for(int i=0; i<result.size(); i++) {
+        printf("%s\n", result[i].c_str());
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
     // test_reverse_polish_notation();
     // test_max_point_on_a_line();
-    test_sortListNode();
+    // test_sortListNode();
     // test_postorderTraversal();
+    test_wordBreak();
 
     return 0;
 }

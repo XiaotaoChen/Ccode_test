@@ -118,7 +118,7 @@ namespace list_node {
 
     ListNode* detectCycle(ListNode* head) {
         ListNode* head_ptr = head;
-        if (head == NULL && head->next == NULL) return head;
+        if (head == NULL || head->next == NULL) return NULL;
         std::set<ListNode*> node_sets;
         while(head_ptr != NULL) {
             if (node_sets.find(head_ptr) != node_sets.end()) {

@@ -3,6 +3,7 @@
 #define ALGORITHM_
 #include <vector>
 #include <string>
+#include <unordered_set>
 #include "data_structs/base_struct.h"
 
 using namespace std;
@@ -33,5 +34,12 @@ namespace list_node {
     ListNode* isCycle(ListNode* head);
     ListNode* detectCycle_V2(ListNode* head);
 }
+
+bool wordBreak(string s, unordered_set<string> &dict);
+
+vector<string> wordBreak_v2(string s, unordered_set<string> &dict);
+
+vector<string> wordBreak_v3(string s, unordered_set<string> &dict);
+
 
 #endif // ALGORITHM_
