@@ -156,4 +156,36 @@ namespace list_node {
         }
         return NULL;
     }
+
+    RandomListNode* copyRandomList(RandomListNode* head) {
+        if (head == NULL) return NULL;
+        RandomListNode* copy, *p;
+        p = head;
+        // copy ListNode follow each node
+        while(p != NULL) {
+            copy = new RandomListNode(p->label);
+            copy->next = p->next;
+            p->next = copy;
+            p = copy->next;
+        }
+        p = head;
+        // set random pointer
+        while (p != NULL) {
+            copy = p->next;
+            copy->random = p->random?p->random->next:NULL;
+            p=copy->next;
+        }
+        // split the two RandomListNode
+        p = head;
+        RandomListNode* copy_head = head->next;
+        copy = copy_head;
+        while(copy->next != NULL) {  // not copy != NULL
+            p->next = copy->next;
+            p = p->next;
+            copy->next = p->next;
+            copy = copy->next;
+        }
+        p->next = NULL;
+        return copy_head;
+    }
 }

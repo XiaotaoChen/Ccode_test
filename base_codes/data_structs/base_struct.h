@@ -25,5 +25,13 @@ struct Point {
      ListNode(int x): val(x), next(NULL) {};
  };
 
+ struct RandomListNode {
+     int label;
+     RandomListNode* next;
+     RandomListNode* random;
+     RandomListNode(): label(-1), next(NULL), random(NULL) {}
+     RandomListNode(int x): label(x), next(NULL), random(NULL) {}
+ };
+
 
 #endif // DATA_STRUCTS_

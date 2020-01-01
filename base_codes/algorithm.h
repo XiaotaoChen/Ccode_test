@@ -33,6 +33,7 @@ namespace list_node {
     ListNode* detectCycle(ListNode* head);
     ListNode* isCycle(ListNode* head);
     ListNode* detectCycle_V2(ListNode* head);
+    RandomListNode* copyRandomList(RandomListNode* head);
 }
 
 bool wordBreak(string s, unordered_set<string> &dict);

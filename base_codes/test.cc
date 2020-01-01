@@ -104,6 +104,36 @@ void test_wordBreak(){
     }
 }
 
+int tmp_fetch(RandomListNode* head) {
+    if (head != NULL) return head->label;
+    return -1;
+}
+
+void print_random_list_node(RandomListNode* head) {
+    RandomListNode* p = head;
+    while(p != NULL) {
+        printf("label:%d, next:%d, random:%d\n", p->label, 
+               tmp_fetch(p->next), tmp_fetch(p->random));
+        p = p->next;
+    }
+}
+
+void test_randomListNode() {
+    RandomListNode arr[5];
+    for (int i=1; i<4; i++) {
+        arr[i].label = i;
+        arr[i].next = &arr[i+1];
+        arr[i].random = &arr[i-1];
+    }
+    arr[0].next = &arr[1];
+    arr[0].label = 0;
+    arr[3].next = NULL;
+    RandomListNode* head = &arr[0];
+    print_random_list_node(head);
+    RandomListNode* copy_head = list_node::copyRandomList(head);
+    print_random_list_node(copy_head);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -111,7 +141,8 @@ int main() {
     // test_max_point_on_a_line();
     // test_sortListNode();
     // test_postorderTraversal();
-    test_wordBreak();
+    // test_wordBreak();
+    test_randomListNode();
 
     return 0;
 }
