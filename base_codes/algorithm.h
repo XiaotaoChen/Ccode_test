@@ -42,5 +42,10 @@ vector<string> wordBreak_v2(string s, unordered_set<string> &dict);
 
 vector<string> wordBreak_v3(string s, unordered_set<string> &dict);
 
+int singleNumber(int A[], int n);
+
+int singleNumber_v2(int A[], int n);
+
+int singleNumber_v3(int A[], int n);
 
 #endif // ALGORITHM_

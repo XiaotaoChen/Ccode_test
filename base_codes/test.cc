@@ -134,6 +134,14 @@ void test_randomListNode() {
     print_random_list_node(copy_head);
 }
 
+void test_singleNumber() {
+    int a[7] = {1,2,3,2,3,2,3};
+    // int result = singleNumber(a, 7);
+    int result = singleNumber_v2(a, 7);
+    printf("%d\n", result);
+    return;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -142,7 +150,8 @@ int main() {
     // test_sortListNode();
     // test_postorderTraversal();
     // test_wordBreak();
-    test_randomListNode();
+    // test_randomListNode();
+    test_singleNumber();
 
     return 0;
 }
