@@ -142,6 +142,17 @@ void test_singleNumber() {
     return;
 }
 
+void test_candy() {
+    int a[3]={2, 1, 3};
+    vector<int> ratings(a, a+3);
+    for(int i=0;i<ratings.size(); i++){
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+    int result = candy(ratings);
+    printf("%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -151,7 +162,8 @@ int main() {
     // test_postorderTraversal();
     // test_wordBreak();
     // test_randomListNode();
-    test_singleNumber();
+    // test_singleNumber();
+    test_candy();
 
     return 0;
 }

@@ -48,4 +48,6 @@ int singleNumber_v2(int A[], int n);
 
 int singleNumber_v3(int A[], int n);
 
+int candy(vector<int> &ratings);
+
 #endif // ALGORITHM_
