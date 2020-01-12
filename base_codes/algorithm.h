@@ -50,4 +50,8 @@ int singleNumber_v3(int A[], int n);
 
 int candy(vector<int> &ratings);
 
+int canCompleteCircuit(vector<int> &gas, vector<int> &cost);
+
+int canCompleteCircuit_v2(vector<int> &gas, vector<int> &cost);
+
 #endif // ALGORITHM_

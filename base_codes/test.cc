@@ -153,6 +153,21 @@ void test_candy() {
     printf("%d\n", result);
 }
 
+void test_complete_circuit() {
+    // vector<int> gas(2);
+    // vector<int> costs(2);
+    // gas[0]=1;
+    // gas[1]=2;
+    // costs[0]=2;
+    // costs[1]=1;
+    int gas_arr[] = {1, 2};
+    int costs_arr[] = {2, 1};
+    vector<int> gas(gas_arr, gas_arr + 2);
+    vector<int> costs(costs_arr, costs_arr + 2);
+    int result = canCompleteCircuit_v2(gas, costs);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -163,7 +178,8 @@ int main() {
     // test_wordBreak();
     // test_randomListNode();
     // test_singleNumber();
-    test_candy();
+    // test_candy();
+    test_complete_circuit();
 
     return 0;
 }
