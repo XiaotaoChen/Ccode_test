@@ -3,6 +3,7 @@
 #define DATA_STRUCTS_
 
 #include <stdio.h>
+#include<vector>
 
 struct TreeNode
 {
@@ -32,6 +33,12 @@ struct Point {
      RandomListNode(): label(-1), next(NULL), random(NULL) {}
      RandomListNode(int x): label(x), next(NULL), random(NULL) {}
  };
+
+struct UndirectedGraphNode {
+    int label;
+    std::vector<UndirectedGraphNode *> neighbors;
+    UndirectedGraphNode(int x) : label(x) {};
+};
 
 
 #endif // DATA_STRUCTS_

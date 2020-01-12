@@ -54,4 +54,10 @@ int canCompleteCircuit(vector<int> &gas, vector<int> &cost);
 
 int canCompleteCircuit_v2(vector<int> &gas, vector<int> &cost);
 
+UndirectedGraphNode* cloneGraph(UndirectedGraphNode* node);
+
+UndirectedGraphNode* cloneGraph_v2(UndirectedGraphNode* node);
+
+void print_graph(UndirectedGraphNode* node);
+
 #endif // ALGORITHM_

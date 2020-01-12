@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <unordered_set>
+#include <set>
+#include <stack>
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 using namespace std;
@@ -168,6 +170,25 @@ void test_complete_circuit() {
     printf("result:%d\n", result);
 }
 
+void test_clone_graph() {
+    UndirectedGraphNode* zero = new UndirectedGraphNode(0);
+    UndirectedGraphNode* one = new UndirectedGraphNode(1);
+    UndirectedGraphNode* two = new UndirectedGraphNode(2);
+    zero->neighbors.push_back(one);
+    zero->neighbors.push_back(two);
+    one->neighbors.push_back(two);
+    two->neighbors.push_back(two);
+    print_graph(zero);
+    UndirectedGraphNode* copy_node = cloneGraph(zero);
+    printf("clone graph\n");
+    print_graph(copy_node);
+
+    delete zero;
+    delete one;
+    delete two;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -179,7 +200,8 @@ int main() {
     // test_randomListNode();
     // test_singleNumber();
     // test_candy();
-    test_complete_circuit();
+    // test_complete_circuit();
+    test_clone_graph();
 
     return 0;
 }
