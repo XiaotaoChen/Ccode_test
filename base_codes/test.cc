@@ -188,6 +188,18 @@ void test_clone_graph() {
     delete two;
 }
 
+void test_palidrome() {
+    string str = "aab";
+    vector<vector<string> > result = palindrome_partition(str);
+    printf("result size:%lu\n", result.size());
+    for (vector<string> v_iter: result) {
+        for (string iter: v_iter) {
+            printf("%s,", iter.c_str());
+        }
+        printf("\n");
+    }
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -201,7 +213,8 @@ int main() {
     // test_singleNumber();
     // test_candy();
     // test_complete_circuit();
-    test_clone_graph();
+    // test_clone_graph();
+    test_palidrome();
 
     return 0;
 }

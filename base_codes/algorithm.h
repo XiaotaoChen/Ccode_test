@@ -60,4 +60,8 @@ UndirectedGraphNode* cloneGraph_v2(UndirectedGraphNode* node);
 
 void print_graph(UndirectedGraphNode* node);
 
+vector<vector<string> > palindrome_partition(string& str);
+
+bool is_palindrome(string& str);
+
 #endif // ALGORITHM_
