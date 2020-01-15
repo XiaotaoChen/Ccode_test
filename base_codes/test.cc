@@ -200,6 +200,12 @@ void test_palidrome() {
     }
 }
 
+void test_palidrome_min_cut() {
+    string str = "leet";
+    // int result = palindrome_minCut(str);
+    int result = palindrome_minCut_v2(str);
+    printf("result:%d\n", result);
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -214,7 +220,8 @@ int main() {
     // test_candy();
     // test_complete_circuit();
     // test_clone_graph();
-    test_palidrome();
+    // test_palidrome();
+    test_palidrome_min_cut();
 
     return 0;
 }

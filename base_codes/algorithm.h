@@ -64,4 +64,9 @@ vector<vector<string> > palindrome_partition(string& str);
 
 bool is_palindrome(string& str);
 
+int palindrome_minCut(string& str);
+
+int palindrome_minCut_v2(string& str);
+
+
 #endif // ALGORITHM_
