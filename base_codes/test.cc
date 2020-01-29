@@ -207,6 +207,35 @@ void test_palidrome_min_cut() {
     printf("result:%d\n", result);
 }
 
+void print_surroundReigon(vector<vector<char> >& board) {
+    int width = board.size();
+    int length = board[0].size();
+    for (int i=0; i<width; i++) {
+        for(int j=0; j<length; j++) {
+            printf("%c ", board[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void test_surroundRegion() {
+    char board_arr[4][4] = {{'X','X','X','X'}, 
+                            {'X','O','O','X'}, 
+                            {'X','X','O','X'}, 
+                            {'X','O','X','X'}};
+    vector<vector<char> > board(4);
+    for(int i=0; i<4; i++) {
+        vector<char> tmp(board_arr[i], board_arr[i]+4);
+        board[i] = tmp;
+    }
+    print_surroundReigon(board);
+    SurroundingReigon(board);
+    printf("\n");
+    print_surroundReigon(board);
+    return;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -221,7 +250,8 @@ int main() {
     // test_complete_circuit();
     // test_clone_graph();
     // test_palidrome();
-    test_palidrome_min_cut();
+    // test_palidrome_min_cut();
+    test_surroundRegion();
 
     return 0;
 }

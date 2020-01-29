@@ -68,5 +68,6 @@ int palindrome_minCut(string& str);
 
 int palindrome_minCut_v2(string& str);
 
+void SurroundingReigon(vector<vector<char> >& board);
 
 #endif // ALGORITHM_
