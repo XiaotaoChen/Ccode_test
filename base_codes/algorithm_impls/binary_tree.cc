@@ -80,3 +80,38 @@ void binary_tree::postorderTraversalWithStack(TreeNode *root, std::vector<int>& 
     std::reverse(result.begin(), result.end());
     return;
 }
+
+int binary_tree::sumNumbers(TreeNode *root) {
+    if (root == nullptr) return 0;
+    if (root->left == nullptr && root->right == nullptr) return root->val;
+    queue<TreeNode*> qu;
+    queue<int> node_number;
+    qu.push(root);
+    node_number.push(root->val);
+    vector<int> leaf_number;
+
+    while(!qu.empty()) {
+        TreeNode* curr = qu.front();
+        qu.pop();
+        int curr_num = node_number.front();
+        node_number.pop();
+        if (curr->left == nullptr && curr->right == nullptr) {
+            leaf_number.push_back(curr_num);
+        }
+        if (curr->left != nullptr) {
+            qu.push(curr->left);
+            node_number.push(curr_num * 10 + curr->left->val);
+        }
+        if (curr->right != nullptr) {
+            qu.push(curr->right);
+            node_number.push(curr_num * 10 + curr->right->val);
+        }
+    }
+
+    // sum all leaf_number
+    int sum = 0;
+    for (int i=0; i < leaf_number.size(); i++) {
+        sum += leaf_number[i];
+    }
+    return sum;
+}

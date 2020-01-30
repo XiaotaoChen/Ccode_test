@@ -14,6 +14,7 @@ namespace  binary_tree {
     int minimum_depth_binary_tree_by_queue2(TreeNode* root);
     void postorderTraversal(TreeNode *root, vector<int>& result);
     void postorderTraversalWithStack(TreeNode *root, vector<int>& result);
+    int sumNumbers(TreeNode *root);
 
 } // binary_tree
 
@@ -69,5 +70,9 @@ int palindrome_minCut(string& str);
 int palindrome_minCut_v2(string& str);
 
 void SurroundingReigon(vector<vector<char> >& board);
+
+int longestConsecutive(vector<int> &num);
+
+int longestConsecutive_V2(vector<int> &num);
 
 #endif // ALGORITHM_

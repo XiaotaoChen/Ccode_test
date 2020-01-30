@@ -13,7 +13,7 @@
 # 	algorithm_impls/palindrome.cc \
 # 	algorithm_impls/surrounding_region.cc
 
-SRC_COM = $(wildcard algorithm_impls/*.cc)
+SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc)
 SRC = test.cc $(SRC_COM)
 
 CXX = g++

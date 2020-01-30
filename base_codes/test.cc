@@ -6,6 +6,7 @@
 #include <stack>
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
+#include "search_algs.h"
 using namespace std;
 
 void test_minmum_depth_binary_tree() {
@@ -235,6 +236,31 @@ void test_surroundRegion() {
     return;
 }
 
+void test_sum_number_binary_tree() {
+    TreeNode* root = new TreeNode(1);
+    TreeNode* left = new TreeNode(2);
+    TreeNode* right = new TreeNode(3);
+    root->left = left;
+    root->right = right;
+    int sum = binary_tree::sumNumbers(root);
+    printf("sum:%d\n", sum);
+}
+
+void test_longest_consecutive() {
+    int arr[] = {100, 4, 200, 1, 3, 2};
+    vector<int> vec(arr, arr+6);
+    // int result = longestConsecutive(vec);
+    int result = longestConsecutive_V2(vec);
+    printf("result:%d\n", result);
+}
+
+void test_ladder_length() {
+    std::string start = "teach"; // "hit";
+    std::string end = "place"; // "cog";
+    std::unordered_set<std::string> dict {"peale","wilts","place","fetch","purer","pooch","peace","poach","berra","teach","rheum","peach"}; // {"hot","dot","dog","lot","log"};
+    int result = search::ladderLength(start, end, dict);
+    printf("result:%d\n", result);
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -251,7 +277,10 @@ int main() {
     // test_clone_graph();
     // test_palidrome();
     // test_palidrome_min_cut();
-    test_surroundRegion();
+    // test_surroundRegion();
+    // test_sum_number_binary_tree();
+    // test_longest_consecutive();
+    test_ladder_length();
 
     return 0;
 }
