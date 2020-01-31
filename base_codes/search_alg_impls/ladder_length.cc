@@ -24,13 +24,10 @@ int search::ladderLength(std::string start, std::string end, std::unordered_set<
     while(!qu.empty()) {
         std::vector<std::string> curr_layer;
         depth++;
-        printf("depth:%d: ", depth);
         while(!qu.empty()){
-            printf("%s ", qu.front().c_str());
             curr_layer.push_back(qu.front());
             qu.pop();
         }
-        printf("\n");
         for (int curr_idx=0; curr_idx<curr_layer.size(); curr_idx++){
             std::string curr = curr_layer[curr_idx];
             if (is_one_diff(curr, end)) {
