@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include <set>
 #include <stack>
+#include <queue>
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 #include "search_algs.h"
@@ -255,11 +256,39 @@ void test_longest_consecutive() {
 }
 
 void test_ladder_length() {
-    std::string start = "teach"; // "hit";
-    std::string end = "place"; // "cog";
-    std::unordered_set<std::string> dict {"peale","wilts","place","fetch","purer","pooch","peace","poach","berra","teach","rheum","peach"}; // {"hot","dot","dog","lot","log"};
-    int result = search::ladderLength(start, end, dict);
-    printf("result:%d\n", result);
+    std::string start = "hit";
+    std::string end = "cog";
+    std::unordered_set<std::string> dict {"hot","dot","dog","lot","log"};
+    // std::string start = "teach";
+    // std::string end = "place";
+    // std::unordered_set<std::string> dict {"peale","wilts","place","fetch","purer","pooch","peace","poach","berra","teach","rheum","peach"};
+    // int result = search::ladderLength(start, end, dict);
+    // printf("result:%d\n", result);
+
+    std::vector<std::vector<std::string> > result = search::findLadders_V2(start, end, dict);
+    for(int i=0;i<result.size(); i++) {
+        for(int j=0; j<result[i].size(); j++) {
+            printf("%s ", result[i][j].c_str());
+        }
+        printf("\n");
+    }
+}
+
+void test_queue_vector() {
+    std::queue<std::vector<std::string> > qu;
+    std::vector<std::string*> str_vec(4);
+    std::string str1 = "str1";
+    std::string str2 = "str2";
+    printf("str1 add:%p, str2 add:%p\n", &str1, &str2);
+    str_vec.push_back(&str1);
+    printf("str_vec add:%p str_vec[size -1] add:%p, size:%lu\n", str_vec.front(), str_vec[str_vec.size()-1], str_vec.size());
+    printf("str_vec[size-1]:%s\n",(*(str_vec[str_vec.size()-1])).c_str());
+    // qu.push(str_vec);
+
+    str_vec.push_back(&str2);
+    printf("str_vec add:%p str_vec[size -1] add:%p, size:%lu\n", str_vec.front(), str_vec[str_vec.size()-1], str_vec.size());
+    printf("str_vec[size-1]:%s\n", (*(str_vec[str_vec.size()-1])).c_str());
+    // printf("%d\n", qu.front().size());
 }
 
 int main() {
@@ -280,7 +309,8 @@ int main() {
     // test_surroundRegion();
     // test_sum_number_binary_tree();
     // test_longest_consecutive();
-    test_ladder_length();
+    // test_ladder_length();
+    test_queue_vector();
 
     return 0;
 }
