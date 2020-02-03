@@ -1,6 +1,19 @@
 #include <iostream>
-
+#include<string>
+#include<cstdio>
+#include<cstdlib>
 using namespace std;
+
+void print_data(float* arr, int width, int length, string flag) {
+    int count=8;
+    printf("%s :\n", flag.c_str());
+    for (int i=0; i<count; i++) {
+        for(int j=0; j<count; j++) {
+            printf("%.3lf ", arr[i*length +i]);
+        }
+        printf("\n");
+    }
+}
 
 void fillMat(float *mat, size_t rows, size_t cols)
 {
@@ -42,6 +55,10 @@ void testMatrixMul()
     fillMat(mat2, WIDTH, WIDTH);
 
     matrixMul<WIDTH>(mat3, mat1, mat2);
+
+    print_data(mat1, WIDTH, WIDTH, "mat1");
+    print_data(mat2, WIDTH, WIDTH, "mat2");
+    print_data(mat3, WIDTH, WIDTH, "mat3");
 
     free(mat1);
     free(mat2);
