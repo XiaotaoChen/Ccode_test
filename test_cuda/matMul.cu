@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <string>
 #include<cuda_runtime.h>
+#include<sys/time.h>
+#include<vector>
 
 using namespace std;
 
@@ -13,6 +15,14 @@ void print_data(float* arr, int width, int length, string flag) {
         }
         printf("\n");
     }
+}
+
+float average(const vector<float> &timing) {
+  double avg = 0;
+  for(vector<float>::const_iterator it = timing.begin(); it != timing.end(); it++) avg += *it;
+  avg /= timing.size();
+
+  return avg;
 }
 
 void fillMat(float *mat, size_t rows, size_t cols)
@@ -33,9 +43,37 @@ __global__ void matrixMulCUDA(float *C, float *A, float*B, int wA, int wB) {
     
     float tmp = 0.0f;
     for (int i=0; i<wA; i++) {
-        tmp += A[x * wA + i] * A[i * wB + y];
+        tmp += A[y * wA + i] * A[i * wB + x];
     }
-    C[x * wB + y] = tmp;
+    C[y * wB + x] = tmp;
+}
+
+template <int BLOCK_SIZE>
+__global__ void matrixMulCUDA_share(float *C, float *A, float *B, int wA, int wB) {
+    int bx = blockIdx.x;
+    int by = blockIdx.y;
+    int tx = threadIdx.x;
+    int ty = threadIdx.y;
+
+    int aBegin = by * wA;
+    int aEnd = aBegin + wA -1;
+    int aStep = BLOCK_SIZE;
+    int bBegin = bx * BLOCK_SIZE;
+    int bStep = wB * BLOCK_SIZE;
+
+    float cSub = 0;
+    __shared__ float subA[BLOCK_SIZE][BLOCK_SIZE];
+    __shared__ float subB[BLOCK_SIZE][BLOCK_SIZE];
+    for (int a = aBegin, b = bBegin; a < aEnd; a+=aStep, b+=bStep) {
+        subA[ty][tx] = A[a + ty * wA + tx];
+        subB[ty][tx] = B[b + ty * wB + tx];
+        __syncthreads();
+        for (int i=0; i<BLOCK_SIZE; i++) {
+            cSub += subA[ty][i] * subB[i][tx];
+        }
+        __syncthreads();
+    }
+    C[((by*BLOCK_SIZE+ty)*wB + bx*BLOCK_SIZE+tx)] = cSub;
 }
 
 template<int WIDTH>
@@ -74,14 +112,35 @@ void testMatrixMul()
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
-    cudaEventRecord(start);
+    cudaEventRecord(start, NULL);
 
-    matrixMulCUDA<<<grid, threads>>>(d_mat3, d_mat1, d_mat2, WIDTH, WIDTH);
+    vector<float> times;
+    int loops = 3;
+    for (int i=0;i<loops; i++) {
+        cudaEventRecord(start, NULL);
+        matrixMulCUDA<<<grid, threads>>>(d_mat3, d_mat1, d_mat2, WIDTH, WIDTH);
+        // if (block_size ==16) {
+        //     matrixMulCUDA_share<16><<<grid, threads>>>(d_mat3, d_mat1, d_mat2, WIDTH, WIDTH);
+        // }
+        // else{
+        //     matrixMulCUDA_share<32><<<grid, threads>>>(d_mat3, d_mat1, d_mat2, WIDTH, WIDTH);
+        // }
+        
+        cudaEventRecord(stop, NULL);
+        cudaEventSynchronize(stop);
+        float time = 0;
+        cudaEventElapsedTime(&time, start, stop);
+        times.push_back(time);
+    }
+    float avg_time = average(times);
+    printf("cuda %d time: %lf ms\n", WIDTH, avg_time);
+    
 
-    cudaEventRecord(stop);
-    float time = 0;
-    cudaEventElapsedTime(&time, start, stop);
-    printf("run time:%.lf ms\n", time);
+    // cudaEventRecord(stop, NULL);
+    // cudaEventSynchronize(stop);
+    // float time = 0;
+    // cudaEventElapsedTime(&time, start, stop);
+    // printf("run time:%.lf ms\n", time/loops);
 
     error = cudaMemcpy(mat3, d_mat3, mem_size, cudaMemcpyDeviceToHost);
 
@@ -102,7 +161,7 @@ int main(int argc, char const *argv[])
     // testMatrixMul<256 >();
     // testMatrixMul<512 >();
     // testMatrixMul<768 >();
-    testMatrixMul<1024>();
+    testMatrixMul<2048>();
     // testMatrixMul<1280>();
     // testMatrixMul<1536>();
     // testMatrixMul<1792>();
