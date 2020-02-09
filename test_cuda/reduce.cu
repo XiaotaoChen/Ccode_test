@@ -137,6 +137,17 @@ __device__ void warpFunc(volatile int* sdata, int tid) {
     sdata[tid] += sdata[tid+2];
     sdata[tid] += sdata[tid+1];
 }
+
+template <unsigned int blockSize>
+__device__ void warpReduce(volatile int *sdata, int tid) {
+    if (blockSize >=64) sdata[tid] += sdata[tid+32];
+    if (blockSize >=32) sdata[tid] += sdata[tid+16];
+    if (blockSize >=16) sdata[tid] += sdata[tid+8];
+    if (blockSize >=8) sdata[tid] += sdata[tid+4];
+    if (blockSize >=4) sdata[tid] += sdata[tid+2];
+    if (blockSize >=2) sdata[tid] += sdata[tid+1];
+}
+
 // time: 8.0 ms
 __global__ void reduce_kernel5(int *A, int *out, int len_a) {
     int idx = blockDim.x * (blockIdx.x * 2) + threadIdx.x;
@@ -155,6 +166,14 @@ __global__ void reduce_kernel5(int *A, int *out, int len_a) {
         __syncthreads();
     }
     if (tid<32) warpFunc(sA, tid);
+    // if (tid<32) {
+    //     sA[tid] += sA[tid+32]; __syncthreads();
+    //     sA[tid] += sA[tid+16]; __syncthreads();
+    //     sA[tid] += sA[tid+8]; __syncthreads();
+    //     sA[tid] += sA[tid+4]; __syncthreads();
+    //     sA[tid] += sA[tid+2]; __syncthreads();
+    //     sA[tid] += sA[tid+1]; __syncthreads();
+    // }
     if (tid==0) out[bid] = sA[0];
 }
 
@@ -186,17 +205,8 @@ __global__ void reduce_kernel6(int *A, int *out, int len_a) {
     if (tid==0) out[bid] = sA[0];
 }
 
-template <unsigned int blockSize>
-__device__ void warpReduce(volatile int *sdata, int tid) {
-    if (blockSize >=64) sdata[tid] += sdata[tid+32];
-    if (blockSize >=32) sdata[tid] += sdata[tid+16];
-    if (blockSize >=16) sdata[tid] += sdata[tid+8];
-    if (blockSize >=8) sdata[tid] += sdata[tid+4];
-    if (blockSize >=4) sdata[tid] += sdata[tid+2];
-    if (blockSize >=2) sdata[tid] += sdata[tid+1];
-}
-
 // load as much as data
+template<unsigned int blockSize>
 __global__ void reduce_kernel7(int *A, int *out, int len_a) {
     int idx = blockDim.x * blockIdx.x + threadIdx.x;
     int bid = blockIdx.x;
@@ -206,7 +216,7 @@ __global__ void reduce_kernel7(int *A, int *out, int len_a) {
     sA[tid] = 0;
     int tmp_id = idx;
     while(tmp_id <len_a) {
-        if (tmp_id < len_a) sA[tid] = A[tmp_id];
+        if (tmp_id < len_a) sA[tid] += A[tmp_id];
         tmp_id += griz;
     }
     __syncthreads();
@@ -214,7 +224,8 @@ __global__ void reduce_kernel7(int *A, int *out, int len_a) {
     if (blockDim.x >= 512) { if (tid < 256) sA[tid] += sA[tid+256]; __syncthreads();}
     if (blockDim.x >= 256) { if (tid < 128) sA[tid] += sA[tid+128]; __syncthreads();}
     if (blockDim.x >= 128) { if (tid < 64) sA[tid] += sA[tid+64]; __syncthreads();}
-    if (tid<32) warpFunc(sA, tid);
+    // if (tid<32) warpFunc(sA, tid);
+    if (tid<32) warpReduce<blockSize>(sA, tid);
     if (tid==0) out[bid] = sA[0];
 }
 
@@ -255,11 +266,11 @@ int reduce_2(int*A, int len_a, int numThreads){
         // reduce_kernel4<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
         // // time:10.78 ms
 
-        // reduce_kernel5<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
-        // // time: 8.0 ms
+        reduce_kernel5<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
+        // time: 8.0 ms
 
-        reduce_kernel6<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
-        // time: 8.03 ms
+        // reduce_kernel6<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
+        // // time: 8.03 ms
 
         len_a = numBlocks;
         numBlocks = (numBlocks+numThreads*2-1)/numThreads/2;
@@ -274,16 +285,17 @@ int reduce_2(int*A, int len_a, int numThreads){
 int reduce_3(int*A, int len_a, int numThreads){
     // int count_per_threads = 2;
     // int count_per_blocks = 2;
-    int numBlocks = (len_a + numThreads*8 -1) / numThreads/8;
+    int count_per_threads = 16;
+    int numBlocks = (len_a + numThreads*count_per_threads -1) / numThreads/count_per_threads;
     int*tmp;
     cudaMalloc((void**)&tmp, numBlocks*sizeof(int));
     while(len_a>1) {
         printf("len:%d, numBlocks:%d, numThreads:%d\n", len_a, numBlocks, numThreads);
-        reduce_kernel7<<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
+        reduce_kernel7<256><<<numBlocks, numThreads, numThreads*sizeof(int)>>>(A, tmp, len_a);
         // time:  ms
 
         len_a = numBlocks;
-        numBlocks = (numBlocks+numThreads*8-1)/numThreads/8;
+        numBlocks = (numBlocks+numThreads*count_per_threads-1)/numThreads/count_per_threads;
         cudaMemcpy(A, tmp, sizeof(int) * len_a, cudaMemcpyDeviceToDevice);
         // print_device_info(tmp, len_a, "tmp");
     }
@@ -328,6 +340,7 @@ int main() {
 
         // int result = reduce(d_A, len_a, numThreads);
         int result = reduce_2(d_A, len_a, numThreads);
+        // int result = reduce_3(d_A, len_a, numThreads);
         printf("result:%d\n", result);
 
         cudaEventRecord(end, NULL);
