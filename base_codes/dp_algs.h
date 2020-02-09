@@ -5,7 +5,9 @@
 #include<unordered_set>
 
 namespace dp {
-
+    int minimumTotal(std::vector<std::vector<int> > &triangle);
+    std::vector<int> getRow(int rowIndex);
+    std::vector<std::vector<int> > generate(int numRows);
 
 } // namespace dp
 
