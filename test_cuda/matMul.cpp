@@ -1,6 +1,32 @@
 #include <iostream>
-
+#include<string>
+#include<cstdio>
+#include<cstdlib> // malloc
+#include<sys/time.h>
+#include<vector>
 using namespace std;
+
+void print_data(float* arr, int width, int length, string flag) {
+    int count=8;
+    printf("%s :\n", flag.c_str());
+    for (int i=0; i<count; i++) {
+        for(int j=0; j<count; j++) {
+            printf("%.3lf ", arr[i*length +i]);
+        }
+        printf("\n");
+    }
+}
+
+float average(const vector<double> &timing) {
+  double avg = 0;
+  for(vector<double>::const_iterator it = timing.begin(); it != timing.end(); it++) avg += *it;
+  avg /= timing.size();
+
+  //return us
+  avg /= 1000;
+
+  return avg;
+}
 
 void fillMat(float *mat, size_t rows, size_t cols)
 {
@@ -41,7 +67,27 @@ void testMatrixMul()
     fillMat(mat1, WIDTH, WIDTH);
     fillMat(mat2, WIDTH, WIDTH);
 
-    matrixMul<WIDTH>(mat3, mat1, mat2);
+    vector<double> times;
+    // struct timespec start, stop;
+    timespec start, stop;
+    int loops = 1;
+    for (int i=0; i<loops; i++) {
+        clock_gettime(CLOCK_REALTIME, &start);
+        matrixMul<WIDTH>(mat3, mat1, mat2);
+        clock_gettime(CLOCK_REALTIME, &stop);
+        double memset_time = (stop.tv_sec - start.tv_sec) * 1000000000 + (stop.tv_nsec -start.tv_nsec);
+        times.push_back(memset_time);
+    }
+    float avg_time = average(times);
+    printf("%d time: %lf ms\n", WIDTH, avg_time/1000);
+
+
+    
+
+
+    print_data(mat1, WIDTH, WIDTH, "mat1");
+    print_data(mat2, WIDTH, WIDTH, "mat2");
+    print_data(mat3, WIDTH, WIDTH, "mat3");
 
     free(mat1);
     free(mat2);
@@ -53,7 +99,7 @@ int main(int argc, char const *argv[])
     // testMatrixMul<256 >();
     // testMatrixMul<512 >();
     // testMatrixMul<768 >();
-    testMatrixMul<1024>();
+    testMatrixMul<2048>();
     // testMatrixMul<1280>();
     // testMatrixMul<1536>();
     // testMatrixMul<1792>();
