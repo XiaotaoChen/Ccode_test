@@ -5,6 +5,8 @@
 #include<unordered_set>
 #include<map>
 
+#include "data_structs/base_struct.h"
+
 namespace search {
 
 bool is_one_diff(const std::string& str1, const std::string& str2);
@@ -26,6 +28,19 @@ std::string keep_char_num(std::string str);
 
 // https://www.nowcoder.com/practice/b4dc0f1ee20448fca1f387fb1546f43f?tpId=46&tqId=29055&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
 bool isPalindrome(std::string s); 
+
+namespace binary_tree {
+    // https://www.nowcoder.com/practice/da785ea0f64b442488c125b441a4ba4a?tpId=46&tqId=29056&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
+    int maxPathSum(TreeNode *root);
+    int maxPathSum_dfs(TreeNode *root, int &result);
+}
+
+int maxProfit(std::vector<int> &prices);
+
+// https://www.nowcoder.com/practice/572903b1edbd4a33b2716f7649b4ffd4?tpId=46&tqId=29058&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
+int maxProfit_v2(std::vector<int> &prices);
+
+int maxProfit_v3(std::vector<int> &prices);
 
 } // namespace search
 

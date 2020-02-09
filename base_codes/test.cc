@@ -8,6 +8,7 @@
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 #include "search_algs.h"
+#include "dp_algs.h"
 using namespace std;
 
 void test_minmum_depth_binary_tree() {
@@ -290,6 +291,61 @@ void test_queue_vector() {
     printf("str_vec[size-1]:%s\n", (*(str_vec[str_vec.size()-1])).c_str());
     // printf("%d\n", qu.front().size());
 }
+void test_is_palindrome() {
+    std::string s = "A man, a plan, a canal: Panama";
+    bool result = search::isPalindrome(s);
+    printf("result:%d\n", result);
+}
+
+void test_maxPathSum() {
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    int result = search::binary_tree::maxPathSum(root);
+    printf("result:%d\n", result);
+}
+
+void test_maxprofix() {
+    int arr[] = {3,2,1,3,4,5,4,6,1,7};
+    std::vector<int> vec(arr, arr+10);
+    int result = search::maxProfit_v3(vec);
+    printf("result:%d\n", result);
+}
+
+void test_minimumTotal() {
+    std::vector<std::vector<int> > triangle;
+    int line1[]={2};
+    int line2[]={3,4};
+    int line3[]={6,5,7};
+    int line4[]={4,1,8,3};
+    std::vector<int> line1_v(line1, line1+1);
+    std::vector<int> line2_v(line2, line2+2);
+    std::vector<int> line3_v(line3, line3+3);
+    std::vector<int> line4_v(line4, line4+4);
+    triangle.push_back(line1_v);
+    triangle.push_back(line2_v);
+    triangle.push_back(line3_v);
+    triangle.push_back(line4_v);
+
+    int result = dp::minimumTotal(triangle);
+    printf("result:%d\n", result);
+}
+
+void test_pascal_row() {
+    // std::vector<int> result = dp::getRow(3);
+    // for (int i=0; i<result.size(); i++) {
+    //     printf("%d, ", result[i]);
+    // }
+    // printf("\n");
+
+    std::vector<std::vector<int> > result = dp::generate(3);
+    for (int i=0; i<result.size(); i++) {
+        for(int j=0; j<=i; j++) {
+            printf("%d ",result[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -310,7 +366,12 @@ int main() {
     // test_sum_number_binary_tree();
     // test_longest_consecutive();
     // test_ladder_length();
-    test_queue_vector();
+    // test_queue_vector();
+    // test_is_palindrome();
+    // test_maxPathSum();
+    // test_maxprofix();
+    // test_minimumTotal();
+    test_pascal_row();
 
     return 0;
 }
