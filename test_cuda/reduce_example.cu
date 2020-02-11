@@ -16,7 +16,7 @@ __global__ void reduce_kernel3(int*A, int*out, int len_a) {
     int idx = blockDim.x * blockIdx.x + threadIdx.x;
     int bid = blockIdx.x;
     int tid = threadIdx.x;
-    extern __shared__ int sA[];
+    extern __shared__ volatile int sA[];
     sA[tid] = 0;
     if (idx < len_a) sA[tid] = A[idx];
     __syncthreads();
@@ -34,7 +34,7 @@ __global__ void reduce_kernel3_2(int*A, int*out, int len_a) {
     int idx = blockDim.x * blockIdx.x + threadIdx.x;
     int bid = blockIdx.x;
     int tid = threadIdx.x;
-    extern __shared__ int sA[];
+    extern __shared__ volatile int sA[];
     sA[tid] = 0;
     if (idx < len_a) sA[tid] = A[idx];
     __syncthreads();
@@ -44,6 +44,7 @@ __global__ void reduce_kernel3_2(int*A, int*out, int len_a) {
         }
         __syncthreads();
     }
+    // only sA is volatile can do this
     if (tid<32) {
         sA[tid] += sA[tid+32];
         sA[tid] += sA[tid+16];
@@ -51,31 +52,6 @@ __global__ void reduce_kernel3_2(int*A, int*out, int len_a) {
         sA[tid] += sA[tid+4];
         sA[tid] += sA[tid+2];
         sA[tid] += sA[tid+1];
-    }
-    if (tid==0) out[bid] = sA[0];
-}
-
-__global__ void reduce_kernel3_3(int*A, int*out, int len_a) {
-    int idx = blockDim.x * blockIdx.x + threadIdx.x;
-    int bid = blockIdx.x;
-    int tid = threadIdx.x;
-    extern __shared__ int sA[];
-    sA[tid] = 0;
-    if (idx < len_a) sA[tid] = A[idx];
-    __syncthreads();
-    for (int s=blockDim.x/2; s>32; s>>=1) {
-        if(tid <s) {
-          sA[tid] += sA[tid+s];
-        }
-        __syncthreads();
-    }
-    if (tid<32) {
-        sA[tid] += sA[tid+32]; __syncthreads();
-        sA[tid] += sA[tid+16]; __syncthreads();
-        sA[tid] += sA[tid+8]; __syncthreads();
-        sA[tid] += sA[tid+4]; __syncthreads();
-        sA[tid] += sA[tid+2]; __syncthreads();
-        sA[tid] += sA[tid+1]; __syncthreads();
     }
     if (tid==0) out[bid] = sA[0];
 }

@@ -166,14 +166,6 @@ __global__ void reduce_kernel5(int *A, int *out, int len_a) {
         __syncthreads();
     }
     if (tid<32) warpFunc(sA, tid);
-    // if (tid<32) {
-    //     sA[tid] += sA[tid+32]; __syncthreads();
-    //     sA[tid] += sA[tid+16]; __syncthreads();
-    //     sA[tid] += sA[tid+8]; __syncthreads();
-    //     sA[tid] += sA[tid+4]; __syncthreads();
-    //     sA[tid] += sA[tid+2]; __syncthreads();
-    //     sA[tid] += sA[tid+1]; __syncthreads();
-    // }
     if (tid==0) out[bid] = sA[0];
 }
 
@@ -194,14 +186,6 @@ __global__ void reduce_kernel6(int *A, int *out, int len_a) {
     if (blockDim.x >= 256) { if (tid < 128) sA[tid] += sA[tid+128]; __syncthreads();}
     if (blockDim.x >= 128) { if (tid < 64) sA[tid] += sA[tid+64]; __syncthreads();}
     if (tid<32) warpFunc(sA, tid);
-    // if (tid<32) {
-    //     sA[tid]+= sA[tid+32];
-    //     sA[tid]+= sA[tid+16];
-    //     sA[tid]+= sA[tid+8];
-    //     sA[tid]+= sA[tid+4];
-    //     sA[tid]+= sA[tid+2];
-    //     sA[tid]+= sA[tid+1];
-    // }
     if (tid==0) out[bid] = sA[0];
 }
 
