@@ -5,10 +5,13 @@
 #include <set>
 #include <stack>
 #include <queue>
+#include <cstdlib> // rand, qsort
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 #include "search_algs.h"
 #include "dp_algs.h"
+#include "sorts.h"
+#include "utils.h"
 using namespace std;
 
 void test_minmum_depth_binary_tree() {
@@ -404,6 +407,34 @@ void test_haspathsum() {
     }
 }
 
+void test_qsort() {
+    // int a[] = {6, 2, 1, 3, 5, 4};
+    int len = 2;
+    int a[len];
+    int b[len];
+    // int a[] = {3, 6, 7, 5, 3, 5, 6, 2, 9, 1};
+    for (int i=0; i<len; i++) {
+        a[i] = std::rand() % len;
+        b[i] = a[i];
+    }
+    for (int i=0; i<len; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+
+    std::qsort(b, len, sizeof(int), utils::compare);
+    for(int i=0; i<len; i++) {
+        printf("%d ", b[i]);
+    }
+    printf("\n");
+
+    sort::qsort(a, 0, len -1);
+    for (int i=0; i<len; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -431,7 +462,8 @@ int main() {
     // test_pascal_row();
     // test_populating_next_right_pointer();
     // test_min_distance_of_string();
-    test_haspathsum();
+    // test_haspathsum();
+    test_qsort();
 
     return 0;
 }
