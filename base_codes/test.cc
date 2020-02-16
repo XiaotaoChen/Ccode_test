@@ -435,6 +435,20 @@ void test_qsort() {
     printf("\n");
 }
 
+void test_add_two_numbers() {
+    ListNode* l1 = new ListNode(9);
+    l1->next = new ListNode(8);
+    // l1->next->next = new ListNode(3);
+    ListNode *l2 = new ListNode(1);
+    // l2->next = new ListNode(6);
+    // l2->next->next = new ListNode(4);
+    ListNode *result = search::addTwoNumbers_v2(l1, l2);
+    while(result != nullptr) {
+        printf("%d ", result->val);
+        result = result->next;
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -463,7 +477,8 @@ int main() {
     // test_populating_next_right_pointer();
     // test_min_distance_of_string();
     // test_haspathsum();
-    test_qsort();
+    // test_qsort();
+    test_add_two_numbers();
 
     return 0;
 }

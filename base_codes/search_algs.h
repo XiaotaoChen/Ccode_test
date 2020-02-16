@@ -54,6 +54,12 @@ std::vector<std::vector<int>>  pathSum_bfs(TreeNode *root, int sum);
 
 void pathSum_aux(TreeNode *root, int res,  std::vector<int> v, std::vector<std::vector<int>> &results);
 
+// https://leetcode-cn.com/problems/add-two-numbers/
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
+
+ListNode* addTwoNumbers_v2(ListNode* l1, ListNode* l2);
+
+
 } // namespace search
 
 #endif // SEARCH_ALG_
