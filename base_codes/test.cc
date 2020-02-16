@@ -347,6 +347,63 @@ void test_pascal_row() {
     }
 }
 
+void test_populating_next_right_pointer() {
+    TreeLinkNode* root = new TreeLinkNode(1);
+    root->left = new TreeLinkNode(2);
+    root->right = new TreeLinkNode(3);
+    // root->left->left = new TreeLinkNode(4);
+    root->left->right = new TreeLinkNode(5);
+    // root->right->left = new TreeLinkNode(6);
+    // root->right->right = new TreeLinkNode(7);
+    search::populating_next_right_pointers_in_each_node(root);
+
+    TreeLinkNode* curr_left=root;
+    while(curr_left != nullptr) {
+        TreeLinkNode* curr = curr_left;
+        while(curr != nullptr) {
+            printf("%d ", curr->val);
+            curr = curr->next;
+        }
+        printf("\n");
+        curr_left = curr_left->left;
+    }
+
+    delete root->right->right;
+    delete root->right->left;
+    delete root->left->right;
+    delete root->left->left;
+    delete root->left;
+    delete root->right;
+    delete root;
+}
+
+void test_min_distance_of_string() {
+    std::string S = "rabbbit"; // ""rabbbit";
+    std::string T = "rabbit"; // "rabbit";
+    int result = dp::min_distance_of_str(S, T);
+    printf("result:%d\n", result);
+}
+
+void test_haspathsum() {
+    TreeNode* root = new TreeNode(-2);
+    root->left = new TreeNode(-3);
+    // root->right = new TreeNode(1);
+    // root->left->right = new TreeNode(11);
+    // root->right->left = new TreeNode(13);
+    // root->right->right = new TreeNode(4);
+    int sum = -5;
+    bool result = search::hasPathSum(root, sum);
+    printf("result:%d\n", result);
+    std::vector<std::vector<int>> results = search::pathSum(root, sum);
+    // std::vector<std::vector<int>> results = search::pathSum_bfs(root, sum);
+    for (int i=0; i< results.size(); i++) {
+        for(int j=0; j<results[i].size(); j++) {
+            printf("%d ", results[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -371,7 +428,10 @@ int main() {
     // test_maxPathSum();
     // test_maxprofix();
     // test_minimumTotal();
-    test_pascal_row();
+    // test_pascal_row();
+    // test_populating_next_right_pointer();
+    // test_min_distance_of_string();
+    test_haspathsum();
 
     return 0;
 }

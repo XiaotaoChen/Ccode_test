@@ -1,3 +1,4 @@
+#include<algorithm> // std::transform
 #include "../search_algs.h"
 
 bool search::is_char_num(char ch) {

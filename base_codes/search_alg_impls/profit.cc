@@ -1,6 +1,7 @@
 #include<cstdio>
 #include<vector>
 #include<algorithm> // minmax_element
+#include<climits> // INT_MIN
 
 
 #include "../search_algs.h"

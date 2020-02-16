@@ -42,6 +42,18 @@ int maxProfit_v2(std::vector<int> &prices);
 
 int maxProfit_v3(std::vector<int> &prices);
 
+// https://www.nowcoder.com/practice/fdbd05d647084fcf9be78444e231998b
+void populating_next_right_pointers_in_each_node(TreeLinkNode *root);
+
+// https://www.nowcoder.com/practice/508378c0823c423baa723ce448cbfd0c?tpId=46&tqId=29067&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
+bool hasPathSum(TreeNode* root, int sum);
+
+std::vector<std::vector<int>> pathSum(TreeNode *root, int sum);
+
+std::vector<std::vector<int>>  pathSum_bfs(TreeNode *root, int sum);
+
+void pathSum_aux(TreeNode *root, int res,  std::vector<int> v, std::vector<std::vector<int>> &results);
+
 } // namespace search
 
 #endif // SEARCH_ALG_

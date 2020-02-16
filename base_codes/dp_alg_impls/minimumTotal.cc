@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <climits> // INT_MAX
 #include "../dp_algs.h"
 
 int dp::minimumTotal(std::vector<std::vector<int> > &triangle) {
