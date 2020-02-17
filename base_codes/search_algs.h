@@ -60,6 +60,15 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2);
 ListNode* addTwoNumbers_v2(ListNode* l1, ListNode* l2);
 
 
+// https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+int lengthOfLongestSubstring(std::string s);
+
+int is_include(std::string s, int left, int right, char ch);
+
+// https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
+double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2);
+
+
 } // namespace search
 
 #endif // SEARCH_ALG_

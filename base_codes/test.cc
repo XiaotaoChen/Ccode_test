@@ -449,6 +449,20 @@ void test_add_two_numbers() {
     }
 }
 
+void test_length_of_substr() {
+    std::string s = "pwwkew";
+    int result = search::lengthOfLongestSubstring(s);
+    printf("result:%d\n", result);
+}
+
+void test_find_mid_num() {
+    std::vector<int> a={1, 3};
+    std::vector<int> b={2};
+    double result = search::findMedianSortedArrays(a, b);
+    printf("result:%f \n", result);
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -478,7 +492,9 @@ int main() {
     // test_min_distance_of_string();
     // test_haspathsum();
     // test_qsort();
-    test_add_two_numbers();
+    // test_add_two_numbers();
+    // test_length_of_substr();
+    test_find_mid_num();
 
     return 0;
 }
