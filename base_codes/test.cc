@@ -458,8 +458,23 @@ void test_length_of_substr() {
 void test_find_mid_num() {
     std::vector<int> a={1, 3};
     std::vector<int> b={2};
-    double result = search::findMedianSortedArrays(a, b);
+    // double result = search::findMedianSortedArrays(a, b);
+    double result = search::findMedianSortedArrays_v2(a, b);
     printf("result:%f \n", result);
+}
+
+void test_length_palindrome() {
+    std::string str = "babad";
+    // std::string result = search::longestPalindrome(str);
+    std::string result = dp::longestPalindrome_v2(str);
+    printf("result: %s\n", result.c_str());
+}
+
+void test_z_convert() {
+    std::string str = "LEETCODEISHIRING";
+    int rows = 4;
+    std::string result = search::z_convert(str, rows);
+    printf("result:%s\n", result.c_str());
 }
 
 
@@ -494,7 +509,9 @@ int main() {
     // test_qsort();
     // test_add_two_numbers();
     // test_length_of_substr();
-    test_find_mid_num();
+    // test_find_mid_num();
+    // test_length_palindrome();
+    test_z_convert();
 
     return 0;
 }

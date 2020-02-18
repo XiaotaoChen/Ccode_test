@@ -68,6 +68,16 @@ int is_include(std::string s, int left, int right, char ch);
 // https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
 double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2);
 
+double findMedianSortedArrays_v2(std::vector<int>& nums1, std::vector<int>& nums2);
+
+int mid_val_k(std::vector<int>& nums1, int low1, std::vector<int>& nums2, int low2, int k);
+
+// https://leetcode-cn.com/problems/longest-palindromic-substring/
+std::string longestPalindrome(std::string s);
+
+
+// https://leetcode-cn.com/problems/zigzag-conversion/
+std::string z_convert(std::string s, int numRows);
 
 } // namespace search
 

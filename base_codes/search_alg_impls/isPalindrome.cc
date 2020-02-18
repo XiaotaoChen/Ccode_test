@@ -21,3 +21,19 @@ bool search::isPalindrome(std::string s) {
     std::string filted_str = keep_char_num(s);
     return filted_str == std::string(filted_str.rbegin(), filted_str.rend());
 }
+
+std::string search::longestPalindrome(std::string s) {
+    if (s.length()<=1) return s;
+    int p_len = 0;
+    std::string curr_p;
+    for (int i=1; i<=s.length(); i++) {
+        for(int j=0; j< i - p_len; j++) {
+            if (isPalindrome(s.substr(j, i -j))) {
+                curr_p = s.substr(j, i -j);
+                p_len = curr_p.length();
+                break;
+            }
+        }
+    }
+    return curr_p;
+}

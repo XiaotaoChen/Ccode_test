@@ -12,6 +12,10 @@ namespace dp {
 
     //https://www.nowcoder.com/practice/ed2923e49d3d495f8321aa46ade9f873?tpId=46&tqId=29065&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
     int min_distance_of_str(std::string S, std::string T);
+
+// https://leetcode-cn.com/problems/longest-palindromic-substring/
+std::string longestPalindrome_v2(std::string s);
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_
