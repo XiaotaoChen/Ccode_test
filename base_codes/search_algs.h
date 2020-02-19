@@ -79,6 +79,12 @@ std::string longestPalindrome(std::string s);
 // https://leetcode-cn.com/problems/zigzag-conversion/
 std::string z_convert(std::string s, int numRows);
 
+// https://leetcode-cn.com/problems/string-to-integer-atoi/
+int myAtoi(std::string str);
+
+std::string valid_string(std::string str);
+
+
 } // namespace search
 
 #endif // SEARCH_ALG_

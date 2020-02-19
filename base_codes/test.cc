@@ -477,6 +477,12 @@ void test_z_convert() {
     printf("result:%s\n", result.c_str());
 }
 
+void test_my_atoi() {
+    std::string str= "-2147483647";
+    int result = search::myAtoi(str);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -511,7 +517,8 @@ int main() {
     // test_length_of_substr();
     // test_find_mid_num();
     // test_length_palindrome();
-    test_z_convert();
+    // test_z_convert();
+    test_my_atoi();
 
     return 0;
 }
