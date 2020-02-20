@@ -483,6 +483,13 @@ void test_my_atoi() {
     printf("result:%d\n", result);
 }
 
+void test_regular_match() {
+    std::string s= "a";
+    std::string p = "a*";
+    bool result = dp::regular_match(s, p);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -518,7 +525,8 @@ int main() {
     // test_find_mid_num();
     // test_length_palindrome();
     // test_z_convert();
-    test_my_atoi();
+    // test_my_atoi();
+    test_regular_match();
 
     return 0;
 }

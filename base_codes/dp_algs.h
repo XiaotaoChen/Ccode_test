@@ -16,6 +16,10 @@ namespace dp {
 // https://leetcode-cn.com/problems/longest-palindromic-substring/
 std::string longestPalindrome_v2(std::string s);
 
+// https://leetcode-cn.com/problems/regular-expression-matching/
+bool regular_match(std::string s, std::string p);
+bool isLegal(char normal, char match);
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_
