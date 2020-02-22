@@ -84,6 +84,14 @@ int myAtoi(std::string str);
 
 std::string valid_string(std::string str);
 
+// https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+int largestRectangleArea(std::vector<int>& heights);
+
+// https://leetcode-cn.com/problems/container-with-most-water/
+int maxArea(std::vector<int>& height);
+int get_max_area(std::vector<int>& heights, std::vector<int>& idxs, int curr_idx);
+
+int maxArea_v2(std::vector<int>& height);
 
 } // namespace search
 

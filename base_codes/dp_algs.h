@@ -20,6 +20,10 @@ std::string longestPalindrome_v2(std::string s);
 bool regular_match(std::string s, std::string p);
 bool isLegal(char normal, char match);
 
+// https://leetcode-cn.com/problems/maximal-square/comments/
+int maximalSquare(std::vector<std::vector<char>>& matrix);
+
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_

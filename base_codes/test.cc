@@ -490,6 +490,28 @@ void test_regular_match() {
     printf("result:%d\n", result);
 }
 
+void test_largest_rectangle_area() {
+    std::vector<int> arr = {4, 1000, 1000, 1000, 1000};  // {7, 2, 1, 4, 5, 1, 3, 3}; // {3, 1, 6, 5, 2, 3}; // {2,1,5,6,2,3};
+    int result = search::largestRectangleArea(arr);
+    printf("result:%d\n", result);
+}
+
+void test_maximal_square() {
+    std::vector<std::vector<char>> matrix = {{'1', '0', '1', '0', '0'},
+                                             {'1', '0', '1', '1', '1'},
+                                             {'1', '1', '1', '1', '1'},
+                                             {'1', '0', '0', '1', '0'}};
+    int result = dp::maximalSquare(matrix);
+    printf("result:%d\n", result);
+}
+
+void test_max_area_in_water_tank() {
+    std::vector<int> arr= {1,8,6,2,5,4,8,3,7}; //{1,2,4,3}; // {1,2}; // {1,8,6,2,5,4,8,3,7};
+    // int result = search::maxArea(arr);
+    int result = search::maxArea_v2(arr);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -526,7 +548,10 @@ int main() {
     // test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
-    test_regular_match();
+    // test_regular_match();
+    // test_largest_rectangle_area();
+    // test_maximal_square();
+    test_max_area_in_water_tank();
 
     return 0;
 }
