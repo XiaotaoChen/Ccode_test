@@ -93,6 +93,23 @@ int get_max_area(std::vector<int>& heights, std::vector<int>& idxs, int curr_idx
 
 int maxArea_v2(std::vector<int>& height);
 
+// https://leetcode-cn.com/problems/integer-to-roman/
+std::string intToRoman(int num);
+std::string intToRoman_v2(int num);
+
+// https://leetcode-cn.com/problems/subtree-of-another-tree/
+bool isSubtree(TreeNode* s, TreeNode* t);
+bool isSametree(TreeNode* s, TreeNode* t);
+
+// https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
+bool canReach(TreeNode* root, TreeNode* node);
+TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q);
+
+// https://leetcode-cn.com/problems/most-frequent-subtree-sum/
+std::vector<int> findFrequentTreeSum(TreeNode* root);
+int treeSum(TreeNode* root, std::map<int, int>& freq, int& max_freq, std::vector<int>& max_freq_sum);
+
 } // namespace search
 
 #endif // SEARCH_ALG_

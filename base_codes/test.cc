@@ -512,6 +512,58 @@ void test_max_area_in_water_tank() {
     printf("result:%d\n", result);
 }
 
+void test_int_to_map() {
+    std::string result = search::intToRoman_v2(1994);
+    
+    printf("result:%s\n", result.c_str());
+}
+
+void test_is_subtree() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(4);
+    root->right = new TreeNode(5);
+    root->left->left = new TreeNode(1);
+    root->right->left = new TreeNode(2);
+    // root->left->left = new TreeNode(0);
+    TreeNode* sub = new TreeNode(3);
+    sub->left = new TreeNode(1);
+    sub->right = new TreeNode(2);
+    bool result = search::isSubtree(root, sub);
+    printf("result:%d\n", result);
+}
+
+void test_is_lowest_ancestor() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(5);
+    root->right = new TreeNode(1);
+    root->left->left = new TreeNode(6);
+    root->left->right = new TreeNode(2);
+    root->left->right->left = new TreeNode(7);
+    root->left->right->right = new TreeNode(4);
+    root->right->left = new TreeNode(0);
+    root->right->right = new TreeNode(8);
+    TreeNode* p = root->left;
+    TreeNode* q = root->left->right->right;
+    TreeNode* result = search::lowestCommonAncestor2(root, p, q);
+    printf("result:%lf\n", result->val);
+}
+
+void test_requent_tree_sum() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(-5);
+    // root->left->left = new TreeNode(6);
+    // root->left->right = new TreeNode(2);
+    // root->left->right->left = new TreeNode(7);
+    // root->left->right->right = new TreeNode(4);
+    // root->right->left = new TreeNode(0);
+    // root->right->right = new TreeNode(8);
+    std::vector<int> result = search::findFrequentTreeSum(root);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -551,7 +603,11 @@ int main() {
     // test_regular_match();
     // test_largest_rectangle_area();
     // test_maximal_square();
-    test_max_area_in_water_tank();
+    // test_max_area_in_water_tank();
+    // test_int_to_map();
+    // test_is_subtree();
+    // test_is_lowest_ancestor();
+    test_requent_tree_sum();
 
     return 0;
 }
