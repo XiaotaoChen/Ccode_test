@@ -565,6 +565,32 @@ void test_requent_tree_sum() {
     printf("\n");
 }
 
+void test_simple_path() {
+    std::string path = "/a//b////c/d//././/.."; //"/a/../../b/../c//.//"; // "/a/./b/../../c/"; // "/home//foo/"; // "/../"; // "/home/";
+    std::string result = search::simplifyPath(path);
+    printf("result:%s\n", result.c_str());
+}
+
+void test_reverse_between() {
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    ListNode* result = search::reverseBetween(head, 2, 2);
+    while(result!=nullptr) {
+        printf("%d ", result->val);
+        result = result->next;
+    }
+    printf("\n");
+}
+
+void test_juge_point24() {
+    std::vector<int> nums = {1, 2, 1, 2}; // {4, 1, 8, 7};
+    bool result = search::judgePoint24(nums);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -607,7 +633,11 @@ int main() {
     // test_int_to_map();
     // test_is_subtree();
     // test_is_lowest_ancestor();
-    test_requent_tree_sum();
+    // test_requent_tree_sum();
+    // test_simple_path();
+    // test_reverse_between();
+
+    test_juge_point24();
 
     return 0;
 }

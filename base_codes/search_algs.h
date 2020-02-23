@@ -110,6 +110,17 @@ TreeNode* lowestCommonAncestor2(TreeNode* root, TreeNode* p, TreeNode* q);
 std::vector<int> findFrequentTreeSum(TreeNode* root);
 int treeSum(TreeNode* root, std::map<int, int>& freq, int& max_freq, std::vector<int>& max_freq_sum);
 
+// https://leetcode-cn.com/problems/simplify-path/
+std::string simplifyPath(std::string path);
+std::vector<std::string> splitstr(std::string path);
+
+ListNode* reverseBetween(ListNode* head, int m, int n);
+
+
+// https://leetcode-cn.com/problems/24-game/
+bool judgePoint24(std::vector<int>& nums);
+double calculate(double a , double b, char type);
+
 } // namespace search
 
 #endif // SEARCH_ALG_
