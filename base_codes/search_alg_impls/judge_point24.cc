@@ -76,3 +76,33 @@ bool search::judgePoint24(std::vector<int>& nums) {
     }
     return false;
 }
+
+bool search::judgePoint24_v2(std::vector<double>& nums, char* op_types) {
+    if (nums.size() == 1) {
+        if (nums[0] - 24 > -1e-10 && nums[0] - 24 < 1e-10) return true;
+        return false;
+    }
+
+    for (int i=0; i< nums.size()-1; i++) {
+        for (int j=i+1; j<nums.size(); j++) {
+            std::vector<double> tmp;
+            for(int k=0; k<nums.size(); k++) {
+                if (k != i && k!=j) tmp.push_back(nums[k]);
+            }
+            for (int op_idx = 0; op_idx < 4; op_idx++) {
+                tmp.push_back(calculate(nums[i], nums[j], op_types[op_idx]));
+                bool flag = judgePoint24_v2(tmp, op_types);
+                if (flag){
+                    return true;
+                }
+                tmp.pop_back();
+                if (op_types[op_idx] == '/' || op_types[op_idx] == '-') {
+                    tmp.push_back(calculate(nums[j], nums[i], op_types[op_idx]));
+                    if (judgePoint24_v2(tmp, op_types)) return true;
+                    tmp.pop_back();
+                }
+            }
+        }
+    }
+    return false; 
+}

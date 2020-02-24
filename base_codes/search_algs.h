@@ -121,6 +121,8 @@ ListNode* reverseBetween(ListNode* head, int m, int n);
 bool judgePoint24(std::vector<int>& nums);
 double calculate(double a , double b, char type);
 
+bool judgePoint24_v2(std::vector<double>& nums, char* op_types);
+
 // https://leetcode-cn.com/problems/spiral-matrix/
 std::vector<int> spiralOrder(std::vector<std::vector<int>>& matrix);
 
