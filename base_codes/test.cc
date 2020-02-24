@@ -591,6 +591,25 @@ void test_juge_point24() {
     printf("result:%d\n", result);
 }
 
+void test_spiral_order() {
+    std::vector<std::vector<int>> matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}}; // {{1,2,3}, {4,5,6}, {7,8,9}};
+    std::vector<int> result = search::spiralOrder(matrix);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}  
+
+void test_generate_matrix(){
+    std::vector<std::vector<int>> result = search::generateMatrix(3);
+    for (int i=0; i< result.size(); i++) {
+        for (int j=0; j<result[0].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -636,8 +655,9 @@ int main() {
     // test_requent_tree_sum();
     // test_simple_path();
     // test_reverse_between();
-
-    test_juge_point24();
+    // test_juge_point24();
+    // test_spiral_order();
+    test_generate_matrix();
 
     return 0;
 }
