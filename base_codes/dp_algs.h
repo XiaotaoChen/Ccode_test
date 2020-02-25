@@ -24,6 +24,9 @@ bool isLegal(char normal, char match);
 int maximalSquare(std::vector<std::vector<char>>& matrix);
 
 
+// https://leetcode-cn.com/problems/minimum-cost-tree-from-leaf-values/
+int mctFromLeafValues(std::vector<int>& arr);
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_

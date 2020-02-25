@@ -13,7 +13,8 @@
 # 	algorithm_impls/palindrome.cc \
 # 	algorithm_impls/surrounding_region.cc
 
-SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc) $(wildcard dp_alg_impls/*.cc) $(wildcard sort_impls/*.cc) $(wildcard utils_impls/*.cc)
+SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc) $(wildcard dp_alg_impls/*.cc) $(wildcard sort_impls/*.cc) $(wildcard utils_impls/*.cc) \
+          $(wildcard greedy_impls/*.cc)
 SRC = test.cc $(SRC_COM)
 
 # $@  表示目标文件

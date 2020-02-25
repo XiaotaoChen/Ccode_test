@@ -10,6 +10,7 @@
 #include "algorithm.h"
 #include "search_algs.h"
 #include "dp_algs.h"
+#include "greedy.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -601,17 +602,53 @@ void test_spiral_order() {
         printf("%d ", result[i]);
     }
     printf("\n");
-}  
+}
 
-// void test_generate_matrix(){
-//     std::vector<std::vector<int>> result = search::generateMatrix(3);
-//     for (int i=0; i< result.size(); i++) {
-//         for (int j=0; j<result[0].size(); j++) {
-//             printf("%d ", result[i][j]);
-//         }
-//         printf("\n");
-//     }
-// }
+void test_generate_matrix(){
+    std::vector<std::vector<int>> result = search::generateMatrix(3);
+    for (int i=0; i< result.size(); i++) {
+        for (int j=0; j<result[0].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void test_match_idx_val() {
+    std::vector<int> data = {-5,1,3,5,6};
+    std::vector<int> result;
+    search::match_idx_val(data, result, 0, 4);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+
+void test_mct_from_leaf() {
+    std::vector<int> data= {6,2,4};
+    int result = dp::mctFromLeafValues(data);
+    printf("result:%d\n", result);
+}
+
+void test_three_sum() {
+    std::vector<int> data = {-1, 0, 1, 2, -1, -4};
+    std::vector<std::vector<int>> result = search::threeSum(data);
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+void test_advantage_count() {
+    std::vector<int> A = {2,0,4,1,2}; // {12,24,8,32}; //{2,7,11,15};
+    std::vector<int> B = {1,3,0,0,2}; // {13,25,32,11}; // {1,10,4,11};
+    std::vector<int> result = greedy::advantageCount(A, B);
+    for (int i=0;i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -658,9 +695,13 @@ int main() {
     // test_requent_tree_sum();
     // test_simple_path();
     // test_reverse_between();
-    test_juge_point24();
+    // test_juge_point24();
     // test_spiral_order();
     // test_generate_matrix();
+    // test_match_idx_val();
+    // test_mct_from_leaf();
+    // test_three_sum();
+    test_advantage_count();
 
     return 0;
 }
