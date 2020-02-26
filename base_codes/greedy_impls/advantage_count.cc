@@ -3,7 +3,7 @@
 #include <map>
 #include <queue>
 
-#include "../greedy.h"
+#include "../greedy_algs.h"
 
 std::vector<int> greedy::advantageCount(std::vector<int>& A, std::vector<int>& B) {
     std::vector<int> result;
