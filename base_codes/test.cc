@@ -10,7 +10,7 @@
 #include "algorithm.h"
 #include "search_algs.h"
 #include "dp_algs.h"
-#include "greedy.h"
+#include "greedy_algs.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -465,9 +465,10 @@ void test_find_mid_num() {
 }
 
 void test_length_palindrome() {
-    std::string str = "babad";
+    std::string str = "abcdasdfghjkldcba";
     // std::string result = search::longestPalindrome(str);
-    std::string result = dp::longestPalindrome_v2(str);
+    // std::string result = dp::longestPalindrome_v2(str);
+    std::string result = dp::longestPalindrome_v3(str);
     printf("result: %s\n", result.c_str());
 }
 
@@ -650,6 +651,57 @@ void test_advantage_count() {
     printf("\n");
 }
 
+void test_can_jump() {
+    std::vector<int> data = {3,2,1,0,4}; //{2,3,1,1,4};
+    // bool result = greedy::canJump(data);
+    // printf("result:%d\n", result);
+    int result = greedy::jump(data);
+    printf("result:%d\n", result);
+}
+
+void test_can_complete_circuit() {
+    std::vector<int> gas = {1,2,3,4,5}; // {2,3,4}; //{1,2,3,4,5};
+    std::vector<int> costs = {3,4,5,1,2}; // {3,4,3}; // {3,4,5,1,2};
+    int result = greedy::canCompleteCircuit(gas, costs);
+    printf("results:%d\n", result);
+}
+
+void test_match_str() {
+    std::string s = "aa"; // "adceb";
+    std::string p = "*ab"; // "*a*b";
+    bool result = greedy::isMatch(s, p);
+    printf("result:%d\n", result);
+}
+
+void test_remove_duplicate_letters() {
+    std::string s = "cbacdcbc"; // "bcabc";
+    std:string result = greedy::removeDuplicateLetters(s);
+    printf("result:%s\n", result.c_str());
+}
+
+void test_max_sub_array() {
+    std::vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
+    int result = dp::maxSubArray(nums);
+    printf("result:%d\n", result);
+}
+
+void test_unique_path() {
+    int result = dp::uniquePaths(7, 3);
+    printf("result:%d\n", result);
+}
+
+void test_unique_path_with_obstacle() {
+    std::vector<std::vector<int>> map = {{0,0,0}, {0,1,0}, {0,0,0}};
+    int result = dp::uniquePathsWithObstacles(map);
+    printf("result:%d\n", result);
+}
+
+void test_max_rectangle() {
+    std::vector<std::vector<char>> matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
+    int result = dp::maximalRectangle(matrix);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -701,7 +753,15 @@ int main() {
     // test_match_idx_val();
     // test_mct_from_leaf();
     // test_three_sum();
-    test_advantage_count();
+    // test_advantage_count();
+    // test_can_jump();
+    // test_can_complete_circuit();
+    // test_match_str();
+    // test_remove_duplicate_letters();
+    // test_max_sub_array();
+    // test_unique_path(); 
+    // test_unique_path_with_obstacle();
+    test_max_rectangle();
 
     return 0;
 }

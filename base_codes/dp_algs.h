@@ -15,6 +15,7 @@ namespace dp {
 
 // https://leetcode-cn.com/problems/longest-palindromic-substring/
 std::string longestPalindrome_v2(std::string s);
+std::string longestPalindrome_v3(std::string s);
 
 // https://leetcode-cn.com/problems/regular-expression-matching/
 bool regular_match(std::string s, std::string p);
@@ -26,6 +27,17 @@ int maximalSquare(std::vector<std::vector<char>>& matrix);
 
 // https://leetcode-cn.com/problems/minimum-cost-tree-from-leaf-values/
 int mctFromLeafValues(std::vector<int>& arr);
+
+// https://leetcode-cn.com/problems/maximum-subarray/
+int maxSubArray(std::vector<int>& nums);
+
+// https://leetcode-cn.com/problems/unique-paths/
+int uniquePaths(int m, int n);
+int uniquePathsWithObstacles(std::vector<std::vector<int>>& obstacleGrid);
+
+ // https://leetcode-cn.com/problems/maximal-rectangle/
+ int maximalRectangle(std::vector<std::vector<char>>& matrix);
+int max_rectangle(std::vector<int>& heights);
 
 } // namespace dp
 

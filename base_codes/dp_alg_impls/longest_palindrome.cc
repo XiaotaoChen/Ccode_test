@@ -29,3 +29,39 @@ std::string dp::longestPalindrome_v2(std::string s) {
 
    return s.substr(left, right - left +1);
 }
+
+std::string dp::longestPalindrome_v3(std::string s) {
+    if (s.length()<2) return s;
+    int n = s.length();
+    std::string result="";
+    result += s[0];
+    int max_len = 1;
+    int left,right;
+    for (int i=0; i<n-1; i++) {
+        // aba format
+        left = i;
+        right = i;
+        while(left >=0 && right <n && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        if (max_len < right - left -1) {
+            max_len = right - left -1;
+            result = s.substr(left+1, max_len);
+        }
+        // aa format
+        if (s[i]==s[i+1]){
+            left = i;
+            right = i+1;
+            while(left >=0 && right <n && s[left] == s[right]) {
+                left--;
+                right++;
+            }
+            if (max_len < right - left -1) {
+                max_len = right - left -1;
+                result = s.substr(left+1, max_len);
+            }
+        }
+    }
+    return result;
+}
