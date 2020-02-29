@@ -12,6 +12,7 @@
 #include "dp_algs.h"
 #include "greedy_algs.h"
 #include "graph_algs.h"
+#include "trace_back_algs.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -762,6 +763,34 @@ void test_find_highest_node() {
     printf("\n");
 }
 
+void test_letter_combination() {
+    std::string digits = "23";
+    std::vector<std::string> result = track_back::letterCombinations(digits);
+    for (int i=0; i<result.size(); i++) {
+        printf("%s\n", result[i].c_str());
+    }
+}
+
+void test_generate_parenthesis() {
+    std::vector<std::string> result = track_back::generateParenthesis(3);
+    for (int i=0; i<result.size(); i++) {
+        printf("%s\n", result[i].c_str());
+    }
+}
+
+void test_combination_sum() {
+    std::vector<int> candidates = {2,5,2,1,2}; // {10,1,2,7,6,1,5};
+    int target = 5; //8;
+    std::vector<std::vector<int>> result = track_back::combinationSum2(candidates, target);
+    for (int i=0; i<result.size(); i++ ){
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -825,7 +854,10 @@ int main() {
     // test_clone_graph2();
     // test_can_finish();
     // test_find_order();
-    test_find_highest_node();
+    // test_find_highest_node();
+    // test_letter_combination();
+    // test_generate_parenthesis();
+    test_combination_sum();
 
     return 0;
 }
