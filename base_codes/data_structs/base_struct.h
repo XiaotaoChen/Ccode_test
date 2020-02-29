@@ -46,4 +46,12 @@ struct TreeLinkNode {
     TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
 };
 
+struct graphNode {
+    int val;
+    std::vector<graphNode*> neighbors;
+    graphNode(): val(0), neighbors(std::vector<graphNode*>()) {}
+    graphNode(int x): val(x), neighbors(std::vector<graphNode*>()) {}
+    graphNode(int x, std::vector<graphNode*> _neighbors): val(x), neighbors(_neighbors) {}
+};
+
 #endif // DATA_STRUCTS_

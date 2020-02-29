@@ -11,6 +11,7 @@
 #include "search_algs.h"
 #include "dp_algs.h"
 #include "greedy_algs.h"
+#include "graph_algs.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -702,6 +703,65 @@ void test_max_rectangle() {
     printf("result:%d\n", result);
 }
 
+void test_clone_graph2() {
+    graphNode* head = new graphNode(1);
+    graphNode* node2 = new graphNode(2);
+    graphNode* node3 = new graphNode(3);
+    graphNode* node4 = new graphNode(4);
+     
+    head->neighbors.push_back(node2);
+    head->neighbors.push_back(node4);
+    node2->neighbors.push_back(head);
+    node2->neighbors.push_back(node3);
+    node3->neighbors.push_back(node2);
+    node3->neighbors.push_back(node4);
+    node4->neighbors.push_back(head);
+    node4->neighbors.push_back(node3);
+
+    graphNode* copy_head = graph::cloneGraph(head);
+    
+    std::set<int> visited;
+    std::queue<graphNode*> q;
+    graphNode* curr = copy_head;
+    q.push(curr);
+    while(!q.empty()) {
+        curr = q.front();
+        q.pop();
+        if (visited.find(curr->val) != visited.end()) continue;
+        visited.insert(curr->val);
+        printf("%d: ", curr->val);
+        for (int i=0; i<curr->neighbors.size(); i++) {
+            printf("%d ", curr->neighbors[i]->val);
+            if (visited.find(curr->neighbors[i]->val) == visited.end()) q.push(curr->neighbors[i]);
+        }
+        printf("\n");
+    }
+}
+
+void test_can_finish() {
+    std::vector<std::vector<int>>  data = {{0,1}, {0,2}, {1,2}};
+    bool result = graph::canFinish(3, data);
+    printf("result:%d\n", result);
+}
+
+void test_find_order() {
+    std::vector<std::vector<int>>  data = {{0,1}, {0,2}, {1,2}};
+    std::vector<int> result = graph::findOrder(3, data);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+
+void test_find_highest_node() {
+    std::vector<std::vector<int>> edges={{0, 3}, {1, 3}, {2, 3}, {4, 3}, {5, 4}}; //{{1,0},{1,2},{1,3}};
+    std::vector<int> result = graph::findMinHeightTrees(6, edges);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -761,7 +821,11 @@ int main() {
     // test_max_sub_array();
     // test_unique_path(); 
     // test_unique_path_with_obstacle();
-    test_max_rectangle();
+    // test_max_rectangle();
+    // test_clone_graph2();
+    // test_can_finish();
+    // test_find_order();
+    test_find_highest_node();
 
     return 0;
 }
