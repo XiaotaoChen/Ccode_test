@@ -13,6 +13,7 @@
 #include "greedy_algs.h"
 #include "graph_algs.h"
 #include "trace_back_algs.h"
+#include "dfs_algs.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -790,6 +791,32 @@ void test_combination_sum() {
     }
 }
 
+void test_dfs_isvalidtree() {
+    TreeNode* root = new TreeNode(2);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(3);
+    // root->right->left = new TreeNode(3);
+    // root->right->right = new TreeNode(6);
+    bool result = dfs::isValidBST(root);
+    printf("result:%d\n", result);
+}
+
+void test_recover_tree() {
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(3);
+    root->left->right = new TreeNode(2);
+    dfs::recoverTree(root);
+    TreeNode* curr = root;
+    
+}
+
+void test_build_tree() {
+    std::vector<int> preorder = {3,9,20,15,7};
+    std::vector<int> inorder = {9,3,15,20,7};
+    TreeNode* root = dfs::buildTree(preorder, inorder);
+
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -857,7 +884,10 @@ int main() {
     // test_find_highest_node();
     // test_letter_combination();
     // test_generate_parenthesis();
-    test_combination_sum();
+    // test_combination_sum();
+    // test_dfs_isvalidtree();
+    // test_recover_tree();
+    test_build_tree();
 
     return 0;
 }
