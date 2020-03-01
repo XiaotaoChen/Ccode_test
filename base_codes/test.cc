@@ -14,6 +14,7 @@
 #include "graph_algs.h"
 #include "trace_back_algs.h"
 #include "dfs_algs.h"
+#include "bfs_algs.h"
 #include "sorts.h"
 #include "utils.h"
 using namespace std;
@@ -817,6 +818,51 @@ void test_build_tree() {
 
 }
 
+void test_is_symmetric() {
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(2);
+    root->left->left = new TreeNode(3);
+    root->left->right = new TreeNode(4);
+    root->right->left = new TreeNode(3);
+    root->right->right = new TreeNode(4);
+
+    bool result = bfs::isSymmetric(root);
+    printf("result:%d\n", result);
+}
+
+void test_zigzag_level_order() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    root->right->right = new TreeNode(7);
+    
+    std::vector<std::vector<int>> result = bfs::zigzagLevelOrder(root);
+    for (int i=0; i<result.size(); i++) {
+        for(int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void test_ladder_length_bfs() {
+    std::string start = "red"; // "hit";
+    std::string end = "tax"; // "cog";
+    std::vector<std::string> wordlist = {"ted","tex","red","tax","tad","rex"}; // {"hot","dot","dog","lot","log","cog"};
+    // int step = bfs::ladderLength(start, end, wordlist);
+    // printf("result:%d\n", step);
+    // std::vector<std::vector<std::string>> result = bfs::findLadders(start, end, wordlist);
+    // std::vector<std::vector<std::string>> result = bfs::findLadders_v2(start, end, wordlist);
+    std::vector<std::vector<std::string>> result = bfs::findLadders_v3(start, end, wordlist);
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%s ", result[i][j].c_str());
+        }
+        printf("\n");
+    }
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -887,7 +933,10 @@ int main() {
     // test_combination_sum();
     // test_dfs_isvalidtree();
     // test_recover_tree();
-    test_build_tree();
+    // test_build_tree();
+    // test_is_symmetric();
+    // test_zigzag_level_order();
+    test_ladder_length_bfs();
 
     return 0;
 }
