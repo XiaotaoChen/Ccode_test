@@ -8,6 +8,8 @@
 #include <cstdlib> // rand, qsort
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
+#include "sorts.h"
+#include "utils.h"
 #include "search_algs.h"
 #include "dp_algs.h"
 #include "greedy_algs.h"
@@ -15,8 +17,8 @@
 #include "trace_back_algs.h"
 #include "dfs_algs.h"
 #include "bfs_algs.h"
-#include "sorts.h"
-#include "utils.h"
+#include "stack_algs.h"
+
 using namespace std;
 
 void test_minmum_depth_binary_tree() {
@@ -864,6 +866,18 @@ void test_ladder_length_bfs() {
     }
 }
 
+void test_eval_rpn() {
+    std::vector<std::string> tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}; // {"4", "13", "5", "/", "+"}; //{"2", "1", "+", "3", "*"};
+    int result = stack_algs::evalRPN(tokens);
+    printf("result:%d\n", result);
+}
+
+void test_trap() {
+    std::vector<int> height = {0,1,0,2,1,0,1,3,2,1,2,1}; // {2,1,0,2};
+    int result = stack_algs::trap(height);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -936,7 +950,9 @@ int main() {
     // test_build_tree();
     // test_is_symmetric();
     // test_zigzag_level_order();
-    test_ladder_length_bfs();
+    // test_ladder_length_bfs();
+    // test_eval_rpn();
+    test_trap();
 
     return 0;
 }
