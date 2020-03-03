@@ -15,7 +15,7 @@
 
 SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc) $(wildcard dp_alg_impls/*.cc) $(wildcard sort_impls/*.cc) $(wildcard utils_impls/*.cc) \
           $(wildcard greedy_impls/*.cc) $(wildcard graph_alg_impls/*.cc) $(wildcard trackback_alg_impls/*.cc) $(wildcard dfs_alg_impls/*.cc) \
-		  $(wildcard bfs_alg_impls/*.cc) $(wildcard stack_alg_impls/*.cc)
+		  $(wildcard bfs_alg_impls/*.cc) $(wildcard stack_alg_impls/*.cc) $(wildcard heap_alg_impls/*.cc) $(wildcard binary_search_alg_impls/*.cc)
 SRC = test.cc $(SRC_COM)
 
 # $@  表示目标文件

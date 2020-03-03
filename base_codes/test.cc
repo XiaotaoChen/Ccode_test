@@ -18,6 +18,8 @@
 #include "dfs_algs.h"
 #include "bfs_algs.h"
 #include "stack_algs.h"
+#include "heap_algs.h"
+#include "binary_search.h"
 
 using namespace std;
 
@@ -416,7 +418,7 @@ void test_haspathsum() {
 
 void test_qsort() {
     // int a[] = {6, 2, 1, 3, 5, 4};
-    int len = 2;
+    int len = 20;
     int a[len];
     int b[len];
     // int a[] = {3, 6, 7, 5, 3, 5, 6, 2, 9, 1};
@@ -435,7 +437,8 @@ void test_qsort() {
     }
     printf("\n");
 
-    sort::qsort(a, 0, len -1);
+    // sort::qsort(a, 0, len -1);
+    sort::heap_sort(a, 0, len-1);
     for (int i=0; i<len; i++) {
         printf("%d ", a[i]);
     }
@@ -878,6 +881,42 @@ void test_trap() {
     printf("result:%d\n", result);
 }
 
+void test_find_k_largest() {
+    std::vector<int> nums = {3,2,1,5,6,4};; // {7,6,5,4,3,2,1}; //{3,2,1,5,6,4};
+    int k = 2; //5; //2;
+    // int result = heap::findKthLargest(nums, k);
+    int result = heap::findKthLargest_v2(nums, k);
+    printf("result:%d\n", result);
+}
+
+void test_merge_k_list() {
+    std::vector<ListNode*> lists;
+    ListNode* root1 = new ListNode(1);
+    root1->next = new ListNode(4);
+    root1->next->next = new ListNode(5);
+    ListNode* root2 = new ListNode(1);
+    root2->next = new ListNode(3);
+    root2->next->next = new ListNode(4);
+    ListNode* root3 = new ListNode(2);
+    root3->next = new ListNode(6);
+    lists.push_back(root1);
+    lists.push_back(root2);
+    lists.push_back(root3);
+    ListNode* root = heap::mergeKLists(lists);
+    while(root!=nullptr) {
+        printf("%d ", root->val);
+        root = root->next;
+    }
+    printf("\n");
+}
+
+void test_divide() {
+    int dividend = 2147483647; //2147483647;
+    int divisor = 1; //3;
+    int result = binary_search::divide(dividend, divisor);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -952,7 +991,10 @@ int main() {
     // test_zigzag_level_order();
     // test_ladder_length_bfs();
     // test_eval_rpn();
-    test_trap();
+    // test_trap();
+    // test_find_k_largest();
+    // test_merge_k_list();
+    test_divide();
 
     return 0;
 }
