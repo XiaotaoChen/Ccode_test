@@ -20,6 +20,7 @@
 #include "stack_algs.h"
 #include "heap_algs.h"
 #include "binary_search.h"
+#include "merge_set.h"
 
 using namespace std;
 
@@ -917,6 +918,54 @@ void test_divide() {
     printf("result:%d\n", result);
 }
 
+void test_search() {
+    std::vector<int> nums = {4,5,6,7,0,1,2}; //{3,1}; //{4,5,6,7,0,1,2};
+    int target = 3;
+    int result = binary_search::search(nums, target);
+    printf("result:%d\n", result);
+}
+
+void test_find_median_num() {
+    std::vector<int> nums1 = {1,2}; //{1,2}; //{1,3};
+    std::vector<int> nums2 = {1,2,3}; //{3,4}; //{2};
+    double result = binary_search::findMedianSortedArrays(nums1, nums2);
+    printf("result:%f\n", result);
+}
+
+void test_merge_set() {
+    std::vector<std::vector<char>> board={
+        {'X', 'X', 'X', 'X'},
+        {'X', 'O', 'O', 'X'},
+        {'X', 'X', 'O', 'X'},
+        {'X', 'O', 'X', 'X'}
+    };
+    merge_set::solve(board);
+    for (int i=0; i<board.size(); i++) {
+        for (int j=0; j<board[0].size(); j++)
+            printf("%c ", board[i][j]);
+        printf("\n");
+    }
+}
+
+void test_num_island() {
+    // std::vector<std::vector<char>> grid={
+    //     {'1', '1', '0', '0', '0'},
+    //     {'1', '1', '0', '0', '0'},
+    //     {'0', '0', '1', '0', '0'},
+    //     {'0', '0', '0', '1', '1'}
+    // };
+    std::vector<std::vector<char>> grid = {{'1'},{'1'}};
+    int result = merge_set::numIslands(grid);
+    printf("result:%d\n", result);
+}
+
+void test_longest_consecutive2() {
+    std::vector<int> data = {100, 4, 200, 1, 3, 2};
+    // int result = merge_set::longestConsecutive(data);
+    int result = merge_set::longestConsecutive_v2(data);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -994,7 +1043,12 @@ int main() {
     // test_trap();
     // test_find_k_largest();
     // test_merge_k_list();
-    test_divide();
+    // test_divide();
+    // test_search();
+    // test_find_median_num();
+    // test_merge_set();
+    // test_num_island();
+    test_longest_consecutive2();
 
     return 0;
 }
