@@ -628,9 +628,16 @@ void test_generate_matrix(){
 }
 
 void test_match_idx_val() {
-    std::vector<int> data = {-5,1,3,5,6};
+    std::vector<int> data = {-5,1,2,3,6};
     std::vector<int> result;
     search::match_idx_val(data, result, 0, 4);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+    
+    result.clear();
+    search::match_idx_val_v2(data, result, 0, 4);
     for (int i=0; i<result.size(); i++) {
         printf("%d ", result[i]);
     }
@@ -1003,6 +1010,26 @@ void test_length_substr() {
     printf("result:%d\n", result);
 }
 
+void test_unordered_map() {
+    std::unordered_map<int ,int> map = {{1,1},{2,2}};
+    map.insert({3,3});
+    for (std::pair<int ,int> pair: map) {
+        printf("%d: %d\n", pair.first, pair.second);
+    }
+    for (std::unordered_map<int,int>::iterator iter=map.begin(); iter!=map.end(); iter++) {
+        printf("%d: %d\n", (*iter).first, (*iter).second);
+    }
+}
+
+void test_string() {
+    std::string str = "abc";
+    str += 'd';
+    str += "e";
+    std::string str2 = str.substr(0,2);
+    printf("str: %s\nstr2: %s\n", str.c_str(), str2.c_str());
+    printf("str length:%d, size:%d\n", str.length(), str.size());
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -1051,7 +1078,7 @@ int main() {
     // test_juge_point24();
     // test_spiral_order();
     // test_generate_matrix();
-    // test_match_idx_val();
+    test_match_idx_val();
     // test_mct_from_leaf();
     // test_three_sum();
     // test_advantage_count();
@@ -1088,7 +1115,9 @@ int main() {
     // test_longest_consecutive2();
     // test_bi_node();
     // test_remove_nth_node();
-    test_length_substr();
+    // test_length_substr();
+    // test_unordered_map();
+    // test_string();
 
 
     return 0;

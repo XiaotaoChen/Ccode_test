@@ -129,6 +129,7 @@ std::vector<int> spiralOrder(std::vector<std::vector<int>>& matrix);
 std::vector<std::vector<int>> generateMatrix(int n);
 
 void match_idx_val(std::vector<int>& vec, std::vector<int>& result, int left, int right);
+void match_idx_val_v2(std::vector<int>& vec, std::vector<int>& result, int left, int right);
 
 // https://leetcode-cn.com/problems/3sum/
 std::vector<std::vector<int>> threeSum(std::vector<int>& nums);
