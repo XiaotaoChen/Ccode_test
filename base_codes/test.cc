@@ -21,6 +21,8 @@
 #include "heap_algs.h"
 #include "binary_search.h"
 #include "merge_set.h"
+#include "listnode_algs.h"
+#include "binary_pointer.h"
 
 using namespace std;
 
@@ -966,6 +968,41 @@ void test_longest_consecutive2() {
     printf("result:%d\n", result);
 }
 
+void test_bi_node() {
+    TreeNode* root = new TreeNode(4);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(5);
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(3);
+    root->right->right = new TreeNode(6);
+    TreeNode* head = binary_search::convertBiNode(root);
+    while(head!=nullptr) {
+        printf("%f ", head->val);
+        head = head->right;
+    }
+    printf("\n");
+}
+
+void test_remove_nth_node() {
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    ListNode* new_head = listnode_alg::removeNthFromEnd(head, 2);
+    while(new_head!=nullptr) {
+        printf("%d ", new_head->val);
+        new_head = new_head->next;
+    }
+    printf("\n");
+}
+
+void test_length_substr() {
+    std::string str = "dvdf";
+    int result = binary_pointer::lengthOfLongestSubstring(str);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -1048,7 +1085,11 @@ int main() {
     // test_find_median_num();
     // test_merge_set();
     // test_num_island();
-    test_longest_consecutive2();
+    // test_longest_consecutive2();
+    // test_bi_node();
+    // test_remove_nth_node();
+    test_length_substr();
+
 
     return 0;
 }

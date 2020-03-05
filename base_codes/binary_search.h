@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_ALGS_
 
 #include <vector>
+#include "data_structs/base_struct.h"
 
 namespace binary_search {
 
@@ -17,6 +18,9 @@ int dfs_search(std::vector<int>& nums, int start, int end , int target);
 double findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2);
 int dfs_find_median_num(std::vector<int>& nums1, int low1, std::vector<int>& nums2, int low2, int k);
 
+// https://leetcode-cn.com/problems/binode-lcci/
+TreeNode* convertBiNode(TreeNode* root);
+void dfs_binode(TreeNode* root, TreeNode*& pre);
 
 }
 
