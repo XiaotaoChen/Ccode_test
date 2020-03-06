@@ -1,4 +1,5 @@
 #include<string>
+#include<vector>
 #include "../str_algs.h"
 
 
@@ -53,4 +54,41 @@ std::string str_alg::longestPalindrome_dp(std::string s) {
         }
     }
     return s.substr(left, right-left+1);
+}
+
+void str_alg::swap(int* a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void str_alg::heap_modify(std::vector<int>& nums, int start, int end) {
+    int dad = start;
+    int son = 2*dad+1;
+    while(son<=end) {
+        if (nums[son]>nums[son+1]) son++;
+        if (nums[son]<nums[dad]){
+            swap(&nums[son], &nums[dad]);
+            dad = son;
+            son = 2*dad +1;
+        }
+        else {
+            break;
+        }
+    }
+}
+
+int str_alg::heap_topk(std::vector<int>& nums, int k) {
+    // create init heap
+    for (int i=k/2-1; i>=0; i--) {
+        heap_modify(nums, i, k-1);
+    }
+
+    // insert k+1->n
+    for (int i=k;i<nums.size(); i++) {
+        if (nums[i]<nums[0]) continue;
+        swap(&nums[i], &nums[0]);
+        heap_modify(nums, 0, k-1);
+    }
+    return nums[0];
 }

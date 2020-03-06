@@ -1032,10 +1032,17 @@ void test_string() {
 }
 
 void test_str_longest_palindrome() {
-    std::string str = "cbbd";
+    std::string str = "abc";
     // std::string result = str_alg::longestPalindrome(str);
     std::string result = str_alg::longestPalindrome_dp(str);
     printf("result:%s\n", result.c_str());
+}
+
+void test_str_heap_topk() {
+    std::vector<int> nums = {1,2,4,5,6,7};
+    int k = 3;
+    int result = str_alg::heap_topk(nums, k);
+    printf("resbult:%d\n", result);
 }
 
 
@@ -1127,7 +1134,8 @@ int main() {
     // test_length_substr();
     // test_unordered_map();
     // test_string();
-    test_str_longest_palindrome();
+    // test_str_longest_palindrome();
+    test_str_heap_topk();
 
 
     return 0;
