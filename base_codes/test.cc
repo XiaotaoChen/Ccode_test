@@ -23,6 +23,7 @@
 #include "merge_set.h"
 #include "listnode_algs.h"
 #include "binary_pointer.h"
+#include "str_algs.h"
 
 using namespace std;
 
@@ -1030,6 +1031,14 @@ void test_string() {
     printf("str length:%d, size:%d\n", str.length(), str.size());
 }
 
+void test_str_longest_palindrome() {
+    std::string str = "cbbd";
+    // std::string result = str_alg::longestPalindrome(str);
+    std::string result = str_alg::longestPalindrome_dp(str);
+    printf("result:%s\n", result.c_str());
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -1078,7 +1087,7 @@ int main() {
     // test_juge_point24();
     // test_spiral_order();
     // test_generate_matrix();
-    test_match_idx_val();
+    // test_match_idx_val();
     // test_mct_from_leaf();
     // test_three_sum();
     // test_advantage_count();
@@ -1118,6 +1127,7 @@ int main() {
     // test_length_substr();
     // test_unordered_map();
     // test_string();
+    test_str_longest_palindrome();
 
 
     return 0;
