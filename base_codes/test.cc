@@ -1083,6 +1083,15 @@ void test_min_window() {
     printf("result:%s\n", result.c_str());
 }
 
+void test_find_substr() {
+    std::string s = "foobarthefoobarman"; //"wordgoodgoodgoodbestword"; // "wordgoodgoodgoodbestword";
+    std::vector<std::string> words = {"bar","foo"}; //{"word","good","best","good"}; // {"word","good","best","word"};
+    // std::vector<int> result = binary_pointer::findSubstring(s, words);
+    std::vector<int> result = binary_pointer::findSubstring_v2(s, words);
+    for (int i=0; i<result.size(); i++)
+        printf("%d ", result[i]);
+    printf("\n");
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1176,7 +1185,8 @@ int main() {
     // test_str_heap_topk();
     // test_dfs_bstTogst();
     // test_swap_pair();
-    test_min_window();
+    // test_min_window();
+    test_find_substr();
 
 
     return 0;
