@@ -1093,6 +1093,19 @@ void test_find_substr() {
     printf("\n");
 }
 
+void test_longest_valid_parentheses() {
+    std::string s = "()(()";
+    int result = stack_algs::longestValidParentheses(s);
+    printf("result:%d\n", result);
+}
+
+void test_multiply() {
+    std::string num1 = "123";
+    std::string num2 = "456";
+    std::string result = str_alg::multiply(num1, num2);
+    printf("result:%s\n", result.c_str());
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_generate_parentheses(3);
@@ -1186,7 +1199,9 @@ int main() {
     // test_dfs_bstTogst();
     // test_swap_pair();
     // test_min_window();
-    test_find_substr();
+    // test_find_substr();
+    // test_longest_valid_parentheses();
+    test_multiply();
 
 
     return 0;

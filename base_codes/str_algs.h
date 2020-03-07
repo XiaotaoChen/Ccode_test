@@ -18,6 +18,9 @@ void heap_modify(std::vector<int>& nums, int start, int end);
 
 int heap_topk(std::vector<int>& nums, int k);
 
+// https://leetcode-cn.com/problems/multiply-strings/
+std::string multiply(std::string num1, std::string num2);
+
 
 } // namespace str_alg
 

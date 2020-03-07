@@ -14,6 +14,10 @@ int op_maps(int a, int b, char op_type);
 // https://leetcode-cn.com/problems/trapping-rain-water/
 int trap(std::vector<int>& height);
 
+// https://leetcode-cn.com/problems/longest-valid-parentheses/
+int longestValidParentheses(std::string s);
+
+
 }
 
 #endif
