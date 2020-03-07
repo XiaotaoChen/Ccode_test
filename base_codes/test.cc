@@ -1022,15 +1022,6 @@ void test_unordered_map() {
     }
 }
 
-void test_string() {
-    std::string str = "abc";
-    str += 'd';
-    str += "e";
-    std::string str2 = str.substr(0,2);
-    printf("str: %s\nstr2: %s\n", str.c_str(), str2.c_str());
-    printf("str length:%d, size:%d\n", str.length(), str.size());
-}
-
 void test_str_longest_palindrome() {
     std::string str = "abc";
     // std::string result = str_alg::longestPalindrome(str);
@@ -1043,6 +1034,53 @@ void test_str_heap_topk() {
     int k = 3;
     int result = str_alg::heap_topk(nums, k);
     printf("resbult:%d\n", result);
+}
+
+void test_dfs_bstTogst() {
+    TreeNode* root = new TreeNode(4);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(6);
+    root->left->left = new TreeNode(0);
+    root->left->right = new TreeNode(2);
+    root->left->right->right = new TreeNode(3);
+    root->right->left = new TreeNode(5);
+    root->right->right = new TreeNode(7);
+    root->right->right->right = new TreeNode(8);
+
+    TreeNode* new_root = binary_search::bstToGst(root);
+    TreeNode* curr = new_root;
+    std::queue<TreeNode*> q;
+    q.push(curr);
+    while(!q.empty()) {
+        TreeNode* tmp = q.front(); q.pop();
+        printf("%f ", tmp->val);
+        if (tmp->left!=nullptr) q.push(tmp->left);
+        if (tmp->right!=nullptr) q.push(tmp->right);
+    }
+    printf("\n");
+}
+
+void test_swap_pair() {
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+
+    // ListNode* new_head = listnode_alg::swapPairs(head);
+    ListNode* new_head = listnode_alg::reverseKGroup(head, 3);
+    while(new_head!=nullptr) {
+        printf("%d ", new_head->val);
+        new_head = new_head->next;
+    }
+    printf("\n");
+}
+
+void test_min_window() {
+    std::string s = "a"; //"ADOBECODEBANC";
+    std::string t = "aa"; //"ABC";
+    std::string result = binary_pointer::minWindow(s, t);
+    printf("result:%s\n", result.c_str());
 }
 
 
@@ -1135,7 +1173,10 @@ int main() {
     // test_unordered_map();
     // test_string();
     // test_str_longest_palindrome();
-    test_str_heap_topk();
+    // test_str_heap_topk();
+    // test_dfs_bstTogst();
+    // test_swap_pair();
+    test_min_window();
 
 
     return 0;
