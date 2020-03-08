@@ -27,6 +27,11 @@
 
 using namespace std;
 
+/*
+1.求树的最小深度：
+递归： 若左右子树均不为null，则等于min(left_depth, right_depth) + 1;
+queue: for (q.size()) q.pop(), 逐层遍历直到某个node的左右子树均为null，每遍历一遍则depth+1。
+*/
 void test_minmum_depth_binary_tree() {
     TreeNode* root = new TreeNode(0);
     TreeNode* left1 = new TreeNode(1);
@@ -40,6 +45,11 @@ void test_minmum_depth_binary_tree() {
     std::printf("result:%d\n", result);
 }
 
+/*
+2. 后序遍历：
+递归，
+stack： 遍历root->val, root->right, root->left, 最后reverse 整个result数组。
+*/
 void test_postorderTraversal() {
     TreeNode* root = new TreeNode(1);
     TreeNode* r = new TreeNode(2);
@@ -55,14 +65,9 @@ void test_postorderTraversal() {
     std::printf("\n");
 }
 
-void test_generate_parentheses(int n){
-    // vector<string> results = generate_parentheses(n);
-    vector<string> results = generate_parentheses2(n);
-    for (int i=0; i< results.size(); i++) {
-        std::printf("%s \n", results[i].c_str());
-    }
-}
-
+/*
+3. 使用stack求逆波兰式
+*/
 void test_reverse_polish_notation(){
     vector<string> tokens;
     // string inputs[5] = {"2", "1", "+", "3", "*"};
@@ -72,6 +77,10 @@ void test_reverse_polish_notation(){
     std::printf("%d \n", result);
 }
 
+/*
+4. 求最大共线点数：两层循环，分别求以点i为起点的最大共线点数。因为浮点数存在误差，斜率需要用向量表示，向量可由x,y除以最大公约数得到。并额外处理斜率为0，无穷大，及重合的点。
+最大公约数：max_common_divisor(a,b) if (a%b==0) return b; else return max_common_divisor(b, a%b);
+*/
 void test_max_point_on_a_line(){
     vector<Point> inputs;
     inputs.push_back(Point(0, 0));
@@ -79,6 +88,11 @@ void test_max_point_on_a_line(){
     std::printf("%d \n", result);
 }
 
+/*
+5. 对链表进行排序，使用二分法 + merge two listnode
+6. 检测链表中是否存在环，并找出环的起点。（1）通过step=1,2两个指针遍历链表，若两者相等，则存在环，返回该重合的点；（2）分别从起点，重合的点以step=1走，当起点走到重合点时，
+   则重合点的指针刚好走到环的起始位置。画可知，step=2的指针比step=1的指针多走的具体就是起点到重合点的距离== 重合点到环起点的距离。
+*/
 void test_sortListNode(){
     ListNode* root = new ListNode(1);
     ListNode* tmp = root;
@@ -110,6 +124,11 @@ void test_sortListNode(){
     std::printf("\n");
 }
 
+/*
+7. 求得字符串由dicts中子串拆分的所有可能。
+(1) dp[n]数组保存0到i的子串是否可由dicts中的构成。两重for循环(i=1->n-1, j=0->i) if (dp[j] && s.substr(j, i-j+1) in dict) dp[i]=true
+(2) 根据dp由n反推到0，得到所有的子串。dfs(idx, dp[], result): for (i=idx-1->0) {if dp[i] && s.substr(i, idx-i+1) in dict} result[i]=result[idx] + substr, dfs(i-1, dp, result);
+*/
 void test_wordBreak(){
     string s = "catsanddog";
     std::unordered_set<string> dicts;
@@ -139,6 +158,12 @@ void print_random_list_node(RandomListNode* head) {
     }
 }
 
+/*
+8. 复制待随机指针的链表：这类指针复制分三步：
+（1） 克隆节点，并插入原始节点中。即 src->next = src_copy; scr_copy->next = src->next;
+ (2) 设置指针连接关系。即src_copy->random = src->random->next;
+ (3) 分离src/copy
+*/
 void test_randomListNode() {
     RandomListNode arr[5];
     for (int i=1; i<4; i++) {
@@ -155,6 +180,19 @@ void test_randomListNode() {
     print_random_list_node(copy_head);
 }
 
+/*
+9. 从重复2次，3次的数组中找出唯一出现一次的数。
+（1）重复两次，则相同的数按位异或会变0，所以异或所有的数，最终结果就为只出现一次的数。for(num=A[0]-->A[n]) result ^= num;
+ (2) 重复三次，则使用one, two, three三个变量分别记录出现1，2，3次的每一比特，最终返回one即可。
+     one=two=three=0;
+     for（num=A[0]-->A[n]） {
+         two |= (one & num); // 一个数出现两次
+         one ^= num; // 某一比特位位1的条件
+         three = one & two; // 出现三次的情况
+         one &= ~three; // 如果出现三次，则将one对应位置0
+         two &= ~three; // 如果出现三次，则将two对应位置0
+     }
+*/
 void test_singleNumber() {
     int a[7] = {1,2,3,2,3,2,3};
     // int result = singleNumber(a, 7);
@@ -163,6 +201,12 @@ void test_singleNumber() {
     return;
 }
 
+/*
+10. n个小朋友分糖，rating高的人必须比旁边低的人分的多，每人最少一个。
+从1遍历到最后
+如果当前rating大于前一个，则当前分糖数为前一个+1；
+否则：从前一个节点一直往前遍历：直到不满足： ranting[j]>ranting[j+1] && result[j]<=result[j+1]： result[j]=result[j+1]+1;
+*/
 void test_candy() {
     int a[3]={2, 1, 3};
     vector<int> ratings(a, a+3);
@@ -174,6 +218,10 @@ void test_candy() {
     printf("%d\n", result);
 }
 
+/*
+11. 汽车是否能走完全程，并找到起点位置。
+（1）start为n,end为0，如果res + cost[start]-gas[start]<0,则说明该点不能作为起点，start--；否则end++；直到start==end结束，即为该点。
+*/
 void test_complete_circuit() {
     // vector<int> gas(2);
     // vector<int> costs(2);
@@ -189,6 +237,9 @@ void test_complete_circuit() {
     printf("result:%d\n", result);
 }
 
+/*
+12. 同8
+*/
 void test_clone_graph() {
     UndirectedGraphNode* zero = new UndirectedGraphNode(0);
     UndirectedGraphNode* one = new UndirectedGraphNode(1);
@@ -207,6 +258,10 @@ void test_clone_graph() {
     delete two;
 }
 
+/*
+13. 将字符串分割成回文子串的所有可能,每次回溯需要pop_back curr_vector。dfs(curr_str, curr_vector, result): for (i=0->curr_str.length()) 
+    if (curr_str(0,i+1) is palindrome) curr_vector.push_back(curr_str(0,i+1)); dfs(curr_str(i,len-1), curr_vector, result);
+*/
 void test_palidrome() {
     string str = "aab";
     vector<vector<string> > result = palindrome_partition(str);
@@ -219,6 +274,9 @@ void test_palidrome() {
     }
 }
 
+/*
+14. 最小回文子串的数量：两重循环，i=0->n;j=i->n; if (s.sub(i, j-i+1) is palindrome) dp[j]=min(dp[j],dp[i]+1)
+*/
 void test_palidrome_min_cut() {
     string str = "leet";
     // int result = palindrome_minCut(str);
@@ -789,6 +847,13 @@ void test_letter_combination() {
     }
 }
 
+/*
+回溯法生成合法括号：
+1. 判断当前字符串中左括号的个数始终>=右括号的个数即合法，其他均不合法。
+2. if (left_num>n||right_num>n) return;
+   if (left_num==n&&right_num==n) collection result;
+   if (left_num>=right_num) dfs(curr+'(', left_num+1, right_num, n); dfs(curr+')', left_num, irght_num+1, n);
+*/
 void test_generate_parenthesis() {
     std::vector<std::string> result = track_back::generateParenthesis(3);
     for (int i=0; i<result.size(); i++) {
@@ -1108,7 +1173,6 @@ void test_multiply() {
 
 int main() {
     // test_minmum_depth_binary_tree();
-    // test_generate_parentheses(3);
     // test_reverse_polish_notation();
     // test_max_point_on_a_line();
     // test_sortListNode();
