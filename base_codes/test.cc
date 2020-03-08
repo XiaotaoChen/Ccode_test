@@ -24,6 +24,7 @@
 #include "listnode_algs.h"
 #include "binary_pointer.h"
 #include "str_algs.h"
+#include "topoloical_sort.h"
 
 using namespace std;
 
@@ -1171,6 +1172,15 @@ void test_multiply() {
     printf("result:%s\n", result.c_str());
 }
 
+/*
+ 求矩阵中最长的连续递增串．将连续递增的关系表示为有向图，得到每个点的in_degrees[m][n], 将所有入度为０的点push到queue中，直到queue为空．
+*/
+void test_longest_increaseing_path() {
+    std::vector<std::vector<int>> matrix = {{3,4,5},{3,2,6},{2,2,1}}; // {{9,9,4},{6,6,8},{2,1,1}};
+    int result = topoloical_sort::longestIncreasingPath(matrix);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -1265,7 +1275,8 @@ int main() {
     // test_min_window();
     // test_find_substr();
     // test_longest_valid_parentheses();
-    test_multiply();
+    // test_multiply();
+    test_longest_increaseing_path();
 
 
     return 0;
