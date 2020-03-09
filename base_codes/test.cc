@@ -25,6 +25,7 @@
 #include "binary_pointer.h"
 #include "str_algs.h"
 #include "topoloical_sort.h"
+#include "memory_algs.h"
 
 using namespace std;
 
@@ -1181,6 +1182,31 @@ void test_longest_increaseing_path() {
     printf("result:%d\n", result);
 }
 
+/*
+从shorter, longer中选取k个数，求所有可能出现的和
+*/
+void test_diving_board() {
+    int shorter = 1;
+    int longer = 1;
+    int k = 0;
+    std::vector<int> result = memory_alg::divingBoard(shorter, longer, k);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+
+/*
+将字符串拆分，得到未匹配的字符个数
+dp[i]表示0->1的字符串中未匹配的个数．则 从0遍历ｊ到ｉ, 如果str(j, i) in dict, dp[i]=  min(dp[i-1]+1, dp[j-1]) 否则　dp[i] = dp[i-1] +1;
+*/
+void test_respace() {
+    std::vector<std::string> dict = {"looked","just","like","her","brother"};
+    std::string sentence = "jesslookedjustliketimherbrother";
+    int result = memory_alg::respace(dict, sentence);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -1276,7 +1302,9 @@ int main() {
     // test_find_substr();
     // test_longest_valid_parentheses();
     // test_multiply();
-    test_longest_increaseing_path();
+    // test_longest_increaseing_path();
+    // test_diving_board();
+    test_respace();
 
 
     return 0;
