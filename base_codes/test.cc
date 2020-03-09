@@ -297,6 +297,9 @@ void print_surroundReigon(vector<vector<char> >& board) {
     }
 }
 
+/*
+15. 保留边界‘0’的连通部分。使用queue/stack遍历边界‘0’部分，置为‘A’
+*/
 void test_surroundRegion() {
     char board_arr[4][4] = {{'X','X','X','X'}, 
                             {'X','O','O','X'}, 
@@ -324,6 +327,9 @@ void test_sum_number_binary_tree() {
     printf("sum:%d\n", sum);
 }
 
+/*
+16. 找出最长连续数的个数。使用set/map存所有的数，遍历arr，得到第i个val， 依次val--， val++ 从set/map中找
+*/
 void test_longest_consecutive() {
     int arr[] = {100, 4, 200, 1, 3, 2};
     vector<int> vec(arr, arr+6);
