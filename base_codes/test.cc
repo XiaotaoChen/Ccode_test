@@ -338,25 +338,6 @@ void test_longest_consecutive() {
     printf("result:%d\n", result);
 }
 
-void test_ladder_length() {
-    std::string start = "hit";
-    std::string end = "cog";
-    std::unordered_set<std::string> dict {"hot","dot","dog","lot","log"};
-    // std::string start = "teach";
-    // std::string end = "place";
-    // std::unordered_set<std::string> dict {"peale","wilts","place","fetch","purer","pooch","peace","poach","berra","teach","rheum","peach"};
-    // int result = search::ladderLength(start, end, dict);
-    // printf("result:%d\n", result);
-
-    std::vector<std::vector<std::string> > result = search::findLadders_V2(start, end, dict);
-    for(int i=0;i<result.size(); i++) {
-        for(int j=0; j<result[i].size(); j++) {
-            printf("%s ", result[i][j].c_str());
-        }
-        printf("\n");
-    }
-}
-
 void test_queue_vector() {
     std::queue<std::vector<std::string> > qu;
     std::vector<std::string*> str_vec(4);
@@ -936,6 +917,12 @@ void test_zigzag_level_order() {
     }
 }
 
+
+/*
+根据wordlist 从start过渡到end
+1.先使用queue，bfs判断是否可以过渡到end，并记录path_map[curr].push_back(curr_in)
+2.dfs（回溯）根据path_map,从end出发，反向遍历到start。
+*/
 void test_ladder_length_bfs() {
     std::string start = "red"; // "hit";
     std::string end = "tax"; // "cog";
@@ -1230,7 +1217,6 @@ int main() {
     // test_surroundRegion();
     // test_sum_number_binary_tree();
     // test_longest_consecutive();
-    // test_ladder_length();
     // test_queue_vector();
     // test_is_palindrome();
     // test_maxPathSum();
