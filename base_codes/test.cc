@@ -26,6 +26,7 @@
 #include "str_algs.h"
 #include "topoloical_sort.h"
 #include "memory_algs.h"
+#include "hash_algs.h"
 
 using namespace std;
 
@@ -1236,6 +1237,40 @@ void test_respace() {
     printf("result:%d\n", result);
 }
 
+
+/*
+给定target，判断数组中是否存在两数之和为target.
+hash map求解，要注意重复元素的问题
+*/
+void test_two_sum() {
+    std::vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+    std::vector<int> result = hash_alg::twoSum(nums, target);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+
+
+/*
+给定数组，求４数之和的可能结果，　解法和三数之和一样．
+先对nums排序，两重for循环，里面两个指针依次递增或递减．
+要注意四个指针的范围，每个指针避免使用重复元素．
+*/
+void test_foursum() {
+    std::vector<int>  nums = {-1,2,2,-5,0,-1,4}; // {-1,0,-5,-2,-2,-4,0,1,-2}; // {0,0,0,0}; // {1, 0, -1, 0, -2, 2};
+    int target = 3; // -9; //0;
+    std::vector<std::vector<int>> result = hash_alg::fourSum(nums, target);
+    for (int i=0 ;i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -1259,7 +1294,7 @@ int main() {
     // test_minimumTotal();
     // test_pascal_row();
     // test_populating_next_right_pointer();
-    // test_min_distance_of_string();
+    // test_min_distance_of_strintest_foursumg();
     // test_haspathsum();
     // test_qsort();
     // test_add_two_numbers();
@@ -1331,7 +1366,9 @@ int main() {
     // test_multiply();
     // test_longest_increaseing_path();
     // test_diving_board();
-    test_respace();
+    // test_respace();
+    // test_two_sum();
+    test_foursum();
 
 
     return 0;

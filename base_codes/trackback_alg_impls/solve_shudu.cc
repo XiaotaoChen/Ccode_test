@@ -58,3 +58,42 @@ bool track_back::track_back_solveSudoku(std::vector<std::vector<char>>& board, i
 void track_back::solveSudoku(std::vector<std::vector<char>>& board) {
     track_back_solveSudoku(board, 0, 0);
 }
+
+bool track_back::track_back_solveSudoku_v2(std::vector<std::vector<char>>& board, int x, int y, 
+                               std::vector<std::vector<bool>> & rows, 
+                               std::vector<std::vector<bool>> & cols,
+                               std::vector<std::vector<bool>> & boxs) {
+    if (x==board.size()) return true;
+    if (y==board[0].size()) return track_back_solveSudoku_v2(board, x+1, 0, rows, cols, boxs);
+    if (board[x][y]!='.') return track_back_solveSudoku_v2(board, x, y+1, rows, cols, boxs);
+    for (int i=0; i<9; i++) {
+        if (rows[x][i]==false && cols[y][i]==false && boxs[(x/3)*3+y/3][i]==false) {
+            board[x][y] = i+'1';
+            rows[x][i]=true; cols[y][i]=true; boxs[(x/3)*3 + y/3][i]=true;
+            bool flag = track_back_solveSudoku_v2(board, x, y+1, rows, cols, boxs);
+            if (flag) return true;
+            board[x][y] = '.';
+            rows[x][i]=false; cols[y][i]=false; boxs[(x/3)*3 + y/3][i]=false;
+        }
+    }
+    return false;
+}
+
+void track_back::solveSudoku_v2(std::vector<std::vector<char>>& board) {
+    if (board.size()!=9|| board[0].size()!=9) return;
+    std::vector<std::vector<bool>> rows(9, std::vector<bool>(9, false));
+    std::vector<std::vector<bool>> cols(9, std::vector<bool>(9, false));
+    std::vector<std::vector<bool>> boxs(9, std::vector<bool>(9, false));
+
+    for (int i=0; i<board.size(); i++) {
+        for (int j=0; j<board[i].size(); j++) {
+            if (board[i][j]!='.') {
+                int val = board[i][j] - '1';
+                rows[i][val] = true;
+                cols[j][val] = true;
+                boxs[(i/3)*3 + j/3][val] = true;
+            }
+        }
+    }
+    track_back_solveSudoku_v2(board, 0, 0, rows, cols, boxs);
+}
