@@ -338,28 +338,23 @@ void test_longest_consecutive() {
     printf("result:%d\n", result);
 }
 
-void test_queue_vector() {
-    std::queue<std::vector<std::string> > qu;
-    std::vector<std::string*> str_vec(4);
-    std::string str1 = "str1";
-    std::string str2 = "str2";
-    printf("str1 add:%p, str2 add:%p\n", &str1, &str2);
-    str_vec.push_back(&str1);
-    printf("str_vec add:%p str_vec[size -1] add:%p, size:%lu\n", str_vec.front(), str_vec[str_vec.size()-1], str_vec.size());
-    printf("str_vec[size-1]:%s\n",(*(str_vec[str_vec.size()-1])).c_str());
-    // qu.push(str_vec);
-
-    str_vec.push_back(&str2);
-    printf("str_vec add:%p str_vec[size -1] add:%p, size:%lu\n", str_vec.front(), str_vec[str_vec.size()-1], str_vec.size());
-    printf("str_vec[size-1]:%s\n", (*(str_vec[str_vec.size()-1])).c_str());
-    // printf("%d\n", qu.front().size());
-}
+/*
+17. 去掉空格，标点符号，屏蔽大小写差异，判断是否为回文串。
+（1）遍历字符串去掉空格，标点符号；
+（2）转成小写字符，std::transform(begin(), end(), ::tolower);
+（3）判断是否为回文串，即str==std::string(str.rbegin(), str.rend())
+*/
 void test_is_palindrome() {
     std::string s = "A man, a plan, a canal: Panama";
     bool result = search::isPalindrome(s);
     printf("result:%d\n", result);
 }
 
+/*
+18. 求二叉树最大的路径之和。dfs
+当前节点的最大路径之和=val + left_node_result + right_node_result;
+return val + max(left_node_result, right_node_result);
+*/
 void test_maxPathSum() {
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(2);
@@ -368,6 +363,14 @@ void test_maxPathSum() {
     printf("result:%d\n", result);
 }
 
+/*
+19. 买卖两次股票，收益最大能到多少。
+使用buy1, sell1,buy2,sell2模拟两次交易的内容。
+buy1=max(buy1, -prices[i]); 买入股票需要掏出的钱，越少越好
+sell1=max(sell1, buy1+prices[i]); 卖出股票，剩余的钱越多越好;
+buy2=max(buy2, sell1-prices[i]); 第二次买入股票
+sell2=max(sell2, buy2+prices[i])
+*/
 void test_maxprofix() {
     int arr[] = {3,2,1,3,4,5,4,6,1,7};
     std::vector<int> vec(arr, arr+10);
@@ -375,6 +378,10 @@ void test_maxprofix() {
     printf("result:%d\n", result);
 }
 
+/*
+20. 求三角形从上到下最小的路径之和。其中只能和其相邻的数相加。
+动态规划 dp[2][line]
+*/
 void test_minimumTotal() {
     std::vector<std::vector<int> > triangle;
     int line1[]={2};
@@ -394,6 +401,9 @@ void test_minimumTotal() {
     printf("result:%d\n", result);
 }
 
+/*
+21. 生成杨辉三角
+*/
 void test_pascal_row() {
     // std::vector<int> result = dp::getRow(3);
     // for (int i=0; i<result.size(); i++) {
@@ -410,6 +420,10 @@ void test_pascal_row() {
     }
 }
 
+/*
+22. 给二叉树兄弟节点加上next指针。
+通过queue依次得到每一层的所有节点，然后将依次设置节点的next指针。
+*/
 void test_populating_next_right_pointer() {
     TreeLinkNode* root = new TreeLinkNode(1);
     root->left = new TreeLinkNode(2);
@@ -431,15 +445,18 @@ void test_populating_next_right_pointer() {
         curr_left = curr_left->left;
     }
 
-    delete root->right->right;
-    delete root->right->left;
-    delete root->left->right;
-    delete root->left->left;
-    delete root->left;
-    delete root->right;
-    delete root;
+    // delete root->right->right;
+    // delete root->right->left;
+    // delete root->left->right;
+    // delete root->left->left;
+    // delete root->left;
+    // delete root->right;
+    // delete root;
 }
 
+/*
+23. 求两个字符串的最短距离，dp求解，根据代码没看懂问题的定义
+*/
 void test_min_distance_of_string() {
     std::string S = "rabbbit"; // ""rabbbit";
     std::string T = "rabbit"; // "rabbit";
@@ -447,6 +464,14 @@ void test_min_distance_of_string() {
     printf("result:%d\n", result);
 }
 
+/*
+24. 遍历二叉树的路径，判断是否存在和为sum的路径，并返回所有可能的路径结果
+回溯法。bfs(combinations, curr, res, root)
+将val push curr
+如果res==root->val && root->left==null && root->right==null 则将curr push到结果中；
+bfs(combinations, curr, res, root->left)
+bfs(combinations, curr, res, root->right)
+*/
 void test_haspathsum() {
     TreeNode* root = new TreeNode(-2);
     root->left = new TreeNode(-3);
@@ -467,6 +492,17 @@ void test_haspathsum() {
     }
 }
 
+
+/*
+25. 快速排序，堆排序
+快排： 先从j开始，while(arr[j]<=ref&& i<j)j--; arr[j]=arr[i];
+堆排序： 先构建最大堆。从k=2/length-1-->0调整堆的顺序；
+然后依次从length-1->1, 交换arr[0],arr[i]的值，调整堆的顺序；
+heap_modify: 注意dad=start，son=2*dad+1; while(son<=end) {
+    找到左右子节点最大的一个，如果son的值大于dad的交换两者，dad=son；son=2*dad+1；
+    否则直接返回。
+}
+*/
 void test_qsort() {
     // int a[] = {6, 2, 1, 3, 5, 4};
     int len = 20;
@@ -1217,7 +1253,6 @@ int main() {
     // test_surroundRegion();
     // test_sum_number_binary_tree();
     // test_longest_consecutive();
-    // test_queue_vector();
     // test_is_palindrome();
     // test_maxPathSum();
     // test_maxprofix();
