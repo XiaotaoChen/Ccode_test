@@ -533,6 +533,11 @@ void test_qsort() {
     printf("\n");
 }
 
+/*
+26. 两个链表数字相加。
+1.将两个链表对应位分别相加，合成一个链表后再转成正常数字。注意最后一位是否进位的问题。
+2.将两个链表对应位相加，使用carry位保留前一位的进位，在相加过程中完成进位。
+*/
 void test_add_two_numbers() {
     ListNode* l1 = new ListNode(9);
     l1->next = new ListNode(8);
@@ -547,12 +552,17 @@ void test_add_two_numbers() {
     }
 }
 
-void test_length_of_substr() {
-    std::string s = "pwwkew";
-    int result = search::lengthOfLongestSubstring(s);
-    printf("result:%d\n", result);
-}
-
+/*
+27. 从两个有序数组中找出中位数。
+1. 先对两个数组merge，然后直接找出中位数。
+2. 二分查找。每次查找两个数组中的k/2个，直接舍弃较小的那一部分。
+dfs(nums1, low1, nums2, low2, k);
+注意k==1，low1,low2是否在nums1,nums2之内。
+if (low1+k/2-1<nums1.size())mid1=nums1[low1+k/2-1];
+if (low2+k/2-1<nums2.size()) mid2 = nums2[low2+k/2-1];
+if (mid1<mid2) dfs(nums1, low1+k/2, nums2, low2, k-k/2);
+else dfs(nums1, low1, nums2, low2+k/2, k-k/2);
+*/
 void test_find_mid_num() {
     std::vector<int> a={1, 3};
     std::vector<int> b={2};
@@ -561,6 +571,11 @@ void test_find_mid_num() {
     printf("result:%f \n", result);
 }
 
+/*
+28. 求字符串中最长的回文子串。
+dp[][] 记录i->j是否为回文串
+dp[i][j]与 dp[i+1][j-1]的关系，注意考虑a|a,aba两者情况
+*/
 void test_length_palindrome() {
     std::string str = "abcdasdfghjkldcba";
     // std::string result = search::longestPalindrome(str);
@@ -1101,7 +1116,12 @@ void test_remove_nth_node() {
     }
     printf("\n");
 }
-
+/*
+求不包含重复字符的最长子串。
+使用滑窗。unordered_set保存当前窗口的内容。如果窗口中已经存在s[i]，
+则一直递增left，删除窗口内容，直到窗口中不存在s[i].
+注意最后需要把s[i]加入到窗口中
+*/
 void test_length_substr() {
     std::string str = "dvdf";
     int result = binary_pointer::lengthOfLongestSubstring(str);

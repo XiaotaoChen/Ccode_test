@@ -3,28 +3,6 @@
 
 #include "../search_algs.h"
 
-int search::is_include(std::string s, int left, int right, char ch) {
-    for (int i=left; i<=right; i++) {
-        if (s[i] == ch) return i;
-    }
-    return -1;
-}
-
-int search::lengthOfLongestSubstring(std::string s) {
-    if (s.length() <= 1) return s.length();
-    int result = 1;
-    int curr_left = 0;
-    for (int i=1; i< s.length(); i++) {
-        int idx = is_include(s, curr_left, i -1, s[i]);
-        if ( idx >= 0) {
-            // is included
-            curr_left = idx +1;
-        }
-        result = std::max(i - curr_left +1, result);
-    }
-    return result;
-}
-
 double search::findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2) {
     int left1 = 0;
     int left2 = 0;
