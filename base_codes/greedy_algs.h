@@ -18,7 +18,7 @@ int jump(std::vector<int>& nums);
 
 // https://leetcode-cn.com/problems/gas-station/
 int canCompleteCircuit(std::vector<int>& gas, std::vector<int>& cost);
-
+int canCompleteCircuit_v2(std::vector<int> &gas, std::vector<int> &cost);
 
 // https://leetcode-cn.com/problems/wildcard-matching/
 bool isMatch(std::string s, std::string p);

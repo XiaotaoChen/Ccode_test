@@ -657,12 +657,29 @@ void test_max_area_in_water_tank() {
     printf("result:%d\n", result);
 }
 
+/*
+35. 转换成罗马数字
+建立一个<int, string>的map，
+列举所有可能的值：1，4，5，9.... 对应的string "I", "IV"
+降序排列。
+*/
 void test_int_to_map() {
-    std::string result = search::intToRoman_v2(1994);
+    // std::string result = search::intToRoman_v2(1994);
+    std::string result = search::intToRoman_v3(1994);
     
     printf("result:%s\n", result.c_str());
 }
 
+/*
+36. 判断一棵数是不是另一棵树的子树
+需要额外判断子树是否相等。因为是否是子树必须是两者相等。
+if （root->val!=sub->val） 
+(issame(root->left, sub->left)&& issame(root->right, sub->right)||
+isSub(root->left, sub)||isSub(root->right, sub)
+else:
+isSub(root->left, sub)||isSub(root->right, sub)
+)
+*/
 void test_is_subtree() {
     TreeNode* root = new TreeNode(3);
     root->left = new TreeNode(4);
@@ -677,6 +694,16 @@ void test_is_subtree() {
     printf("result:%d\n", result);
 }
 
+/*
+37. 找到两个节点最近的公共祖先
+递归判断一棵树中是否存在p或q节点
+left = dfs(root->left, p,q)
+right = dfs(root->right, p,q);
+if (left==null&& right==null) return null
+if(left!=null && right!=null) return root //左右节点均存在p或q
+if (left!=null && right==null) return left // 只有left存在p或q
+if (left==null && right!=null) return right
+*/
 void test_is_lowest_ancestor() {
     TreeNode* root = new TreeNode(3);
     root->left = new TreeNode(5);
@@ -693,6 +720,9 @@ void test_is_lowest_ancestor() {
     printf("result:%lf\n", result->val);
 }
 
+/*
+38. 找到树中所有可能到sum，并返回出现次数最多的元素
+*/
 void test_requent_tree_sum() {
     TreeNode* root = new TreeNode(5);
     root->left = new TreeNode(2);
@@ -710,12 +740,26 @@ void test_requent_tree_sum() {
     printf("\n");
 }
 
+/*
+39. 简化路径
+1. 以‘/’划分字符子串得到items。
+2. 遍历items，依次将item压入栈中，当出现'..'时pop；
+3. 依次弹出item，result = '/' + item + result;
+*/
 void test_simple_path() {
     std::string path = "/a//b////c/d//././/.."; //"/a/../../b/../c//.//"; // "/a/./b/../../c/"; // "/home//foo/"; // "/../"; // "/home/";
     std::string result = search::simplifyPath(path);
     printf("result:%s\n", result.c_str());
 }
 
+
+/*
+40. 反转链表m,n之间的元素
+1. 记录m的前一个元素和m元素的指针。然后从m+1个元素开始，
+node(m+1)->next=node(m-1)->next;
+node(m-1)->next = node(m+1);
+2. 在n的时候，node(m)->next=node(n)->next;
+*/
 void test_reverse_between() {
     ListNode* head = new ListNode(1);
     head->next = new ListNode(2);
@@ -730,6 +774,11 @@ void test_reverse_between() {
     printf("\n");
 }
 
+/*
+41. 判断4个数是否可以求得24点
+1. 递归求解，先从4个数中选取两个数进行一直运算得到结果，
+然后从3个数中选两个得到结果，最终只剩一个数时，判断是否等于24
+*/
 void test_juge_point24() {
     // std::vector<int> nums = {1, 2, 1, 2}; // {4, 1, 8, 7};
     // bool result = search::judgePoint24(nums);
@@ -739,6 +788,10 @@ void test_juge_point24() {
     printf("result:%d\n", result);
 }
 
+/*
+42. 矩阵旋转遍历
+模拟旋转遍历，注意i,j是否越界
+*/
 void test_spiral_order() {
     std::vector<std::vector<int>> matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}}; // {{1,2,3}, {4,5,6}, {7,8,9}};
     std::vector<int> result = search::spiralOrder(matrix);
@@ -748,6 +801,10 @@ void test_spiral_order() {
     printf("\n");
 }
 
+/*
+43. 生成旋转矩阵
+与42类似
+*/
 void test_generate_matrix(){
     std::vector<std::vector<int>> result = search::generateMatrix(3);
     for (int i=0; i< result.size(); i++) {
@@ -758,6 +815,14 @@ void test_generate_matrix(){
     }
 }
 
+/*
+43. 找出递增数组中val与idx一致的数。
+递增数组中val与idx一致的数只可能出现连续的一次。不可能出现多次。
+mid = (left+right)/2
+// 左边不可能存在符合条件的数
+if num[mid]<mid: dfs(mid+1, right)
+else dfs(left, mid-1)
+*/
 void test_match_idx_val() {
     std::vector<int> data = {-5,1,2,3,6};
     std::vector<int> result;
@@ -775,12 +840,27 @@ void test_match_idx_val() {
     printf("\n");
 }
 
+/*
+44. 求所有二叉树非叶子节点总和的最小值。
+dp求解。定义辅助数组aux[i][j]表示i->j元素中最大的值
+dp[i][j]表示i->j中总和最小值，则dp[i][j]=min(dp[i][k]+dp[k][j])+ aux[i][k]*aux[k][j];
+*/
 void test_mct_from_leaf() {
     std::vector<int> data= {6,2,4};
     int result = dp::mctFromLeafValues(data);
     printf("result:%d\n", result);
 }
 
+
+/*
+45. 三数之和
+先对数组排序，设置first，second,thrid指针，不能指向重复的元素
+for (int i=0; i<n-2; i++) {
+    secod=i+1;
+    third = n-1;
+    if (nums[first]+nums[secod]==target-nums[third])....
+}
+*/
 void test_three_sum() {
     std::vector<int> data = {-1, 0, 1, 2, -1, -4};
     std::vector<std::vector<int>> result = search::threeSum(data);
@@ -791,6 +871,13 @@ void test_three_sum() {
         printf("\n");
     }
 }
+
+/*
+46. 田忌赛马
+1.对A，B进行排序。2.注意B中可能存在重复的元素。
+if A[j]> B[i]:match_map[B[i]].push(A[j]);
+else: unmatch.push(A[j]);
+*/
 void test_advantage_count() {
     std::vector<int> A = {2,0,4,1,2}; // {12,24,8,32}; //{2,7,11,15};
     std::vector<int> B = {1,3,0,0,2}; // {13,25,32,11}; // {1,10,4,11};
@@ -801,6 +888,10 @@ void test_advantage_count() {
     printf("\n");
 }
 
+/*
+47. 判断是否可以跳到终点
+记录当前可到达的最远点k=max(k, nums[i]+i)
+*/
 void test_can_jump() {
     std::vector<int> data = {3,2,1,0,4}; //{2,3,1,1,4};
     // bool result = greedy::canJump(data);
@@ -809,13 +900,22 @@ void test_can_jump() {
     printf("result:%d\n", result);
 }
 
+/*
+48. 判断能否环绕一圈
+同11
+*/
 void test_can_complete_circuit() {
     std::vector<int> gas = {1,2,3,4,5}; // {2,3,4}; //{1,2,3,4,5};
     std::vector<int> costs = {3,4,5,1,2}; // {3,4,3}; // {3,4,5,1,2};
-    int result = greedy::canCompleteCircuit(gas, costs);
+    // int result = greedy::canCompleteCircuit(gas, costs);
+    int result = greedy::canCompleteCircuit_v2(gas, costs);
     printf("results:%d\n", result);
 }
 
+/*
+49. 正则表达式，类似31
+注意初始化匹配0个元素的情况
+*/
 void test_match_str() {
     std::string s = "aa"; // "adceb";
     std::string p = "*ab"; // "*a*b";
@@ -823,35 +923,57 @@ void test_match_str() {
     printf("result:%d\n", result);
 }
 
+/*
+50. 删除冗余字符，并使得保留的字符字典序最小
+遍历字符串，查询i以后的字符中是否存在该字符
+while (result.back()>s[i] && s.find(result.back(), i)!=string::npos) result.pop_back()
+*/
 void test_remove_duplicate_letters() {
     std::string s = "cbacdcbc"; // "bcabc";
     std:string result = greedy::removeDuplicateLetters(s);
     printf("result:%s\n", result.c_str());
 }
-
+/*
+51. 求数组中连续子串总和最大的值。
+记录curr_sum,如果curr_sum>0 则curr_sum+=nums[i];
+else curr_sum=nums[i];
+*/
 void test_max_sub_array() {
     std::vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
     int result = dp::maxSubArray(nums);
     printf("result:%d\n", result);
 }
 
+/*
+52. 求从(0,0)-->(m,n)的路径总和
+dp[i][j]=dp[i-1][j]+dp[i][j-1]
+*/
 void test_unique_path() {
     int result = dp::uniquePaths(7, 3);
     printf("result:%d\n", result);
 }
-
+/*
+53. 同52
+*/
 void test_unique_path_with_obstacle() {
     std::vector<std::vector<int>> map = {{0,0,0}, {0,1,0}, {0,0,0}};
     int result = dp::uniquePathsWithObstacles(map);
     printf("result:%d\n", result);
 }
 
+/*
+54. 求数组中最大的方阵。基于32
+从row=0->n即可
+*/
 void test_max_rectangle() {
     std::vector<std::vector<char>> matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
     int result = dp::maximalRectangle(matrix);
     printf("result:%d\n", result);
 }
 
+/*
+55. 克隆图，类似8.
+*/
 void test_clone_graph2() {
     graphNode* head = new graphNode(1);
     graphNode* node2 = new graphNode(2);
@@ -887,12 +1009,19 @@ void test_clone_graph2() {
     }
 }
 
+/*
+56. 判断课程之间的依赖关系，是否可以正常完成课程。即判断拓扑结构中不存在环
+队列中保存入度为0的节点，直到遍历完所有节点。
+*/
 void test_can_finish() {
     std::vector<std::vector<int>>  data = {{0,1}, {0,2}, {1,2}};
     bool result = graph::canFinish(3, data);
     printf("result:%d\n", result);
 }
 
+/*
+57. 类似56, 保留visit顺序
+*/
 void test_find_order() {
     std::vector<std::vector<int>>  data = {{0,1}, {0,2}, {1,2}};
     std::vector<int> result = graph::findOrder(3, data);
@@ -902,6 +1031,10 @@ void test_find_order() {
     printf("\n");
 }
 
+/*
+58. 将graph转化为树，使其高度最低。
+记录每个点的出入度，依次遍历degree=1的点，直到剩下最后1或2个。
+*/
 void test_find_highest_node() {
     std::vector<std::vector<int>> edges={{0, 3}, {1, 3}, {2, 3}, {4, 3}, {5, 4}}; //{{1,0},{1,2},{1,3}};
     std::vector<int> result = graph::findMinHeightTrees(6, edges);
@@ -911,6 +1044,9 @@ void test_find_highest_node() {
     printf("\n");
 }
 
+/*
+59. 回溯法生成所有可能结果
+*/
 void test_letter_combination() {
     std::string digits = "23";
     std::vector<std::string> result = track_back::letterCombinations(digits);
@@ -920,7 +1056,7 @@ void test_letter_combination() {
 }
 
 /*
-回溯法生成合法括号：
+60. 回溯法生成合法括号：
 1. 判断当前字符串中左括号的个数始终>=右括号的个数即合法，其他均不合法。
 2. if (left_num>n||right_num>n) return;
    if (left_num==n&&right_num==n) collection result;
@@ -933,6 +1069,11 @@ void test_generate_parenthesis() {
     }
 }
 
+/*
+61. 生成所有sum的结果。
+1. 避免重复的组合有点类似三数之和：45， 先对数组sort
+2. dfs(combination, curr, index, nums, target)
+*/
 void test_combination_sum() {
     std::vector<int> candidates = {2,5,2,1,2}; // {10,1,2,7,6,1,5};
     int target = 5; //8;
@@ -945,6 +1086,14 @@ void test_combination_sum() {
     }
 }
 
+/*
+62. 判断二叉树是否正确，即左子树都小于root->val, 又子树大于root->val
+dfs(node, low_threshold, high_threshold):
+if (node->val >low_threshold && node->val < high_threshold) {
+    dfs(node->left, low_threshold, node->val) 
+    && dfs(node->right, node->val, high_threshold)
+}
+*/
 void test_dfs_isvalidtree() {
     TreeNode* root = new TreeNode(2);
     root->left = new TreeNode(1);
@@ -1023,6 +1172,9 @@ void test_ladder_length_bfs() {
     }
 }
 
+/*
+逆波兰式求结果
+*/
 void test_eval_rpn() {
     std::vector<std::string> tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}; // {"4", "13", "5", "/", "+"}; //{"2", "1", "+", "3", "*"};
     int result = stack_algs::evalRPN(tokens);
@@ -1358,7 +1510,7 @@ int main() {
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();
-    // test_int_to_map();
+    test_int_to_map();
     // test_is_subtree();
     // test_is_lowest_ancestor();
     // test_requent_tree_sum();
@@ -1419,7 +1571,7 @@ int main() {
     // test_diving_board();
     // test_respace();
     // test_two_sum();
-    test_foursum();
+    // test_foursum();
 
 
     return 0;

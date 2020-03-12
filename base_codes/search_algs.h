@@ -96,6 +96,7 @@ int maxArea_v2(std::vector<int>& height);
 // https://leetcode-cn.com/problems/integer-to-roman/
 std::string intToRoman(int num);
 std::string intToRoman_v2(int num);
+std::string intToRoman_v3(int num);
 
 // https://leetcode-cn.com/problems/subtree-of-another-tree/
 bool isSubtree(TreeNode* s, TreeNode* t);

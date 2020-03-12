@@ -21,3 +21,21 @@ int greedy::canCompleteCircuit(std::vector<int>& gas, std::vector<int>& cost) {
     if (res >=0) return start;
     return -1;
 }
+
+int greedy::canCompleteCircuit_v2(std::vector<int> &gas, std::vector<int> &cost) {
+    int end = 0;
+    int start = gas.size() -1;
+    int remain = gas[start] - cost[start];
+    while(start > end) {
+        if (remain>=0){
+            remain += gas[end] - cost[end];
+            end ++; // end++ must behind of remain
+        }
+        else{
+            start --; // start-- must ahead of remain
+            remain += gas[start] - cost[start];
+        }
+    }
+    if (remain>=0) return start;
+    return -1;
+}
