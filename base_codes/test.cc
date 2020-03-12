@@ -584,6 +584,12 @@ void test_length_palindrome() {
     printf("result: %s\n", result.c_str());
 }
 
+
+/*
+29. 字符按照N字形排列，按行输出最后的顺序。
+推导出N字排列的规律。一个周期为2*rows-2,
+钱rows个为列，后面row-2个斜向上递增。
+*/
 void test_z_convert() {
     std::string str = "LEETCODEISHIRING";
     int rows = 4;
@@ -591,12 +597,22 @@ void test_z_convert() {
     printf("result:%s\n", result.c_str());
 }
 
+/*
+30. 数字转换
+1. 特殊处理第一个字符，判断是否存在正负号
+2. 使用double保存中间结果避免int溢出，然后对int32_max,int32_min进行判断
+*/
 void test_my_atoi() {
     std::string str= "-2147483647";
     int result = search::myAtoi(str);
     printf("result:%d\n", result);
 }
 
+/*
+31. 正则表达式匹配
+dp求解：dp[i][j]表示s的前i个字符与p的前j个字符是否匹配。
+注意*匹配0个字符的情况。初始化i=0的情况，if p[j]='*' p[j]=p[j-2]
+*/
 void test_regular_match() {
     std::string s= "a";
     std::string p = "a*";
@@ -604,12 +620,23 @@ void test_regular_match() {
     printf("result:%d\n", result);
 }
 
+/*
+32. 最大的矩形面积
+1.维护一个升序的栈，纪录对于数字的index，当当前数值>stack.top()时，直接push
+2.当小于时，记录以当前栈顶元素为高，i-当前栈顶元素前一个元素的idx
+3.最后依次pop stack中的元素，(len-i)* high
+*/
 void test_largest_rectangle_area() {
     std::vector<int> arr = {4, 1000, 1000, 1000, 1000};  // {7, 2, 1, 4, 5, 1, 3, 3}; // {3, 1, 6, 5, 2, 3}; // {2,1,5,6,2,3};
     int result = search::largestRectangleArea(arr);
     printf("result:%d\n", result);
 }
 
+/*
+33. 求最大方阵长度
+dp求解dp[i][j]表示0,0-->i,j部分最大方阵的长度。
+dp[i][j]=min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1]) + 1
+*/
 void test_maximal_square() {
     std::vector<std::vector<char>> matrix = {{'1', '0', '1', '0', '0'},
                                              {'1', '0', '1', '1', '1'},
@@ -619,6 +646,10 @@ void test_maximal_square() {
     printf("result:%d\n", result);
 }
 
+/*
+34. 求水箱的最大容量
+从两边往中间依次遍历即可。
+*/
 void test_max_area_in_water_tank() {
     std::vector<int> arr= {1,8,6,2,5,4,8,3,7}; //{1,2,4,3}; // {1,2}; // {1,8,6,2,5,4,8,3,7};
     // int result = search::maxArea(arr);
