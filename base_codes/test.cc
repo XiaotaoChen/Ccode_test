@@ -1104,6 +1104,13 @@ void test_dfs_isvalidtree() {
     printf("result:%d\n", result);
 }
 
+/*
+63. 从二叉树中找出错位的两个节点，将其交换正常。
+1.中序遍历，将其当成一个数组。每次记录上一个节点的val，进行比较。
+如果pre->val > curr->val, 则记录pre为第一个错位的点，secod=curr；
+再遍历，如果再发现有错位的点，则second=curr，将两者交换即可。
+2. 注意dfs， first, second, pre指针使用引用。
+*/
 void test_recover_tree() {
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(3);
@@ -1113,6 +1120,10 @@ void test_recover_tree() {
     
 }
 
+/*
+64. 根据中序，先序数组恢复二叉树
+递归求解dsf(pre_arr, in_arr, pre_start, pre_end, in_start, in_end)
+*/
 void test_build_tree() {
     std::vector<int> preorder = {3,9,20,15,7};
     std::vector<int> inorder = {9,3,15,20,7};
@@ -1120,6 +1131,18 @@ void test_build_tree() {
 
 }
 
+/*
+65. 判断一棵二叉树是否对称
+对称即左子树等于右子树。
+直接对比root与root即可。
+isMirror(root1, root2) {
+    if (root1==nullptr&&root2==nullptr) return true;
+    if (root1==nullptr||root2==nullptr) return false;
+    if (root1->val==root2->val) return dfs(root1->left, root2->right) && 
+                                       dfs(root1->right, root2->left)
+    return false;
+}
+*/
 void test_is_symmetric() {
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(2);
@@ -1133,6 +1156,11 @@ void test_is_symmetric() {
     printf("result:%d\n", result);
 }
 
+
+/*
+66. 按层遍历二叉树，按照z字形遍历。
+使用队列进行遍历
+*/
 void test_zigzag_level_order() {
     TreeNode* root = new TreeNode(3);
     root->left = new TreeNode(9);
@@ -1151,7 +1179,7 @@ void test_zigzag_level_order() {
 
 
 /*
-根据wordlist 从start过渡到end
+67. 根据wordlist 从start过渡到end
 1.先使用queue，bfs判断是否可以过渡到end，并记录path_map[curr].push_back(curr_in)
 2.dfs（回溯）根据path_map,从end出发，反向遍历到start。
 */
@@ -1173,7 +1201,7 @@ void test_ladder_length_bfs() {
 }
 
 /*
-逆波兰式求结果
+68. 逆波兰式求结果
 */
 void test_eval_rpn() {
     std::vector<std::string> tokens = {"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}; // {"4", "13", "5", "/", "+"}; //{"2", "1", "+", "3", "*"};
