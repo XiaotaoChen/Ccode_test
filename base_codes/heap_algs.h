@@ -12,6 +12,7 @@ int findKthLargest(std::vector<int>& nums, int k);
 int qsort_pilvot(std::vector<int>&nums, int low, int high);
 
 void swap(int *a, int *b);
+void swap(int &a, int &b);
 void min_k_heap(std::vector<int>& nums, int start, int end);
 int findKthLargest_v2(std::vector<int>& nums, int k);
 

@@ -21,12 +21,19 @@ int binary_search::dfs_search(std::vector<int>& nums, int start, int end , int t
         }
     }
     else {
-        if (nums[start] <= target || nums[mid] >= target) {
-            idx = dfs_search(nums, start, mid-1, target);
-        }
-        else {
+        if (target >= nums[mid] && target <= nums[end]) {
             idx = dfs_search(nums, mid+1, end, target);
         }
+        else {
+            idx = dfs_search(nums, start, mid-1, target);
+        }
+        // if (nums[start] <= target || nums[mid] >= target) {
+            //      前半部分是乱序的， 当4 5 6 1,2, 如当nums[2]时，只有当 nums[start]<=target || nums[mid]>= target
+        //     idx = dfs_search(nums, start, mid-1, target);
+        // }
+        // else {
+        //     idx = dfs_search(nums, mid+1, end, target);
+        // }
     }
     return idx;
 }

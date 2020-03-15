@@ -1209,20 +1209,44 @@ void test_eval_rpn() {
     printf("result:%d\n", result);
 }
 
+/*
+69. 求一段高低不同的洼地，最多能存多少雨水。类似32. 
+使用栈维护一个降序队列，当curr_num>stack.top()时，
+栈顶元素为下届，当前面积：left = stack.pop().top()（i-left-1）*(min(curr_num, nums[left])-nums[low_idx])
+直到栈顶元素大于curr_num或为null。
+*/
 void test_trap() {
     std::vector<int> height = {0,1,0,2,1,0,1,3,2,1,2,1}; // {2,1,0,2};
     int result = stack_algs::trap(height);
     printf("result:%d\n", result);
 }
 
+/*
+70. 求第k大的数： 维护一个大小为k的最小堆，或使用快排找mid_indx是否为k，进而调整left，right
+1. 构建最小堆，
+2. 遍历k->n的数据，如果nums[i]>nums[0]则交换两者，并对堆进行调整
+3. 调整堆： while(son<=end) {
+    if (son+1<=end && nums[son]>nums[son+1]) son++;
+    if (nums[dad]<nums[son]) return;
+    swap(nums[dad], nums[son]);
+    dad = son;
+    son = 2 * dad + 1;
+}
+*/
 void test_find_k_largest() {
     std::vector<int> nums = {3,2,1,5,6,4};; // {7,6,5,4,3,2,1}; //{3,2,1,5,6,4};
-    int k = 2; //5; //2;
+    int k = 5; //5; //2;
     // int result = heap::findKthLargest(nums, k);
     int result = heap::findKthLargest_v2(nums, k);
     printf("result:%d\n", result);
 }
 
+
+/*
+71. 合并k个list.
+递归合并list.
+mergelists(vector_list, 0, k)
+*/
 void test_merge_k_list() {
     std::vector<ListNode*> lists;
     ListNode* root1 = new ListNode(1);
@@ -1244,6 +1268,9 @@ void test_merge_k_list() {
     printf("\n");
 }
 
+/*
+72. 不使用除法完成除法运算。注意数值越界的问题
+*/
 void test_divide() {
     int dividend = 2147483647; //2147483647;
     int divisor = 1; //3;
@@ -1251,13 +1278,26 @@ void test_divide() {
     printf("result:%d\n", result);
 }
 
+/*
+73. 递归寻找旋转数组中是否存在某数。
+二分查找，前后两个数组只有一个是乱序的，根据条件判断即可。
+*/
 void test_search() {
     std::vector<int> nums = {4,5,6,7,0,1,2}; //{3,1}; //{4,5,6,7,0,1,2};
-    int target = 3;
+    int target = 4;
     int result = binary_search::search(nums, target);
     printf("result:%d\n", result);
 }
 
+/*
+74. 从两个排序数组中查找中位数。
+使用二分法递归求解, dfs(nums1, low1, nums2, low2, k)
+ 当k==1时，return min(nums1[low1], nums2[low2])
+else{
+    if (nums1[low1+k/2-1]<nums2[low2+k/2-1]) return dfs(nums1, low1+k/2, nums2, low2, k-k/2);
+    else return dfs(nums1, low1, nums2, low2+k/2, k-k/2);
+}
+*/
 void test_find_median_num() {
     std::vector<int> nums1 = {1,2}; //{1,2}; //{1,3};
     std::vector<int> nums2 = {1,2,3}; //{3,4}; //{2};
@@ -1265,6 +1305,10 @@ void test_find_median_num() {
     printf("result:%f\n", result);
 }
 
+/*
+75. 将外边界为O的字符的连通区域。
+使用stack/queue 递归求解即可
+*/
 void test_merge_set() {
     std::vector<std::vector<char>> board={
         {'X', 'X', 'X', 'X'},
@@ -1280,6 +1324,10 @@ void test_merge_set() {
     }
 }
 
+/*
+76. 判断图中有几个独立连通区域。类似75.
+使用栈遍历所有为1的连通区域。不过多加两层for循环并使用visited数组
+*/
 void test_num_island() {
     // std::vector<std::vector<char>> grid={
     //     {'1', '1', '0', '0', '0'},
@@ -1292,6 +1340,25 @@ void test_num_island() {
     printf("result:%d\n", result);
 }
 
+/*
+77. 求出数组中最大连续数字的个数。
+1. 使用unordered_set/map.
+方法1. 使用set保存数组，遍历nums，求最大连续数
+idx = i;while(nums[idx]-1 in set ) idx--; del set[nums[idx]-1]
+idx = i+1;while(nums[idx]+1 in set ) idx++; del set[nums[idx]+1]
+方法2：
+使用并查集。使用map记录每个数字的父节点，以及和该节点属于同一个群的数量。
+1.初始化 map[nums[i]]=nums[i], cnt[nums[i]]=1;
+for (int i=0;i<n;i++) {
+    if (nums[i]+1 in map) {
+        result=max(result, mergetwoset(nums[i], nums[i]+1))
+    }
+}
+2. merge two set: 先找出nums[i], nums[i]+1的父节点，
+设置nums[i]+1的父节点为nums[i]; cnt[nums[i]]+=cnt[nums[i]+1]
+3. 找出父节点的同时更新该群对应点的父节点：
+find_root(nums, x): return nums[x]==nums? x: nums[x] = find_root(nums, nums[x]);
+*/
 void test_longest_consecutive2() {
     std::vector<int> data = {100, 4, 200, 1, 3, 2};
     // int result = merge_set::longestConsecutive(data);
@@ -1538,7 +1605,7 @@ int main() {
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();
-    test_int_to_map();
+    // test_int_to_map();
     // test_is_subtree();
     // test_is_lowest_ancestor();
     // test_requent_tree_sum();
@@ -1577,7 +1644,7 @@ int main() {
     // test_find_k_largest();
     // test_merge_k_list();
     // test_divide();
-    // test_search();
+    test_search();
     // test_find_median_num();
     // test_merge_set();
     // test_num_island();
