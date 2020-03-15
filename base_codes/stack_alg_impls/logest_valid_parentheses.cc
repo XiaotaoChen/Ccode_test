@@ -10,7 +10,6 @@ int stack_algs::longestValidParentheses(std::string s) {
     std::fill_n(lens, n, 0);
 
     int result = 0;
-    int curr = 0;
     std::stack<int> st;
     for (int i=0; i<n; i++) {
         if (s[i]=='(') st.push(i);
@@ -21,8 +20,25 @@ int stack_algs::longestValidParentheses(std::string s) {
                 if (left_idx>0) lens[i] += lens[left_idx-1];
                 result = result > lens[i] ? result : lens[i];
             }
+        }
+    }
+    return result;
+}
+
+int stack_algs::longestValidParentheses_v2(std::string s) {
+    if (s.length()<2) return 0;
+    std::stack<int> st;
+    int result = 0;
+    st.push(-1);
+    for(int i=0; i<s.length(); i++) {
+        if (s[i]=='(') st.push(i);
+        else {  // st中不会存在'))'这种情况，
+            st.pop(); // pop "("
+            if (st.empty()) { // 左右括号已完全匹配，）是多余的，push到栈中，作为下标。
+                st.push(i);
+            }
             else {
-                curr = 0;
+                result = result > (i - st.top()) ? result: (i - st.top());
             }
         }
     }

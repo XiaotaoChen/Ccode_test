@@ -1366,6 +1366,17 @@ void test_longest_consecutive2() {
     printf("result:%d\n", result);
 }
 
+
+/*
+78. 将二叉树转化成链表
+dfs,中序遍历，伴随一个pre指针
+dfs(root,&pre){
+    if (root->left！=null) dfs(root->left, pre);
+    pre->right=root;
+    pre->left=null;
+    dfs(root->right, root)
+}
+*/
 void test_bi_node() {
     TreeNode* root = new TreeNode(4);
     root->left = new TreeNode(2);
@@ -1381,6 +1392,10 @@ void test_bi_node() {
     printf("\n");
 }
 
+/*
+79. 删除链表倒数第n个数。
+先找到前第n个指针，然后head，nnode指针依次遍历，当nnode指针到最后时，head指针刚好是倒数第n的位置。
+*/
 void test_remove_nth_node() {
     ListNode* head = new ListNode(1);
     head->next = new ListNode(2);
@@ -1395,7 +1410,7 @@ void test_remove_nth_node() {
     printf("\n");
 }
 /*
-求不包含重复字符的最长子串。
+80. 求不包含重复字符的最长子串。
 使用滑窗。unordered_set保存当前窗口的内容。如果窗口中已经存在s[i]，
 则一直递增left，删除窗口内容，直到窗口中不存在s[i].
 注意最后需要把s[i]加入到窗口中
@@ -1417,20 +1432,10 @@ void test_unordered_map() {
     }
 }
 
-void test_str_longest_palindrome() {
-    std::string str = "abc";
-    // std::string result = str_alg::longestPalindrome(str);
-    std::string result = str_alg::longestPalindrome_dp(str);
-    printf("result:%s\n", result.c_str());
-}
-
-void test_str_heap_topk() {
-    std::vector<int> nums = {1,2,4,5,6,7};
-    int k = 3;
-    int result = str_alg::heap_topk(nums, k);
-    printf("resbult:%d\n", result);
-}
-
+/* 
+81. 求二叉树中每个节点>=其值的和
+递归遍历求和，先遍历: right, root, left. 记录一个pre节点，每个节点val=pre->val + val;
+*/
 void test_dfs_bstTogst() {
     TreeNode* root = new TreeNode(4);
     root->left = new TreeNode(1);
@@ -1455,6 +1460,11 @@ void test_dfs_bstTogst() {
     printf("\n");
 }
 
+/*
+82. 将链表每隔k个节点反序列
+1.注意传入函数的指针已经被修改．
+2.reverse listnode ：反序一个list, 从pre->next到end. 其返回反序后的列表的最后一个节点．因为最后一个节点的next指针需要额外设置．
+*/
 void test_swap_pair() {
     ListNode* head = new ListNode(1);
     head->next = new ListNode(2);
@@ -1471,6 +1481,10 @@ void test_swap_pair() {
     printf("\n");
 }
 
+/*
+83. 记录S中包含T所有字符的最小子串。
+滑窗原理。主要T中可能存在重复字符。
+*/
 void test_min_window() {
     std::string s = "a"; //"ADOBECODEBANC";
     std::string t = "aa"; //"ABC";
@@ -1478,6 +1492,12 @@ void test_min_window() {
     printf("result:%s\n", result.c_str());
 }
 
+/*
+84. 找出S中包含所有words的起始位置。
+1. 滑窗原理．因为words固定长度，但不知道开始的index在哪，故外层循环遍历i=0->word_len, 内层训练即可依次遍历　i+word_len, i + 2 * word_len进行滑窗．
+2. 恰好匹配，中间不能存在其他字符。也可使用滑窗用map记录words是否匹配。
+只要在匹配后再判断right-left+1==len(words)*word_len即可。
+*/
 void test_find_substr() {
     std::string s = "foobarthefoobarman"; //"wordgoodgoodgoodbestword"; // "wordgoodgoodgoodbestword";
     std::vector<std::string> words = {"bar","foo"}; //{"word","good","best","good"}; // {"word","good","best","word"};
@@ -1488,12 +1508,27 @@ void test_find_substr() {
     printf("\n");
 }
 
+/*
+85. 找出最长有效括号子串的长度
+注意连续的有效括号。
+1.使用栈遍历。len[i]表示以i结尾的有效括号个数。
+则如果s[i]==')', stack.pop(),len[i]=i-stack.top()+1+len[stack.top()-1]
+2. 也可以使用栈来标记，即匹配有效括号后，
+如果栈顶为空，说明前面所有字符都是正确的括号，则len=i
+如果栈顶不为空，则 len=i-stack.top()
+*/
 void test_longest_valid_parentheses() {
     std::string s = "()(()";
-    int result = stack_algs::longestValidParentheses(s);
+    // int result = stack_algs::longestValidParentheses(s);
+    int result = stack_algs::longestValidParentheses_v2(s);
     printf("result:%d\n", result);
 }
 
+/*
+86. 模拟乘法。
+1. 逐位乘法，result[i+j] +=nums[i]*nums[j]%10;rseult[i+j+1] += nums[i]*nums[j]/10;
+2. 经过1后，result也会存在>10的数，做完乘法后要再做一遍除余。
+*/
 void test_multiply() {
     std::string num1 = "123";
     std::string num2 = "456";
@@ -1502,7 +1537,8 @@ void test_multiply() {
 }
 
 /*
- 求矩阵中最长的连续递增串．将连续递增的关系表示为有向图，得到每个点的in_degrees[m][n], 将所有入度为０的点push到queue中，直到queue为空．
+87. 求矩阵中最长的连续递增串
+将连续递增的关系表示为有向图，得到每个点的in_degrees[m][n], 将所有入度为０的点push到queue中，直到queue为空．
 */
 void test_longest_increaseing_path() {
     std::vector<std::vector<int>> matrix = {{3,4,5},{3,2,6},{2,2,1}}; // {{9,9,4},{6,6,8},{2,1,1}};
@@ -1511,7 +1547,7 @@ void test_longest_increaseing_path() {
 }
 
 /*
-从shorter, longer中选取k个数，求所有可能出现的和
+88. 从shorter, longer中选取k个数，求所有可能出现的和
 */
 void test_diving_board() {
     int shorter = 1;
@@ -1525,7 +1561,7 @@ void test_diving_board() {
 }
 
 /*
-将字符串拆分，得到未匹配的字符个数
+89. 将字符串拆分，得到未匹配的字符个数
 dp[i]表示0->1的字符串中未匹配的个数．则 从0遍历ｊ到ｉ, 如果str(j, i) in dict, dp[i]=  min(dp[i-1]+1, dp[j-1]) 否则　dp[i] = dp[i-1] +1;
 */
 void test_respace() {
@@ -1537,7 +1573,7 @@ void test_respace() {
 
 
 /*
-给定target，判断数组中是否存在两数之和为target.
+90. 给定target，判断数组中是否存在两数之和为target.
 hash map求解，要注意重复元素的问题
 */
 void test_two_sum() {
@@ -1552,7 +1588,7 @@ void test_two_sum() {
 
 
 /*
-给定数组，求４数之和的可能结果，　解法和三数之和一样．
+91. 给定数组，求４数之和的可能结果，　解法和45.三数之和一样．
 先对nums排序，两重for循环，里面两个指针依次递增或递减．
 要注意四个指针的范围，每个指针避免使用重复元素．
 */
@@ -1644,7 +1680,7 @@ int main() {
     // test_find_k_largest();
     // test_merge_k_list();
     // test_divide();
-    test_search();
+    // test_search();
     // test_find_median_num();
     // test_merge_set();
     // test_num_island();
@@ -1666,7 +1702,7 @@ int main() {
     // test_diving_board();
     // test_respace();
     // test_two_sum();
-    // test_foursum();
+    test_foursum();
 
 
     return 0;

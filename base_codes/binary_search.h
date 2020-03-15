@@ -23,10 +23,6 @@ TreeNode* convertBiNode(TreeNode* root);
 void dfs_binode(TreeNode* root, TreeNode*& pre);
 
 // https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/
-/* 
-    递归遍历求和，先遍历: right, root, left. 记录一个pre节点，每个节点val=pre->val + val;
-*/
-
 TreeNode* bstToGst(TreeNode* root);
 
 void dfs_bstToGst(TreeNode* root, TreeNode*& pre);
