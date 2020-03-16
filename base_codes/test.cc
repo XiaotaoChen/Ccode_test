@@ -27,6 +27,7 @@
 #include "topoloical_sort.h"
 #include "memory_algs.h"
 #include "hash_algs.h"
+#include "bits_algs.h"
 
 using namespace std;
 
@@ -1604,6 +1605,55 @@ void test_foursum() {
     }
 }
 
+/*
+92. 返回数组中所有可能的子集
+1. 回溯法，dsf(combinations, curr, nums, idx); 其中为了避免访问重复元素，以及数字顺序不同的组合．必须使idx必须为当前加入curr的下一个位置
+for (int i=idx; i<nums.size(); i++) {
+    curr.push_back(nums[i]);
+    combinations.push_back(curr);
+    dfs(combinations, curr, nums, i+1);
+}
+
+2. 用比特位表示第ｉ个数字是否出现. n个数字，一共２^n次方种可能．
+total_count = 1<<n;
+for (int i=0; i<total_count; i++) {
+    curr;
+    int tmp=i;
+    for (int j=0; j<n;j++) if (tmp&1==1) curr.push_back(nums[j]);
+    tmp=tmp>>1;
+    result.push_bakc(curr);
+}
+*/
+void test_subsets() {
+    std::vector<int> nums = {1,2,3};
+    std::vector<std::vector<int>> result = bits_alg::subsets(nums);
+    // std::vector<std::vector<int>> result = bits_alg::subsets_v2(nums);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d:", i);
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+/*
+92. 找出字符串中出现超过１次的长度超过或等于１０个字符的子串
+１．从ｉ=0->n-9; 判断sub 是否在map中，如果在则重复出现，否则将新字符串放入map, 注意避免重复加入相同子串．
+２．使用比特位维护１０个位置的字符标志，如A:0, C;1, G:2, T:3, 则长度为１０的字符串，需要用２０比特位即可表示．
+初始化构建前９个比特位的数值：　for(i=0; i<9; i++) curr = curr<<2; curr = curr| char2num[s[i]]
+遍历剩下字符串：　for(i=9; i<n;i++) curr = curr<<2; curr = curr|char2nums[s[i]]; curr = curr & 0x000fffff;
+if (map.find(curr)!=map.end()) map[curr]++; if (map[curr]==2) result.push_back(substr);
+else map[pcurr] =1;
+*/
+void test_find_repeated_dnasequence() {
+    std::string s = "AAAAAAAAAAAA"; //"AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+    std::vector<std::string> result = bits_alg::findRepeatedDnaSequences(s);
+    for (int i=0 ;i<result.size(); i++) {
+        printf("%s\n", result[i].c_str());
+    }
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1702,7 +1752,9 @@ int main() {
     // test_diving_board();
     // test_respace();
     // test_two_sum();
-    test_foursum();
+    // test_foursum();
+    // test_subsets();
+    test_find_repeated_dnasequence();
 
 
     return 0;
