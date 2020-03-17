@@ -28,6 +28,7 @@
 #include "memory_algs.h"
 #include "hash_algs.h"
 #include "bits_algs.h"
+#include "design_algs.h"
 
 using namespace std;
 
@@ -1654,6 +1655,28 @@ void test_find_repeated_dnasequence() {
     }
 }
 
+/*
+93. LRU 实现, 要求查找，插入均为O(1), 使用hash map+双向链表．
+１．双向链表用于从头插入，从尾部删除，同时为了映射回map, 双向链表应该保留key, val.
+2. hash map用于查找，key--> 对应节点指针．可使用ｕnordered_map + list　实现．注意　不能使用ｖector作为list，
+因为ｖector会自动扩展空间，并把原始数据复制到新空间去，对于map中记录对于指针的话，map中原始指针会失效．
+*/
+void test_lru() {
+    // design_alg::LRUCache* obj = new design_alg::LRUCache(2);
+    // design_alg::LRUCache_v2* obj = new design_alg::LRUCache_v2(2);
+    design_alg::LRUCache_v3* obj = new design_alg::LRUCache_v3(2);
+    obj->put(1,1);
+    obj->put(2,2);
+    int val1 = obj->get(1);
+    obj->put(3, 3);
+    int val2 = obj->get(2);
+    obj->put(4, 4);
+    int val3 = obj->get(1);
+    int val4 = obj->get(3);
+    int val5 = obj->get(4);
+}
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1754,7 +1777,8 @@ int main() {
     // test_two_sum();
     // test_foursum();
     // test_subsets();
-    test_find_repeated_dnasequence();
+    // test_find_repeated_dnasequence();
+    test_lru();
 
 
     return 0;

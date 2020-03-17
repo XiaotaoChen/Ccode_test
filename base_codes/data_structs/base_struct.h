@@ -26,6 +26,18 @@ struct Point {
      ListNode(int x): val(x), next(NULL) {};
  };
 
+  struct DoubleListNode {
+     int val;
+     DoubleListNode *left, *right;
+     DoubleListNode(int x): val(x), left(NULL), right(NULL) {};
+ };
+
+struct DoubleListNodeLRU {
+     int key, val;
+     DoubleListNodeLRU *left, *right;
+     DoubleListNodeLRU(int k, int v): key(k), val(v), left(NULL), right(NULL) {};
+ };
+
  struct RandomListNode {
      int label;
      RandomListNode* next;
