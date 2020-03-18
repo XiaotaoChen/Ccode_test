@@ -1676,6 +1676,23 @@ void test_lru() {
     int val5 = obj->get(4);
 }
 
+/*
+94. 桶排序, 求出未排序数组中排序后数字最大间隔的值，　要求O(n)
+１．　简单做法类似这种未排序数组，求间距的题目应该想到map, 将值映射到map中作为key. 
+2. 桶排序，先得到ｕnique number of nums, 和桶中最大，最小值．则桶间间距为
+bucket_len = (max-min)/(unique_num -1); // 这里可以减１
+bucket_num = (max-min)/bucket_len +1;　// 这里必须加１
+vector<std::pair<int, int>> buckets(bucket_num, {INT_MAX, INT_MIN}); 记录桶的最小最大值
+则最大间距是buckets[i].first - buckets[i-1].second
+*/
+void test_maximum_gap() {
+    std::vector<int> nums = {1, 5, 2, 9};
+    // int result = sort::maximumGap(nums);
+    int result = sort::maximumGap_v2(nums);
+    printf("result: %d\n", result);
+}
+
+
 
 
 int main() {
@@ -1778,7 +1795,8 @@ int main() {
     // test_foursum();
     // test_subsets();
     // test_find_repeated_dnasequence();
-    test_lru();
+    // test_lru();
+    test_maximum_gap();
 
 
     return 0;
