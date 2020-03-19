@@ -4,6 +4,8 @@
 #include <vector>
 #include <unordered_map>
 #include <list>
+#include <queue>
+#include <string>
 
 #include "data_structs/base_struct.h"
 
@@ -52,6 +54,37 @@ private:
     DoubleListNodeLRU *head, *tail;
     std::unordered_map<int, DoubleListNodeLRU*> map;
 
+};
+
+class MyStack {
+public:
+    MyStack();
+    void push(int x);
+    int pop();
+    int top();
+    bool empty();
+
+private:
+    std::queue<int> qu;
+
+};
+
+class Trie {
+public:
+    /** Initialize your data structure here. */
+    Trie();
+    /** Inserts a word into the trie. */
+    void insert(std::string word);
+    /** Returns if the word is in the trie. */
+    bool search(std::string word);
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(std::string prefix);
+    /**  */
+    bool word_dictionary_search(std::string word);
+
+private:
+    Trie* tries[26];
+    bool isEnd;
 };
 
 } // namespace design_alg
