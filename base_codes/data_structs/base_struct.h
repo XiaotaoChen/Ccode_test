@@ -66,4 +66,10 @@ struct graphNode {
     graphNode(int x, std::vector<graphNode*> _neighbors): val(x), neighbors(_neighbors) {}
 };
 
+struct TrieNode {
+    std::vector<TrieNode*> next;
+    bool isEnd;
+    TrieNode(): next(std::vector<TrieNode*>(26, nullptr)), isEnd(false) {}
+};
+
 #endif // DATA_STRUCTS_

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <list>
 #include <queue>
 #include <string>
@@ -79,9 +80,11 @@ public:
     bool search(std::string word);
     /** Returns if there is any word in the trie that starts with the given prefix. */
     bool startsWith(std::string prefix);
-    /**  */
+    Trie* get_trie();
+    bool is_end();
+    Trie** get_tries();
+    /** match word in trie */
     bool word_dictionary_search(std::string word);
-
 private:
     Trie* tries[26];
     bool isEnd;

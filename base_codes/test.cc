@@ -29,6 +29,7 @@
 #include "hash_algs.h"
 #include "bits_algs.h"
 #include "design_algs.h"
+#include "dict_tree.h"
 
 using namespace std;
 
@@ -1692,6 +1693,47 @@ void test_maximum_gap() {
     printf("result: %d\n", result);
 }
 
+/**
+ * 94. 用队列实现栈．
+ * 在pop的时候，依次pop/push前n-1个数，pop最后一个数则为栈顶元素
+*/
+void test_mystack() {
+    design_alg::MyStack* obj = new design_alg::MyStack();
+    obj->push(1);
+    int param_2 = obj->pop();
+    int param_3 = obj->top();
+    bool param_4 = obj->empty();
+}
+
+/**
+ * 95. 实现Trie前缀树　类定义的变量有: Trie* tries[26] 字母a-z的映射，　isEnd判断该点是否为单词的末尾．
+ * 主要在insert的时候要判断tries[word[i]-'a']是否为null, 不为null，则直接往下走，为空则new tire 
+*/
+void test_trie() {
+    design_alg::Trie* obj = new design_alg::Trie();
+    std::string word = "abc";
+    std::string prefix = "ab";
+    obj->insert(word);
+    bool param_2 = obj->search(word);
+    bool param_3 = obj->startsWith(prefix);
+    bool param_4 = obj->word_dictionary_search("a.a");
+    printf("param_2:%d, param_3:%d, param_4:%d\n", param_2, param_3, param_4);
+}
+
+/**
+ * 96. 从board中查找words中存在的单词．Trie tree + 回溯．
+ * 要注意visited
+ * 
+*/
+void test_findword() {
+    std::vector<std::vector<char>> boards = {{'o','a','a','n'}, {'e','t','a','e'}, {'i','h','k','r'}, {'i','f','l','v'}};
+    std::vector<std::string> words = {"oath", "pea", "eat", "rain"};
+    // std::vector<std::string> result = dict_tree_alg::findWords(boards, words);
+    std::vector<std::string> result = dict_tree_alg::findWords_v2(boards, words);
+    for (int i=0; i<result.size(); i++) {
+        printf("%s\n", result[i].c_str());
+    }
+}
 
 
 
@@ -1796,7 +1838,10 @@ int main() {
     // test_subsets();
     // test_find_repeated_dnasequence();
     // test_lru();
-    test_maximum_gap();
+    // test_maximum_gap();
+    // test_mystack();
+    // test_trie();
+    test_findword();
 
 
     return 0;

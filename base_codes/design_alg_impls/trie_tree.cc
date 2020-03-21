@@ -1,4 +1,5 @@
 #include <string>
+#include <unordered_set>
 #include "../design_algs.h"
 
 namespace design_alg
@@ -36,6 +37,18 @@ bool Trie::startsWith(std::string prefix) {
     return true;
 }
 
+Trie* Trie::get_trie() {
+    return this;
+}
+
+bool Trie::is_end() {
+    return this->isEnd;
+}
+
+Trie** Trie::get_tries() {
+    return this->tries;
+}
+
 
 bool Trie::word_dictionary_search(std::string word) {
     Trie* curr = this;
@@ -57,5 +70,6 @@ bool Trie::word_dictionary_search(std::string word) {
     if (curr==nullptr) return false;
     return curr->isEnd;
 }
+
 
 } // namespace design_alg
