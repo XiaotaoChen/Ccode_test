@@ -30,6 +30,8 @@
 #include "bits_algs.h"
 #include "design_algs.h"
 #include "dict_tree.h"
+#include "line_tree_algs.h"
+
 
 using namespace std;
 
@@ -1735,7 +1737,32 @@ void test_findword() {
     }
 }
 
+/**
+ * 97. 画出天际线：　用线段树．
+ * １．先对所有的点进行排序<x, height>,　其中开始节点的height为负数．排序后的节点按照横坐标递增．
+ * ２．遍历排序后的点，如果为开始节点则将高度放入最大堆中，结束点则将该高度删除．
+ * ３．得到当前堆中最大高度，如果当前最大高度和先前最大高度不同，则该点是关键点．
+*/
+void test_get_skyline() {
+    std::vector<std::vector<int>> buildings = {{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}}; // {{0,1,3}};
+    std::vector<std::vector<int>> result = line_tree_alg::getSkyline(buildings);
+    for (int i=0; i<result.size(); i++) {
+        printf("%d %d\n", result[i][0], result[i][1]);
+    }
+}
 
+/**
+ * 98. 线段树求和
+ * 
+*/
+void test_numarray() {
+    std::vector<int> nums = {}; //{1,3,5};
+    line_tree_alg::NumArray* obj = new line_tree_alg::NumArray(nums);
+    int param_1 = obj->sumRange(0,2);
+    obj->update(1,2);
+    int param_2 = obj->sumRange(0,2);
+    printf("param1:%d, params2:%d\n", param_1, param_2);
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1841,7 +1868,9 @@ int main() {
     // test_maximum_gap();
     // test_mystack();
     // test_trie();
-    test_findword();
+    // test_findword();
+    // test_get_skyline();
+    test_numarray();
 
 
     return 0;
