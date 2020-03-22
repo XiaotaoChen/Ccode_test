@@ -1752,16 +1752,36 @@ void test_get_skyline() {
 }
 
 /**
- * 98. 线段树求和
- * 
+ * 98. 线段树求和. 两种方法：１．树状数组．　２．线段树
+ * １．　树状数组．sum[i]存放的是sum(i) + sum(i-lowbit(i))的结果，直到ｉ变为０
+ * sum[0+1]=sum(0), sum[1+1]=sum(0->1), 
+ * sum[2+1]=sum(2), sum[3+1] = sum(0->3)
+ * 则更新第ｉ个值为value时，其只会影响sum(i), sum(i+lowbit(i))的值，直到ｉ>n,;
+ * 求i,j区间的和时，为sum(0->j)-sum（０－ｉ）, sum(0->j)= sum（j）+sum(j-=lowbit((j)), 直到j=0;
+ * 注意在初始化sum数组时，sum[i] = pre_sum[i]-pre_sum[i-lowbit[i]]; 如sum[5]=pre[5]-pre[4]; sum[6]=pre[6]-pre[4];
+ * 2. 线段树. SegNode{sum, begin, end, SegNode* left, SegNode* right} 在更新idx值时，当root->begin==root->right, root->sum=val; 
+ * 否则mid=(root->begin+root->end)/2; if (idx<=mid) update(root->left, idx, val); else(root->right, idx, val)
+ * 在查询求和时，if (root->begin==root->end) return root->sum 
+ * 否则计算当前线段树的中间点，若求和范围left小于等于中间点，则计算左子树中left,right范围的和，若求和范围right大于中间点，再计算右子树中left,right范围的和．
+ * 注意：　１．初始化线段树时，更新树的begin/end值．　２. 更新的if/else 条件可以并列; 但求和的两个if条件必须分别判断．
 */
 void test_numarray() {
-    std::vector<int> nums = {}; //{1,3,5};
-    line_tree_alg::NumArray* obj = new line_tree_alg::NumArray(nums);
-    int param_1 = obj->sumRange(0,2);
+    std::vector<int> nums = {0,9,5,7,3}; // {1,3,5}; //{7,2,7,2,0}; //{}; //{1,3,5};
+    // line_tree_alg::NumArray* obj = new line_tree_alg::NumArray(nums);
+    // line_tree_alg::NumArray_v2* obj = new line_tree_alg::NumArray_v2(nums);
+    line_tree_alg::NumArray_v3* obj = new line_tree_alg::NumArray_v3(nums);
+    int param_0 = obj->sumRange(4,4);
+    int param_1 = obj->sumRange(2,4);
     obj->update(1,2);
     int param_2 = obj->sumRange(0,2);
     printf("param1:%d, params2:%d\n", param_1, param_2);
+    // obj->update(4,6);
+    // obj->update(0,2);
+    // obj->update(0,9);
+    // int sum1 = obj->sumRange(4,4);
+    // obj->update(3,8);
+    // int sum2 = obj->sumRange(0,4);
+    // printf("sum1:%d, sum2:%d\n", sum1, sum2);
 }
 
 int main() {

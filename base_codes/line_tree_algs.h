@@ -2,6 +2,7 @@
 #define LINE_TREE_ALGS_
 
 #include <vector>
+#include "data_structs/base_struct.h"
 
 namespace line_tree_alg
 {
@@ -29,6 +30,38 @@ public:
     
     int sumRange(int i, int j);
 
+};
+
+class NumArray_v2 {
+private:
+    std::vector<int> sums;
+    std::vector<int>* nums;
+    int n;
+
+public:
+    NumArray_v2(std::vector<int>& nums);
+
+    int lowbit(int x) ;
+
+    void update(int i, int val);
+    
+    int sumRange(int i, int j);
+
+};
+
+class NumArray_v3 {
+private:
+    std::vector<int>* nums;
+    int n;
+    SegNode* root;
+
+public:
+    NumArray_v3(std::vector<int>& nums);
+    void create_line_tree(std::vector<int>& nums, SegNode*& root, int left, int right);
+    void update_line_tree(SegNode* root, int idx, int val);
+    int sum_range_line_tree(SegNode* root, int left, int right);
+    void update(int idx, int val);
+    int sumRange(int i, int j);
 };
 
 } // namespace line_tree_alg

@@ -72,4 +72,11 @@ struct TrieNode {
     TrieNode(): next(std::vector<TrieNode*>(26, nullptr)), isEnd(false) {}
 };
 
+struct SegNode {
+    int sum;
+    int begin, end;
+    SegNode *left, *right;
+    SegNode(): sum(0), begin(-1), end(-1), left(nullptr), right(nullptr){}
+};
+
 #endif // DATA_STRUCTS_
