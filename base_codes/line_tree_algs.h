@@ -64,6 +64,12 @@ public:
     int sumRange(int i, int j);
 };
 
+void update(std::vector<int>& BIT, int index, int val);
+
+int query(std::vector<int>& BIT, int index);
+
+int reversePairs(std::vector<int>& nums);
+
 } // namespace line_tree_alg
 
 

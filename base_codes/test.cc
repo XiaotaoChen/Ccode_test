@@ -1784,6 +1784,17 @@ void test_numarray() {
     // printf("sum1:%d, sum2:%d\n", sum1, sum2);
 }
 
+/**
+ * 99. 求未排序数组的逆序对．
+ * 1. 使用归并排序，在对各自排好序的nums1,nums2求逆序对，然后再对num1, num2进行merge.　其中num1所有元素均小于num2;
+*/
+void test_reverse_pairs() {
+    std::vector<int> nums = {1,3,2,3,1}; //{2,4,3,5,1}; // {1,3,2,3,1};
+    // int result = sort::merge_sort_reverse_pair(nums, 0, nums.size()-1);
+    int result = line_tree_alg::reversePairs(nums);
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -1890,7 +1901,8 @@ int main() {
     // test_trie();
     // test_findword();
     // test_get_skyline();
-    test_numarray();
+    // test_numarray();
+    test_reverse_pairs();
 
 
     return 0;
