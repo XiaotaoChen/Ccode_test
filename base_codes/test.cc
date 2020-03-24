@@ -31,7 +31,7 @@
 #include "design_algs.h"
 #include "dict_tree.h"
 #include "line_tree_algs.h"
-
+#include "minimization_algs.h"
 
 using namespace std;
 
@@ -1794,6 +1794,26 @@ void test_reverse_pairs() {
     int result = line_tree_alg::reversePairs(nums);
     printf("result:%d\n", result);
 }
+/**
+ * 100. 判断先手是否能赢, 找规律当n是４的倍数的时候，会输，其他情况会赢．如n=4的时候，无论拿１，２，３，后手都会全部拿走．n=5时，先手拿1,后手无论拿几都会留一个．
+ * ２.dp思路．　假设dp[ｉ]表示ｉ个数时，先手的输赢状态，则dp[i]等于true的条件为，dp[i-3],dp[i-2],dp[i-1]中有一个是输，
+ * 即dp[i]=!(dp[i-3]&dp[i-2]&dp[i-1])
+ * 
+*/
+void test_can_win_nim() {
+    bool result = minimization_alg::canWinNim(7);
+    printf("result:%d\n", result);
+}
+
+/**
+ * 101. 猜数字. 求完成游戏需要的最小数值, dp方法，dp[i][j]表示完成i->j的猜字游戏需要的money．则dp[i][j]至少需要　for k=i->j, min(k + max(dp[i][k-1], dp[k+1][j])),
+ * 里面的max表示设定的数字可能在左边，也可能在右边，所以取最大值．
+*/
+void test_get_menoy_account() {
+    int result = minimization_alg::getMoneyAmount(10);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1902,7 +1922,9 @@ int main() {
     // test_findword();
     // test_get_skyline();
     // test_numarray();
-    test_reverse_pairs();
+    // test_reverse_pairs();
+    // test_can_win_nim();
+    test_get_menoy_account();
 
 
     return 0;
