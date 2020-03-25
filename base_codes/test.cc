@@ -32,6 +32,7 @@
 #include "dict_tree.h"
 #include "line_tree_algs.h"
 #include "minimization_algs.h"
+#include "random_sample_algs.h"
 
 using namespace std;
 
@@ -1814,6 +1815,35 @@ void test_get_menoy_account() {
     printf("result:%d\n", result);
 }
 
+/**
+ * 102. 随机选取链表中的数，保证每个节点被选取的概率相同. 依次遍历链表．并记录已遍历的节点个数count．
+ * 当遍历到ｉ点时，　当前节点有1/i的概率被选择，保留之前的数的概率为（ｉ－１）／ｉ.则每个节点最后被选择的概率为1/n, 
+ * 如n=4, 1被选择的概率=1/1 * (2-1)/2 *(3-1)/3*(4-1)/4 = 1/4
+ * 
+*/
+void test_random_sample() {
+    ListNode* root = new ListNode(1);
+    root->next = new ListNode(2);
+    root->next->next = new ListNode(3);
+    random_sample_alg::Solution* obj = new random_sample_alg::Solution(root);
+    int result = obj->getRandom();
+    printf("result: %d\n", result);
+    result = obj->getRandom();
+    printf("result 2: %d\n", result);
+    result = obj->getRandom();
+    printf("result 3: %d\n", result);
+}
+
+/**
+ * 103. 从存在重复元素的数组中选取对应数值的下标，　存在多个下标则随机返回任意一个下标．
+ * 同102, 记录target的个数，当前target被选择的概率为1/count
+*/
+void test_pick_target() {
+    std::vector<int> nums = {1,2,1,2,3,5};
+    int result = random_sample_alg::pick_idx(nums, 2);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1924,7 +1954,9 @@ int main() {
     // test_numarray();
     // test_reverse_pairs();
     // test_can_win_nim();
-    test_get_menoy_account();
+    // test_get_menoy_account();
+    // test_random_sample();
+    test_pick_target();
 
 
     return 0;
