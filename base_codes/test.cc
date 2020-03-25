@@ -33,6 +33,7 @@
 #include "line_tree_algs.h"
 #include "minimization_algs.h"
 #include "random_sample_algs.h"
+#include "geometric_algs.h"
 
 using namespace std;
 
@@ -1844,6 +1845,48 @@ void test_pick_target() {
     printf("result:%d\n", result);
 }
 
+/**
+ * 104. 求物体表面积, 每个方格的表面积＝上下底面＋四周面积，其中四周面积当周围高度比他高时，该面没有表面积
+*/
+void test_surface_area() {
+    std::vector<std::vector<int>> grid = {{1,2}, {3,4}}; //{{2}};
+    int result = geometric_alg::surfaceArea(grid);
+    printf("result:%d\n", result);
+}
+
+/**
+ * 105. 求所给出的点是否共线．要先排除重合点，水平，垂直线的可能．正常斜率下用最大公约数求得斜率的向量表示．
+*/
+void test_check_straightline() {
+    std::vector<std::vector<int>>  coordinates = {{1,1},{2,2},{3,4},{4,5},{5,6},{7,7}};
+    bool result = geometric_alg::checkStraightLine(coordinates);
+    printf("result:%d\n", result);
+}
+
+/**
+ * 106. 访问所有点需要的最短距离
+*/
+void test_min_time_visitedall() {
+    std::vector<std::vector<int>> points = {{1,1},{3,4},{-1,0}};
+    int result = geometric_alg::minTimeToVisitAllPoints(points);
+    printf("result:%d\n", result);
+}
+
+/**
+ * 107. 求两条线段是否共线．求两个线段的公共区域时，并不能分别根据两个线段的start, end求公共区域，这样会忽略斜率为负数的情况，
+ * 1. 应该对每条线段的x,y求min,max, 以此为区间，再根据两条线段的min中取max, max中取min
+ * 2. 注意各种边界条件．
+*/
+void test_inter_section() {
+    std::vector<std::vector<int>> points = {{0, 0}, {1, 0}, {1, 1}, {0, -1}}; //{{0, 0}, {1, -1}, {0, 0}, {-1, 1}}; //{{0, 0}, {3, 3}, {1, 1}, {2, 2}}; //{{0, 0}, {1, 0}, {1, 1}, {0, -1}};
+    std::vector<double> result = geometric_alg::intersection(points[0], points[1], points[2], points[3]);
+    printf("result:");
+    for (int i=0; i<result.size(); i++) {
+        printf("%lf ", result[i]);
+    }
+    printf("\n");
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1956,8 +1999,11 @@ int main() {
     // test_can_win_nim();
     // test_get_menoy_account();
     // test_random_sample();
-    test_pick_target();
-
+    // test_pick_target();
+    // test_surface_area();
+    // test_check_straightline();
+    // test_min_time_visitedall();
+    test_inter_section();
 
     return 0;
 }
