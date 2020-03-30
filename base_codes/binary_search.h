@@ -27,6 +27,10 @@ TreeNode* bstToGst(TreeNode* root);
 
 void dfs_bstToGst(TreeNode* root, TreeNode*& pre);
 
+// https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+int dfs_max_path_sum(TreeNode* root, int& curr);
+int maxPathSum(TreeNode* root);
+
 }
 
 #endif

@@ -1423,7 +1423,7 @@ void test_remove_nth_node() {
 注意最后需要把s[i]加入到窗口中
 */
 void test_length_substr() {
-    std::string str = "dvdf";
+    std::string str = "pwwkew";
     int result = binary_pointer::lengthOfLongestSubstring(str);
     printf("result:%d\n", result);
 }
@@ -1887,6 +1887,26 @@ void test_inter_section() {
     printf("\n");
 }
 
+/**
+ * 108. 求二叉树路径最大和. dfs, 注意全局变量保存最大path sum, 而dfs返回包含当前节点的单个最大path.
+ * 当节点为null, 直接返回０，　通过max(0, val)可以去除很多判断；
+ * max_path = root->val +max(0, max(left_max, right_max));
+ * curr = max(curr, root->val+max(0, left_max) + max(0, right_max))
+*/
+
+void test_max_sum_path() {
+    TreeNode* root = new TreeNode(2);
+    root->left = new TreeNode(-1);
+    // root->right = new TreeNode(3);
+    // TreeNode* root = new TreeNode(-10);
+    // root->left = new TreeNode(9);
+    // root->right = new TreeNode(20);
+    // root->right->left = new TreeNode(15);
+    // root->right->right = new TreeNode(7);
+    int result = binary_search::maxPathSum(root);
+    printf("result:%d\n", result);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1970,7 +1990,7 @@ int main() {
     // test_longest_consecutive2();
     // test_bi_node();
     // test_remove_nth_node();
-    // test_length_substr();
+    test_length_substr();
     // test_unordered_map();
     // test_string();
     // test_str_longest_palindrome();
@@ -2003,7 +2023,8 @@ int main() {
     // test_surface_area();
     // test_check_straightline();
     // test_min_time_visitedall();
-    test_inter_section();
+    // test_inter_section();
+    // test_max_sum_path();
 
     return 0;
 }
