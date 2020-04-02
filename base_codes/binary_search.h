@@ -31,6 +31,10 @@ void dfs_bstToGst(TreeNode* root, TreeNode*& pre);
 int dfs_max_path_sum(TreeNode* root, int& curr);
 int maxPathSum(TreeNode* root);
 
+// https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+std::vector<int> searchRange(std::vector<int>& nums, int target);
+int dfs_searchrange(std::vector<int>& nums, int target, int left, int right);
+
 }
 
 #endif

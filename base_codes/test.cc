@@ -584,10 +584,10 @@ dp[][] 记录i->j是否为回文串
 dp[i][j]与 dp[i+1][j-1]的关系，注意考虑a|a,aba两者情况
 */
 void test_length_palindrome() {
-    std::string str = "abcdasdfghjkldcba";
+    std::string str = "abaabca"; //"abcdasdfghjkldcba";
     // std::string result = search::longestPalindrome(str);
-    // std::string result = dp::longestPalindrome_v2(str);
-    std::string result = dp::longestPalindrome_v3(str);
+    std::string result = dp::longestPalindrome_v2(str);
+    // std::string result = dp::longestPalindrome_v3(str);
     printf("result: %s\n", result.c_str());
 }
 
@@ -1907,6 +1907,25 @@ void test_max_sum_path() {
     printf("result:%d\n", result);
 }
 
+/**
+ * 109. 求数组中连续元素和为target的组合数．
+ * 1. 使用滑窗原理, 当剩余target>0, 一直往前，　<=0后，　left往前．这种只适用于target, nums均为正数的情况，　负数情况下不适用．
+ * ２．记录前缀和，k,v 分别表示前缀和为k,在0->当前index情况下出现了ｖ次，遍历数组，　当map中存在sum-target时，则表示存在为target的连续子序列，cnt+=map[sum-target], 注意相同值的前缀和可能出现多次．
+*/
+void test_sub_array_sum() {
+    std::vector<int> arr = {28, 54, 7, -70, 22, 65, -6}; //{-1,-1,1};
+    int result = binary_pointer::subarraySum(arr, 100);
+    printf("result:%d\n", result);
+}
+
+/**
+ * 110. 排序数组中找特定target, 二分法，找到一个idx, 然后向两边扩散
+*/
+void test_search_range() {
+    std::vector<int> nums = {5, 7, 7, 8, 8, 10};
+    std::vector<int> result = binary_search::searchRange(nums, 8);
+    printf("result left:%d, right:%d\n", result[0], result[1]);
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -1990,7 +2009,7 @@ int main() {
     // test_longest_consecutive2();
     // test_bi_node();
     // test_remove_nth_node();
-    test_length_substr();
+    // test_length_substr();
     // test_unordered_map();
     // test_string();
     // test_str_longest_palindrome();
@@ -2025,6 +2044,8 @@ int main() {
     // test_min_time_visitedall();
     // test_inter_section();
     // test_max_sum_path();
+    // test_sub_array_sum();
+    test_search_range();
 
     return 0;
 }

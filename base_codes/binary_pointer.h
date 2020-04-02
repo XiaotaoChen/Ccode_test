@@ -20,7 +20,8 @@ bool is_ok(std::string s, int start, std::unordered_map<std::string, int> map, i
 
 std::vector<int> findSubstring_v2(std::string s, std::vector<std::string>& words);
 
-
+// https://leetcode-cn.com/problems/subarray-sum-equals-k/
+int subarraySum(std::vector<int>& nums, int k);
 
 } // namespace binary_pointer
 
