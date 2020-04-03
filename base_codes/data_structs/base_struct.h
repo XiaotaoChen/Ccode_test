@@ -79,4 +79,28 @@ struct SegNode {
     SegNode(): sum(0), begin(-1), end(-1), left(nullptr), right(nullptr){}
 };
 
+struct CircularQueue {
+    int size;
+    int* queue;
+    int front;
+    int rear;
+    CircularQueue(int size):size(size), front(0), rear(0) { queue = new int[size]; }
+    ~CircularQueue() { delete[] queue; }
+    bool push(int val) {
+        if ((front+1)%size==rear) return false;
+        queue[front] = val;
+        front = (front+1) % size;
+        return true;
+    }
+    int pop() {
+        if (front == rear) return -1;
+        int val = queue[rear];
+        rear = (rear+1) % size;
+        return val;
+    }
+    bool empty() {
+        return front == rear;
+    }
+};
+
 #endif // DATA_STRUCTS_

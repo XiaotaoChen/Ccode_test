@@ -1927,6 +1927,22 @@ void test_search_range() {
     printf("result left:%d, right:%d\n", result[0], result[1]);
 }
 
+/**
+ * 111. 循环队列实现。要区分队列空，满两种状态，
+ * 1. front == rear 为空，(front+1) % 10 == rear 为满；
+ * 2. push时，push到front后，在front+1， 而不是push到front+1的位置。front表示当前空闲的位置。
+ * 3. 1中两者状态，区分。如size=5， front=rear=0, 当push 4个数据后，
+ * front=4, (front+1)%5==rear, 则此时queue已满。当pop一个元素后，则可push到idx=4的位置，
+ * 只要保证front与rear有一个间隔即可。
+*/
+void test_queue() {
+    CircularQueue q = CircularQueue(10);
+    q.push(1);
+    q.push(2);
+    int result = q.pop();
+    printf("result:%d\n", result);
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2045,7 +2061,8 @@ int main() {
     // test_inter_section();
     // test_max_sum_path();
     // test_sub_array_sum();
-    test_search_range();
+    // test_search_range();
+    test_queue();
 
     return 0;
 }
