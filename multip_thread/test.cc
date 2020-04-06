@@ -5,6 +5,7 @@
 #include "./producer_consumer.h"
 // #include "./simple_example.h"
 #include "./thread_safe_queue.h"
+#include "./threadpool.h"
 
 
 std::mutex mtx; // 全局互斥锁.
@@ -91,46 +92,39 @@ void test_thread_safe_queue() {
 
     for (int i=0; i<producer_nums; i++) producers[i].join();
     for (int i=0; i<consumer_nums; i++) consumers[i].join();
-
-
 }
 
-// void test_thread_safe_queue() {
-// 	safe_queue::ThreadSafeQueue<int> q;
-// 	std::thread consumer([&q]() {
-// 		while (true)
-// 		{
-// 			int i ;
-//             q.WaitAndPop(i);
-//             printf("consumer %x get %d from threadSafeQueue\n", std::this_thread::get_id(), i);
-// 			if (i == 0)
-// 			{
-// 				break;
-// 			}
-// 		}
-// 	});
-// 	q.Push(1);
-// 	q.Push(2);
-// 	q.Push(3);
-// 	q.Push(4);
-// 	std::thread producer([&q]() {
-// 		for (int i = 10; i >= 0; i--)
-// 		{
-// 			q.Push(i);
-//             printf("producer %x push %d from ThreadSafeQueue\n", std::this_thread::get_id(), i);
-// 		}
-// 	});
-// 	producer.join();
-// 	consumer.join();
+/**
+ * 线程池的实现，需要有一个存放任务的 thread safe queue, 单独实现的话会多使用互斥量，因为thread pool中的conditional vairable需要一个互斥量q_mtx, 
+ * 而safequeue中也有一个互斥量，这两个互斥量其实是相同的，　故不单独实现safequeue,和少使用一个互斥量
+*/
+void test_threadpool() {
+    thread_pool::ThreadPool pool(3);
+    pool.init();
+    for (int i=1; i<4; i++) {
+        for (int j=1; j<10; j++) {
+            pool.submit(thread_pool::multiply, i, j);
+        }
+    }
+    int output_ref;
+    auto future1 = pool.submit(thread_pool::multiply_output, std::ref(output_ref), 5, 6);
+    future1.get(); // wait unitl output is finish
+    printf("Last operation result is equals to %d\n", output_ref);
 
-// }
+    auto future2 = pool.submit(thread_pool::multiply_return, 5, 3);
+    int res = future2.get();
+    printf("Last operation result is equals to %d\n", res);
+
+    pool.shutdown();
+}
 
 
 int main()
 {
     // test_simple_example();
     // test_oneproducer_oneconsumer();
-    test_thread_safe_queue();
+    // test_thread_safe_queue();
+    test_threadpool();
 
 
 
