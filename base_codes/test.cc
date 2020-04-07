@@ -1943,6 +1943,21 @@ void test_queue() {
     printf("result:%d\n", result);
 }
 
+/**
+ * 112. 生成全排列，　回溯+dfs
+*/
+void test_permute() {
+    std::vector<int> nums = {1, 2, 3};
+    std::vector<std::vector<int>> result = bfs::permute(nums);
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2062,7 +2077,8 @@ int main() {
     // test_max_sum_path();
     // test_sub_array_sum();
     // test_search_range();
-    test_queue();
+    // test_queue();
+    test_permute();
 
     return 0;
 }

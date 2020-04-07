@@ -28,6 +28,11 @@ std::vector<std::vector<std::string>> findLadders_v3(std::string beginWord, std:
 void dfs_generate(std::vector<std::vector<std::string>>& combinations, std::string beginWord, std::string endWord, \
                   std::map<std::string, std::vector<std::string>>& path_map, std::vector<std::string> curr);
 
+// https://leetcode-cn.com/problems/permutations/
+void swap(int& a, int& b);
+std::vector<std::vector<int>> permute(std::vector<int>& nums);
+void dfs_permute(std::vector<std::vector<int>>& combinations, int depth, std::vector<int>& nums);
+
 }
 
 #endif // BFS_ALG_
