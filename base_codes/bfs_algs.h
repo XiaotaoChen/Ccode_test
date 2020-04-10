@@ -33,6 +33,9 @@ void swap(int& a, int& b);
 std::vector<std::vector<int>> permute(std::vector<int>& nums);
 void dfs_permute(std::vector<std::vector<int>>& combinations, int depth, std::vector<int>& nums);
 
+// https://leetcode-cn.com/problems/next-permutation/
+void nextPermutation(std::vector<int>& nums);
+
 }
 
 #endif // BFS_ALG_
