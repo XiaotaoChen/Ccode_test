@@ -1958,6 +1958,21 @@ void test_permute() {
 }
 
 /**
+ * 113. 生成下一个排列.思路：1. 从后往前遍历，如果存在a[i-1]<a[i]的情况，则存在下一个递增排列。
+ * 记录idx=i-1的位置，然后从idx+1->nums.size()找到比nums[idx]大，且最小的数，
+ * swap，然后sort idx+1->end这段
+ * 2. 其实idx后面的数都是递减排列的，swap其中大于nums[idx]后其顺序还是递减的，所以直接reverse即可。
+*/
+void test_next_permute() {
+    std::vector<int> nums = {5,2,1,4,7,6,3};
+    bfs::nextPermutation(nums);
+    for (int i=0; i<nums.size(); i++) {
+        printf("%d ", nums[i]);
+    }
+    printf("\n");
+}
+
+/**
  * 113. 生成总和为sum的所有可能组合. 因为可以重复使用，所以dfs中下标从idx开始，而不是idx+1
  *　
 */
@@ -1996,8 +2011,6 @@ void test_kthsmallest() {
     int result = binary_search::kthSmallest(matrix, k);
     printf("result: %d\n", result);
 }
-
-
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2120,6 +2133,7 @@ int main() {
     // test_search_range();
     // test_queue();
     // test_permute();
+    // test_next_permute();
     // test_combinationsum();
     // test_searchmatrix();
     test_kthsmallest();
