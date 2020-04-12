@@ -36,6 +36,10 @@ void dfs_permute(std::vector<std::vector<int>>& combinations, int depth, std::ve
 // https://leetcode-cn.com/problems/next-permutation/
 void nextPermutation(std::vector<int>& nums);
 
+// https://leetcode-cn.com/problems/combination-sum/
+std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target);
+void dfs_combinationsum(std::vector<std::vector<int>> & combinations, std::vector<int>& curr, std::vector<int>& candidates, int idx, int target);
+
 }
 
 #endif // BFS_ALG_
