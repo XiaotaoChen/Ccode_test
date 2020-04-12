@@ -1957,6 +1957,47 @@ void test_permute() {
     }
 }
 
+/**
+ * 113. 生成总和为sum的所有可能组合. 因为可以重复使用，所以dfs中下标从idx开始，而不是idx+1
+ *　
+*/
+void test_combinationsum() {
+    std::vector<int> candidates = {2,3,5}; //{2,3,6,7};
+    int target = 8; //7;
+    std::vector<std::vector<int>> result = bfs::combinationSum(candidates, target);
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+/**
+ * 114.　升序的二维数组排列．因为该二维数组前一行最后一个数一定小于该行第一个数，所以整个二维数组是完全升序的，直接按照一维数组二分查找即可，只不过把一维数组下标映射到二维数组中即可．
+*/
+void test_searchmatrix() {
+    std::vector<std::vector<int>> matrix = {{1,1}}; //{{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 50}};
+    int target = 2; //13;
+    bool result = binary_search::searchMatrix(matrix, target);
+    printf("result: %d\n",  result);
+}
+
+/**
+ * 115. 二维矩阵中寻找第ｋ小的数．　刚开始的想法是求得第小ｋ元素所在行数，即sqrt(k), 则第ｋ小肯定在arr[idx][0-idx]或arr[0-idx][idx]之间．其实不是．
+ * 如下面数组，k=3时，idx=1, 第３小的数应该在matrix[1][0-1], matrix[0-1][1]之间，但真实结果在marix[0][2].
+ * 解题思路: 1. 得到数组最小，最大值left, right. 2. 每次都计算二维数组中<=mid的个数cnt，当cnt < k, 则left=mid+1; 否则right=mid;循环直到left==right, 则第ｋ小的值为left;
+ * 2. 其中注意　不能添加if(cnt==k) return mid, else right=mid-1的条件，　因为cnt==k,只说明第ｋｉ小的数在left-->mid之间，而不是mid. 
+ * 3. 在求得二维数组中小于等于ｖal的个数中，一列的方式求，i=row, j=0; 如果arr[i][0]<val,则说明该列均小于ｖal, cnt+=i+1; 否则　ｉ--;
+*/
+void test_kthsmallest() {
+    std::vector<std::vector<int>>  matrix = {{1, 3, 5}, {10, 11, 16}, {23, 30, 34}};
+    int k = 5;
+    int result = binary_search::kthSmallest(matrix, k);
+    printf("result: %d\n", result);
+}
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2078,7 +2119,10 @@ int main() {
     // test_sub_array_sum();
     // test_search_range();
     // test_queue();
-    test_permute();
+    // test_permute();
+    // test_combinationsum();
+    // test_searchmatrix();
+    test_kthsmallest();
 
     return 0;
 }

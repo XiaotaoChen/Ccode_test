@@ -35,6 +35,16 @@ int maxPathSum(TreeNode* root);
 std::vector<int> searchRange(std::vector<int>& nums, int target);
 int dfs_searchrange(std::vector<int>& nums, int target, int left, int right);
 
+
+// https://leetcode-cn.com/problems/search-a-2d-matrix/
+bool dfs_searchmatrix(std::vector<std::vector<int>>& matrix, int start, int end, int target);
+
+bool searchMatrix(std::vector<std::vector<int>>& matrix, int target);
+
+// https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/
+int kthSmallest(std::vector<std::vector<int>>& matrix, int k);
+int kthsmallest_cnt(std::vector<std::vector<int>> & matrix, int val);
+
 }
 
 #endif
