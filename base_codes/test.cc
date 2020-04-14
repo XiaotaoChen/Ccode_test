@@ -2012,6 +2012,24 @@ void test_kthsmallest() {
     printf("result: %d\n", result);
 }
 
+/**
+ * 116. 在不开辟新空间情况下将数组旋转90度. 
+ * 主要推导出四个点的相对位置．(i, j) --> (j, n-i-1) --> (n-i-1, n-j-1) --> (n-j-1, i)
+ * 便于推导：(1)第ｉ行j列的数，旋转的位置的列数为n-i-1, 行数为j; (2) 第三个点关于第一个点中心对称，即（n-i-1, n-j-1）; (3)第四个点关于第二个点中心对称．
+ * 注意若行数为单数，最后一个环只有１个元素，不需要转换
+*/
+void test_rotate_matrix() {
+    std::vector<std::vector<int>> matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}};; //{{1,2,3}, {4,5,6}, {7,8,9}};
+    search::rotate(matrix);
+    for (int i=0; i<matrix.size(); i++) {
+        for (int j=0; j<matrix[i].size(); j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2136,7 +2154,8 @@ int main() {
     // test_next_permute();
     // test_combinationsum();
     // test_searchmatrix();
-    test_kthsmallest();
+    // test_kthsmallest();
+    test_rotate_matrix();
 
     return 0;
 }

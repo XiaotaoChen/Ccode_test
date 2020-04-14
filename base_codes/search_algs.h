@@ -135,6 +135,9 @@ void match_idx_val_v2(std::vector<int>& vec, std::vector<int>& result, int left,
 // https://leetcode-cn.com/problems/3sum/
 std::vector<std::vector<int>> threeSum(std::vector<int>& nums);
 
+// https://leetcode-cn.com/problems/rotate-image/
+void rotate(std::vector<std::vector<int>>& matrix);
+
 } // namespace search
 
 #endif // SEARCH_ALG_
