@@ -2029,6 +2029,21 @@ void test_rotate_matrix() {
     }
 }
 
+/**
+ * 117. 划分字母相同，排列不同的字符串, 1. 对每个单词都sort, 如果sort后的词相同，则相同；
+ * 2. 用map<char, int>　记录一个单词的信息，　map<map<char, int>, vector<string>> 作为map
+*/
+void test_groupAnagrams() {
+    std::vector<std::string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    std::vector<std::vector<std::string>> result = search::groupAnagrams(strs);
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            printf("%s ", result[i][j].c_str());
+        }
+        printf("\n");
+    }
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2155,7 +2170,8 @@ int main() {
     // test_combinationsum();
     // test_searchmatrix();
     // test_kthsmallest();
-    test_rotate_matrix();
+    // test_rotate_matrix();
+    test_groupAnagrams();
 
     return 0;
 }

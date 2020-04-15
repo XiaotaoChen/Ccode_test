@@ -3,6 +3,7 @@
 
 #include<string>
 #include<unordered_set>
+#include <unordered_map>
 #include<map>
 
 #include "data_structs/base_struct.h"
@@ -137,6 +138,12 @@ std::vector<std::vector<int>> threeSum(std::vector<int>& nums);
 
 // https://leetcode-cn.com/problems/rotate-image/
 void rotate(std::vector<std::vector<int>>& matrix);
+
+// https://leetcode-cn.com/problems/group-anagrams/
+std::unordered_map<char, int> get_ch_map(std::string& str);
+std::map<char, int> get_ch_map2(std::string& str);
+std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs);
+
 
 } // namespace search
 
