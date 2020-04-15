@@ -2046,6 +2046,34 @@ void test_groupAnagrams() {
     }
 }
 
+/**
+ * 118. 寻找二叉树中下一个节点. 当节点存在right节点时，下一个节点为right; 否则寻找父节点．　当该节点为父节点的左子树，则下一个节点为该父节点；否则一直网上寻找父节点．直到该节点为父节点的左子树为止．
+*/
+void test_next_node() {
+    TreeLinkNode* root = new TreeLinkNode(0);
+    root->left = new TreeLinkNode(1);
+    root->left->next = root;
+    root->right = new TreeLinkNode(2);
+    root->right->next = root;
+
+    root->left->left = new TreeLinkNode(3);
+    root->left->right = new TreeLinkNode(4);
+    root->left->left->next = root->left;
+    root->left->right->next = root->left;
+
+    root->right->left = new TreeLinkNode(5);
+    root->right->left->next = root->right;
+
+    TreeLinkNode* next = binary_search::next_node(root->right);
+    if (next != nullptr)
+        printf("next node: %d\n", next->val);
+    else printf("curr node is in the end!\n");
+    // next = binary_search::next_node(root->left);
+    // printf("next node: %d\n", next->val);
+    // next = binary_search::next_node(root->left->right);
+    // printf("next node: %d\n", next->val);
+
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2173,7 +2201,8 @@ int main() {
     // test_searchmatrix();
     // test_kthsmallest();
     // test_rotate_matrix();
-    test_groupAnagrams();
+    // test_groupAnagrams();
+    test_next_node();
 
     return 0;
 }

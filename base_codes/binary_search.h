@@ -45,6 +45,11 @@ bool searchMatrix(std::vector<std::vector<int>>& matrix, int target);
 int kthSmallest(std::vector<std::vector<int>>& matrix, int k);
 int kthsmallest_cnt(std::vector<std::vector<int>> & matrix, int val);
 
+
+// search next node
+TreeLinkNode* next_node(TreeLinkNode* node);
+
+
 }
 
 #endif
