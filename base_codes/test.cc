@@ -2031,7 +2031,9 @@ void test_rotate_matrix() {
 
 /**
  * 117. 划分字母相同，排列不同的字符串, 1. 对每个单词都sort, 如果sort后的词相同，则相同；
- * 2. 用map<char, int>　记录一个单词的信息，　map<map<char, int>, vector<string>> 作为map
+ * 2. 用map<char, int>　记录一个单词的信息，　map<map<char, int>, vector<string>> 作为map. 
+ * 这里不能用unordered_map, 只能用map. 因为unordered_map内部实现是std::hash,而pair或unorodered_map<char, int>等这种双值的类型c++ library中没有对应的hash functor, 故报错．
+ * 而std::map的内部实现是红黑树，对key的类型没有要求，故这里使用std::map. map内部本身有序，适合对顺序有要求的场景，而unordered_map适合于查找．
 */
 void test_groupAnagrams() {
     std::vector<std::string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
