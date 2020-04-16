@@ -533,7 +533,8 @@ void test_qsort() {
     printf("\n");
 
     // sort::qsort(a, 0, len -1);
-    sort::heap_sort(a, 0, len-1);
+    // sort::heap_sort(a, 0, len-1);
+    sort::qsort_v2(a, 0, len-1);
     for (int i=0; i<len; i++) {
         printf("%d ", a[i]);
     }
@@ -2072,8 +2073,26 @@ void test_next_node() {
     // printf("next node: %d\n", next->val);
     // next = binary_search::next_node(root->left->right);
     // printf("next node: %d\n", next->val);
-
 }
+
+/**
+ * 119. 用栈实现队列. 注意pop的时候，只有当s2为空时才从s1中将所有item　pop出来．
+*/
+void test_myqueue() {
+    design_alg::MyQueue q = design_alg::MyQueue();
+    q.push(1);
+    q.push(2);
+    int tmp = q.pop();
+    printf("%d \n", tmp);
+    q.push(3);
+    tmp = q.pop();
+    printf("%d \n", tmp);
+    tmp = q.pop();
+    printf("%d \n", tmp);
+    tmp = q.pop();
+    printf("%d \n", tmp);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2100,7 +2119,7 @@ int main() {
     // test_populating_next_right_pointer();
     // test_min_distance_of_strintest_foursumg();
     // test_haspathsum();
-    // test_qsort();
+    test_qsort();
     // test_add_two_numbers();
     // test_length_of_substr();
     // test_find_mid_num();
@@ -2202,7 +2221,8 @@ int main() {
     // test_kthsmallest();
     // test_rotate_matrix();
     // test_groupAnagrams();
-    test_next_node();
+    // test_next_node();
+    // test_myqueue();
 
     return 0;
 }

@@ -7,6 +7,7 @@
 #include <list>
 #include <queue>
 #include <string>
+#include <stack>
 
 #include "data_structs/base_struct.h"
 
@@ -68,6 +69,19 @@ public:
 private:
     std::queue<int> qu;
 
+};
+
+class MyQueue {
+public:
+   MyQueue();
+   void push(int x);
+   int pop();
+   int front();
+   bool empty();
+
+private:
+    std::stack<int> s1;
+    std::stack<int> s2;
 };
 
 class Trie {
