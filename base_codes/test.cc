@@ -34,6 +34,7 @@
 #include "minimization_algs.h"
 #include "random_sample_algs.h"
 #include "geometric_algs.h"
+#include "swordfingeroffer.h"
 
 using namespace std;
 
@@ -2093,6 +2094,14 @@ void test_myqueue() {
     printf("%d \n", tmp);
 }
 
+/**
+ * 120. 打印１->ｎ位最大数
+*/
+
+void test_print1ToNdigits() {
+    // sword_finger_offer::print1ToMaxNDigits(1);
+    sword_finger_offer::print1ToMaxNDigits_v2(2);
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2119,7 +2128,7 @@ int main() {
     // test_populating_next_right_pointer();
     // test_min_distance_of_strintest_foursumg();
     // test_haspathsum();
-    test_qsort();
+    // test_qsort();
     // test_add_two_numbers();
     // test_length_of_substr();
     // test_find_mid_num();
@@ -2223,6 +2232,7 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
+    test_print1ToNdigits();
 
     return 0;
 }
