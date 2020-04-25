@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_set>
@@ -2103,6 +2104,36 @@ void test_print1ToNdigits() {
     sword_finger_offer::print1ToMaxNDigits_v2(2);
 }
 
+/**
+ * 121. 删除链表中重复节点
+*/
+void test_deleteduplictednode() {
+    ListNode* root = new ListNode(1);
+    root->next = new ListNode(1);
+    root->next->next = new ListNode(2);
+    root->next->next->next = new ListNode(3);
+    root->next->next->next->next = new ListNode(3);
+    // ListNode* root = nullptr;
+    sword_finger_offer::deleteDuplicatedNode(&root);
+    ListNode* curr = root;
+    while (curr != nullptr)
+    {
+        printf("%d ", curr->val);
+        curr = curr->next;
+    }
+    printf("\n");
+}
+
+/**
+ * 122. 正则表达式，类似与４９，３１，　递归实现．
+*/
+void test_regular_match_v2() {
+    std::string str = "aaa";
+    std::string pattern = "ab*ac*a*";
+    bool result = sword_finger_offer::regular_pattern(str, pattern);
+    std::cout << "result: " << std::boolalpha << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2232,7 +2263,9 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
-    test_print1ToNdigits();
+    // test_print1ToNdigits();
+    // test_deleteduplictednode();
+    test_regular_match_v2();
 
     return 0;
 }
