@@ -2134,6 +2134,20 @@ void test_regular_match_v2() {
     std::cout << "result: " << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 123. 判断字符是否为有效数字．将有效数字拆分成A[.B][e|EC], .B[e|EC]的形式, 其中A, C为整数，　Ｂ为正整数. 
+ * 1. 注意判断当前字符串为整数应该是s[i]=='.'||s[i]=='e'||s[i]==='E' 且i>0
+ * 2. A/B二者存在其中一个就行．即判断条件为scanUnsignedInteger(s, index) || isnumeric,　且必须scanUnsignedInteger放前面，否则isnumeric为true,则不只是scanunsiged函数
+*/
+void test_isNumeric() {
+    std::vector<std::string> cases = {"e+5", "+100", "-1e-12", "3.146", "12e+5.4", "12.e5", ".1e-5"};
+    for (auto& str: cases) {
+        bool result = sword_finger_offer::isNumeric(str);
+        std::cout << "result of: " << str << " is " << std::boolalpha << result << std::endl;
+    }
+    
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2265,7 +2279,8 @@ int main() {
     // test_myqueue();
     // test_print1ToNdigits();
     // test_deleteduplictednode();
-    test_regular_match_v2();
+    // test_regular_match_v2();
+    test_isNumeric();
 
     return 0;
 }

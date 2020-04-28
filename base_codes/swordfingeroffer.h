@@ -23,6 +23,13 @@ void deleteDuplicatedNode(ListNode** root);
 bool regular_pattern(std::string& str, std::string& pattern);
 bool match_core(std::string& str, int index, std::string& pattern, int p_index);
 
+// interview 20 判断字符串是不是合法数字
+bool isNumeric(std::string& s);
+
+bool scanInteger(std::string& s, int& index);
+
+bool scanUnsignedInteger(std::string& s, int& index);
+
 } // namespace sword_finger_offer
 
 
