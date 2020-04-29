@@ -2145,7 +2145,19 @@ void test_isNumeric() {
         bool result = sword_finger_offer::isNumeric(str);
         std::cout << "result of: " << str << " is " << std::boolalpha << result << std::endl;
     }
-    
+}
+
+/**
+ * 124. 抽象判断条件，划分数组，设置奇偶数
+*/
+void test_reordervec() {
+    std::vector<int> vec{5,4,1,2,3,4};
+    auto isodd = [](int val)->bool {return (val & 0x1) == 1;};
+    sword_finger_offer::reorderVec(vec, isodd);
+    for (int i=0; i<vec.size(); i++) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
 }
 
 int main() {
@@ -2280,7 +2292,8 @@ int main() {
     // test_print1ToNdigits();
     // test_deleteduplictednode();
     // test_regular_match_v2();
-    test_isNumeric();
+    // test_isNumeric();
+    test_reordervec();
 
     return 0;
 }

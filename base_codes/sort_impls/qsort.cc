@@ -25,6 +25,7 @@ void qsort(int *arr, int low, int high) {
     }
 }
 
+// 思想　默认small以前都是符合条件的，即都小于val, small->i之间的数大于val. 当ｉ比val小时，则交换arr[small], arr[i],使得小数放在前面，大数在后面
 int partition_qsort(int *arr, int low, int high) {
     int small = low -1;
     for (int i=low; i<high; i++) {

@@ -1,6 +1,7 @@
 #ifndef SWORD_FINGER_OFFER_
 #define SWORD_FINGER_OFFER_
 #include <string>
+#include <vector>
 #include "./data_structs/base_struct.h"
 
 namespace sword_finger_offer
@@ -29,6 +30,9 @@ bool isNumeric(std::string& s);
 bool scanInteger(std::string& s, int& index);
 
 bool scanUnsignedInteger(std::string& s, int& index);
+
+// interview 21 区分奇偶数，抽象判断条件
+void reorderVec(std::vector<int>& vec, bool(*func)(int));
 
 } // namespace sword_finger_offer
 
