@@ -73,7 +73,7 @@ class GlobalSharedRank {
 
 __global__ void do_average(float* data, int ndev, int size) {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
-    if (tid > size) return;
+    if (tid >= size) return;
     data[tid] /= ndev;
 }
 
@@ -103,8 +103,8 @@ public:
         }
         NCCLCHECK(ncclCommInitAll(comms, ndev, devs));
 
-        for (int i=0; i<ndev; i++)
-            std::cout << "cudastream " << i << " : " << s+i << std::endl;
+        // for (int i=0; i<ndev; i++)
+        //     std::cout << "cudastream " << i << " : " << s+i << std::endl;
     }
 
     GlobalShared(const GlobalShared& other) {
@@ -134,25 +134,22 @@ public:
     }
 
     void get_mean(int rank) {
-        std::unique_lock<std::mutex> lck(mutex_);
         while(!MeanReady()) {}
         ready_flags[rank] = false;
         resetMeanReady();
     }
 
     bool MeanReady() {
+        std::lock_guard<std::mutex> lck(mutex_);
         if (mean_ready) return true;
         for (int i=0; i<ndev; i++) {
-            bool tmp = ready_flags[i];
-            if (!tmp)  return false;
-            // if (!ready_flags[key][i])  return false;
+            if (!ready_flags[i])  return false;
         }
 
         NCCLCHECK(ncclGroupStart());
         for (int i = 0; i < ndev; ++i) {
             float* buffi = tensors[i];
             NCCLCHECK(ncclAllReduce((const void*)buffi, (void*)buffi, tensor_size, ncclFloat, ncclSum, comms[i], s[i]));
-            // NCCLCHECK(ncclAllReduce((const void*)buff[i], (void*)buff[i], size, ncclFloat, ncclSum, comms[i], s[i]));
         }
         NCCLCHECK(ncclGroupEnd());
 
@@ -162,8 +159,10 @@ public:
             CUDACHECK(cudaStreamSynchronize(s[i]));
         }
     
-        // do average
-        for (int i=0; i<ndev; i++) do_average<<<1, 256>>>(tensors[i], ndev, tensor_size);
+        // // do average
+        // for (int i=0; i<ndev; i++) {
+        //     do_average<<<1, 256>>>(tensors[i], ndev, tensor_size);
+        // }
 
         mean_ready = true;
         return true;
@@ -209,14 +208,15 @@ void sync_func(int dev_id, int ndev) {
     (*gs).set_tensor_ptr(buff, dev_id);
 
     (*gs).get_mean(dev_id);
-
-    std::cout << dev_id << "/" << ndev << " allreduce:\n";
-    print_result(buff, 10);
+    if (dev_id == 0) {
+        std::cout << dev_id << "/" << ndev << " allreduce:\n";
+        print_result(buff, 10);
+    }
 }
 
 
 void test_sync() {
-    int ndev = 1;
+    int ndev = 2;
     std::thread threads[ndev];
     for (int i=0; i<ndev; i++) {
         threads[i] = std::thread(sync_func, i, ndev);
@@ -227,9 +227,57 @@ void test_sync() {
     }
 }
 
+
+void test_ptr_ptr() {
+    float** tensors;
+    bool* flags;
+    int ndev =2;
+    int size = 32;
+    tensors = new float*[ndev];
+    flags = new bool[ndev];
+
+    for (int i=0; i<ndev; i++) {
+        float* tmp = new float[size];
+        std::cout << "tensors " << i << " address: " << tmp << std::endl;
+        std::fill_n(tmp, size, i+1);
+        tensors[i]  = tmp;
+        flags[i] = true;
+    }
+
+    std::cout << "tensors address: " << tensors << std::endl;
+    for (int i=0; i<ndev; i++) {
+        std::cout << "tensors " << i << " address: " << tensors[i] << std::endl;
+    }
+
+    for (int i=0; i<ndev; i++) {
+        delete[] tensors[i];
+    }
+    delete[] tensors;
+    delete[] flags;
+
+}
+
+void test_do_average() {
+    int size = 32;
+    int ndev = 2;
+    int dev_id = 1;
+    float* buff;
+    // host sendbuff
+    float* h_sendbuff = new float[size];
+    std::fill_n(h_sendbuff, size, 1 + dev_id);
+
+    CUDACHECK(cudaSetDevice(dev_id));
+    CUDACHECK(cudaMalloc(&buff, size * sizeof(float)));
+    CUDACHECK(cudaMemcpy(buff, h_sendbuff, size * sizeof(float), cudaMemcpyHostToDevice));
+    do_average<<<1, 256>>>(buff, ndev, size);
+    print_result(buff, 10);
+}
+
 int main(int argc, char* argv[])
 {
     test_sync();
+    // test_ptr_ptr();
+    // test_do_average();
   
   return 0;
 }
