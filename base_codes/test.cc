@@ -2160,6 +2160,30 @@ void test_reordervec() {
     std::cout << std::endl;
 }
 
+/**
+ * 125. 判断链表中是否存在环
+*/
+void test_detect_cycle(){
+    ListNode* root = new ListNode(1);
+    ListNode* tmp = root;
+    tmp->next = new ListNode(2);
+    tmp = tmp->next;
+    tmp->next = new ListNode(3);
+    tmp = tmp->next;
+    tmp->next = new ListNode(4);
+    tmp = tmp->next;
+    tmp->next = new ListNode(5);
+    tmp = tmp->next;
+    tmp->next = root->next;
+    ListNode* src = root;
+    ListNode* result = sword_finger_offer::detectCycle(root);
+    if (result != nullptr)
+        std::cout << "ring begining value: " << result->val << std::endl;
+    else
+        std::cout << "the listnode has no ring\n";
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2289,11 +2313,18 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
+    
+    //***************sword finger offer ************************
+
     // test_print1ToNdigits();
     // test_deleteduplictednode();
     // test_regular_match_v2();
     // test_isNumeric();
-    test_reordervec();
+    // test_reordervec();
+    test_detect_cycle();
+    
+
+
 
     return 0;
 }

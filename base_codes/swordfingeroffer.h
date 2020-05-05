@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "./data_structs/base_struct.h"
+#include "./data_structs/base_struct.h"
 
 namespace sword_finger_offer
 {
@@ -33,6 +34,9 @@ bool scanUnsignedInteger(std::string& s, int& index);
 
 // interview 21 区分奇偶数，抽象判断条件
 void reorderVec(std::vector<int>& vec, bool(*func)(int));
+
+// interview 23 检测链表中是否存在环，并找出环的入口
+ListNode* detectCycle(ListNode* root);
 
 } // namespace sword_finger_offer
 
