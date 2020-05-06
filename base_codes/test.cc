@@ -2183,6 +2183,93 @@ void test_detect_cycle(){
         std::cout << "the listnode has no ring\n";
 }
 
+/**
+ * 126. 反转链表，　额外添加一个头指针，可去除判断头指针特殊情况．注意删除额外的头指针
+*/
+void test_reverse_list() {
+    ListNode* root = new ListNode(1);
+    ListNode* tmp = root;
+    tmp->next = new ListNode(2);
+    tmp = tmp->next;
+    tmp->next = new ListNode(3);
+    tmp = tmp->next;
+    tmp->next = new ListNode(4);
+    tmp = tmp->next;
+    tmp->next = new ListNode(5);
+
+    ListNode* head = sword_finger_offer::reverseList(root);
+
+    std::cout << "reversed list: " ;
+    while(head !=nullptr) {
+        std::cout << head->val << " ";
+        head = head->next;
+    }
+    std::cout << std::endl;
+}
+
+/**
+ * 127. 合并两个排序链表. 使用dfs方法实现:输入为两个头节点，　返回值为合并链表的头节点．
+ * 根据root1,root2的ｖal大小，确定当前head=root1 或root2, head->next = merge(root1->next, root2) 或merge(root1, root2->next);
+*/
+void test_merge_two_list() {
+    ListNode* root1 = new ListNode(1);
+    ListNode* tmp = root1;
+    tmp->next = new ListNode(2);
+    tmp = tmp->next;
+    tmp->next = new ListNode(3);
+
+    ListNode* root2 = new ListNode(4);
+    tmp = root2;
+    // tmp->next = new ListNode(5);
+    // tmp = tmp->next;
+    // tmp->next = new ListNode(6);
+
+
+    // ListNode* mergeList = sword_finger_offer::mergetwoList(root1, root2);
+    ListNode* mergeList = sword_finger_offer::mergetwoList_v2(root1, root2);
+
+    std::cout << "the two merged list: ";
+    while(mergeList != nullptr) {
+        std::cout << mergeList->val << " ";
+        mergeList = mergeList->next;
+    }
+    std::cout << std::endl;
+}
+
+/**
+ * 128. 判断是否为子树
+*/
+void test_issubtree() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(4);
+    root->right = new TreeNode(5);
+    root->left->left = new TreeNode(1);
+    root->right->left = new TreeNode(2);
+    // root->left->left = new TreeNode(0);
+    TreeNode* sub = new TreeNode(3);
+    // sub->left = new TreeNode(4);
+    sub->right = new TreeNode(5);
+    bool result = sword_finger_offer::issubtree(root, sub);
+    std::cout << "is sub tree: " << std::boolalpha << result << std::endl;
+}
+
+/**
+ * 129. 判断二叉树是否对称，　即判断二叉树的左子树是否等于右子树．　为了使得左子树与对应右子树匹配．定义输入为两颗二叉树的对比函数，比较二叉树与其自身是否对称．
+*/
+void test_issymmetrical() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(4);
+    root->right = new TreeNode(4);
+    root->left->left = new TreeNode(1);
+    // root->left->right = new TreeNode(2);
+    // root->right->left = new TreeNode(2);
+    root->right->right = new TreeNode(1);
+    bool result = sword_finger_offer::isSymmetrical(root);
+    std::cout << "is symmetrical tree: " << std::boolalpha << result << std::endl;
+}
+
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2321,7 +2408,11 @@ int main() {
     // test_regular_match_v2();
     // test_isNumeric();
     // test_reordervec();
-    test_detect_cycle();
+    // test_detect_cycle();
+    // test_reverse_list();
+    // test_merge_two_list();
+    // test_issubtree();
+    test_issymmetrical();
     
 
 

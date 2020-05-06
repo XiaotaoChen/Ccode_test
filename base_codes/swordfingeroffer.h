@@ -38,6 +38,22 @@ void reorderVec(std::vector<int>& vec, bool(*func)(int));
 // interview 23 检测链表中是否存在环，并找出环的入口
 ListNode* detectCycle(ListNode* root);
 
+// interview 24 反转链表
+ListNode* reverseList(ListNode* root);
+
+// interview 25 合并两个排序链表
+ListNode* mergetwoList(ListNode* root1, ListNode* root2);
+ListNode* mergetwoList_v2(ListNode* root1, ListNode* root2);
+
+// interview 26 subtree
+
+bool issametree(TreeNode* root1, TreeNode* root2);
+bool issubtree(TreeNode* root1, TreeNode* root2);
+
+// interview 28 判断二叉树是否对称
+bool isSymmetrical(TreeNode* root);
+bool isSymmetrical(TreeNode* root1, TreeNode* root2);
+
 } // namespace sword_finger_offer
 
 
