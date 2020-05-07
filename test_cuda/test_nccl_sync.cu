@@ -9,6 +9,7 @@
 #include <string>
 #include <thread>
 #include <string>
+#include <vector>
 
 #include "cuda_runtime.h"
 #include "nccl.h"
@@ -79,7 +80,8 @@ __global__ void do_average(float* data, int ndev, int size) {
 
 class GlobalShared {
 private:
-    float** tensors;
+    std::vector<float*> tensors;
+    // float** tensors;
     int tensor_size=-1;
     bool* ready_flags;
     ncclComm_t* comms = nullptr;
@@ -94,7 +96,8 @@ public:
         int devs[ndev];
         s = new cudaStream_t[ndev];
         ready_flags = new bool[ndev];
-        tensors = new float*[ndev];
+        // tensors = new float*[ndev];
+        tensors = std::vector<float*>(ndev, nullptr);
 
         for (int i=0; i<ndev; i++) {
             devs[i]=i;
@@ -123,7 +126,7 @@ public:
         }
         delete[] comms;
         delete[] s;
-        delete[] tensors;
+        // delete[] tensors;
         delete[] ready_flags;
     }
 
@@ -214,9 +217,32 @@ void sync_func(int dev_id, int ndev) {
     }
 }
 
+void sync_func_single_thread(int ndev) {
+    int size = 32;
+    std::vector<float*> h_sendbuffs = std::vector<float*>(ndev, nullptr);
+    std::vector<float*> buffs = std::vector<float*>(ndev, nullptr);
+    static GlobalShared* gs = singleton<GlobalShared>::getInstance(ndev, size);
+    for (int dev_id=0; dev_id<ndev; dev_id++) {
+        h_sendbuffs[dev_id] = new float[size];
+        std::fill_n(h_sendbuffs[dev_id], size, 1 + dev_id);
 
-void test_sync() {
-    int ndev = 2;
+        CUDACHECK(cudaSetDevice(dev_id));
+        CUDACHECK(cudaMalloc(&buffs[dev_id], size * sizeof(float)));
+        CUDACHECK(cudaMemcpy(buffs[dev_id], h_sendbuffs[dev_id], size * sizeof(float), cudaMemcpyHostToDevice));
+        (*gs).set_tensor_ptr(buffs[dev_id], dev_id);
+    }
+
+    int dev_id = 0;
+    (*gs).get_mean(dev_id);
+    if (dev_id == 0) {
+        std::cout << dev_id << "/" << ndev << " allreduce:\n";
+        print_result(buffs[dev_id], 10);
+    }
+
+
+}
+
+void test_sync(int ndev) {
     std::thread threads[ndev];
     for (int i=0; i<ndev; i++) {
         threads[i] = std::thread(sync_func, i, ndev);
@@ -275,7 +301,8 @@ void test_do_average() {
 
 int main(int argc, char* argv[])
 {
-    test_sync();
+    // test_sync(2);
+    sync_func_single_thread(2);
     // test_ptr_ptr();
     // test_do_average();
   

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <algorithm>
+#include <thread>
 #include "cuda_runtime.h"
 #include "nccl.h"
 
@@ -60,7 +61,7 @@ void print_result(float* buff, int size) {
   float* h_buff = new float[size];
   CUDACHECK(cudaMemcpy(h_buff, buff, sizeof(float) * size, cudaMemcpyDeviceToHost));
   std::cout << "buff size: " << size << std::endl;
-  for (int i=0; i<size && i < 10; i++) {
+  for (int i=0; i<size; i++) {
     std::cout << h_buff[i] << " ";
   }
   std::cout << std::endl;
@@ -162,6 +163,7 @@ void test_nccl_multi_process() {
   MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &myRank));
   MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &nRanks));
 
+  std::cout << "myRank: " << myRank << " nRanks: " << nRanks << std::endl;
 
   //calculating localRank based on hostname which is used in selecting a GPU
   uint64_t hostHashs[nRanks];
@@ -233,10 +235,80 @@ void test_nccl_multi_process() {
 
 }
 
+
+__global__ void do_average(float* data, int ndev, int size) {
+    int tid = blockIdx.x * blockDim.x + threadIdx.x;
+    if (tid >= size) return;
+    data[tid] /= ndev;
+}
+
+
+void nccl_comm_multi_thread(int myRank, int nRanks, ncclUniqueId& id) {
+  // ncclUniqueId id;
+  ncclComm_t comm;
+  float *sendbuff;
+  cudaStream_t s;
+  int size = 32;
+
+  float* h_sendbuff = new float[size];
+  std::fill_n(h_sendbuff, size, 1 + myRank);
+
+
+  //picking a GPU based on localRank, allocate device buffers
+  CUDACHECK(cudaSetDevice(myRank));
+  CUDACHECK(cudaMalloc(&sendbuff, size * sizeof(float)));
+  CUDACHECK(cudaMemcpy(sendbuff, h_sendbuff, size * sizeof(float), cudaMemcpyHostToDevice));
+  CUDACHECK(cudaStreamCreate(&s));
+
+
+  //initializing NCCL
+  NCCLCHECK(ncclCommInitRank(&comm, nRanks, id, myRank));
+
+
+  //communicating using NCCL
+  NCCLCHECK(ncclAllReduce((const void*)sendbuff, (void*)sendbuff, size, ncclFloat, ncclSum,
+        comm, s));
+
+
+  //completing NCCL operation by synchronizing on the CUDA stream
+  CUDACHECK(cudaStreamSynchronize(s));
+
+  do_average<<<1, 256>>>(sendbuff, nRanks, size);
+
+  std::cout << "[mutip thread Rank " << myRank << "] Success \n";
+  if (myRank == 0) print_result(sendbuff, size);
+
+  //free device buffers
+  CUDACHECK(cudaFree(sendbuff));
+
+  delete[] h_sendbuff;
+
+
+  //finalizing NCCL
+  ncclCommDestroy(comm);
+}
+
+void test_nccl_multi_thread() {
+  int ndev = 8;
+  ncclUniqueId id;
+  ncclGetUniqueId(&id);
+
+  std::thread threads[ndev];
+    for (int i=0; i<ndev; i++) {
+        threads[i] = std::thread(nccl_comm_multi_thread, i, ndev, std::ref(id));
+    }
+    
+    for (int i=0; i<ndev; i++) {
+        threads[i].join();
+    }
+}
+
 int main(int argc, char* argv[])
 {
-  test_nccl_multi_device();
+  // test_nccl_multi_device();
   // test_nccl_multi_process();
+  test_nccl_multi_thread();
+
   
   return 0;
 }

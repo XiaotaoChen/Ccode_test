@@ -9,7 +9,7 @@ single_script=./test
 
 /root/3rdparty/openmpi4.0/bin/mpirun -np ${num_proc} \
     --allow-run-as-root \
-    --npernode 1 \
+    --npernode 2 \
     --hostfile ${hostfile} \
     -bind-to none -map-by slot \
     -x NCCL_DEBUG=INFO \
