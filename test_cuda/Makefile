@@ -1,5 +1,5 @@
 
-SRC_COM = nccl_multi_devices.cu
+SRC_COM = try_sync_bn.cu
 SRC = $(SRC_COM)
 
 # $@  表示目标文件
