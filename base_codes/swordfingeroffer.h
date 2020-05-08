@@ -54,6 +54,9 @@ bool issubtree(TreeNode* root1, TreeNode* root2);
 bool isSymmetrical(TreeNode* root);
 bool isSymmetrical(TreeNode* root1, TreeNode* root2);
 
+// interview 29 顺时针打印
+void clockwise_print(std::vector<std::vector<int>>& matrix);
+
 } // namespace sword_finger_offer
 
 

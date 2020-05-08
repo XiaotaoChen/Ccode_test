@@ -2268,6 +2268,14 @@ void test_issymmetrical() {
     std::cout << "is symmetrical tree: " << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 130. 顺时针打印矩阵，　同42
+*/
+void test_clockwise_print() {
+    std::vector<std::vector<int>> matrix = {{1,2,3}, {5,6,7}, {9,10,11}, {13,14,15}}; // {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}}; // {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}}; // {{1,2,3}, {4,5,6}, {7,8,9}};
+    sword_finger_offer::clockwise_print(matrix);
+
+}
 
 
 
@@ -2412,7 +2420,8 @@ int main() {
     // test_reverse_list();
     // test_merge_two_list();
     // test_issubtree();
-    test_issymmetrical();
+    // test_issymmetrical();
+    test_clockwise_print();
     
 
 
