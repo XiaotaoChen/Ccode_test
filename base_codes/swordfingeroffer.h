@@ -2,6 +2,7 @@
 #define SWORD_FINGER_OFFER_
 #include <string>
 #include <vector>
+#include <stack>
 #include "./data_structs/base_struct.h"
 #include "./data_structs/base_struct.h"
 
@@ -56,6 +57,40 @@ bool isSymmetrical(TreeNode* root1, TreeNode* root2);
 
 // interview 29 顺时针打印
 void clockwise_print(std::vector<std::vector<int>>& matrix);
+
+// interview 30 min stack
+template<typename T>
+class minStack {
+private:
+    std::stack<T> my_stack;
+    std::stack<T> min_stack;
+public:
+    void push(const T& element) {
+        if (my_stack.empty()) {
+            my_stack.push(element);
+            min_stack.push(element);
+        }
+        else {
+            my_stack.push(element);
+            if (element >= min_stack.top()) min_stack.push(min_stack.top());
+            else min_stack.push(element);
+        }
+    }
+    void pop() {
+        if (my_stack.empty()) return;
+        my_stack.pop();
+        min_stack.pop();
+    }
+
+    bool min(T& element) {
+        if (my_stack.empty()) return false;
+        element = min_stack.top();
+        return true;
+    }
+};
+
+// interview 32 判断入栈，出栈序列是否合法
+bool is_correct_for_stack(std::vector<int>& instack, std::vector<int>& outstack);
 
 } // namespace sword_finger_offer
 

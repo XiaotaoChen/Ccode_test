@@ -2277,7 +2277,38 @@ void test_clockwise_print() {
 
 }
 
+/**
+ * 131. 包含min函数的栈
+*/
+void test_min_stack() {
+    sword_finger_offer::minStack<int> s;
+    int result=-1;
+    s.push(5);
+    s.push(2);
+    bool flag = s.min(result);
+    if (flag) std::cout << "min stack is: " << result << std::endl;
+    s.pop();
 
+    flag = s.min(result);
+    if (flag) std::cout << "min stack is: " << result << std::endl;
+    
+    s.push(3);
+    s.push(1);
+
+    flag = s.min(result);
+    if (flag) std::cout << "min stack is: " << result << std::endl;
+}
+
+
+/**
+ * 132. 判断入栈，出栈顺序是否合法
+*/
+void test_is_correct_for_stack() {
+    std::vector<int> instack = {1,2,3,4,5};
+    std::vector<int> outstack = {4,3,5,1,2}; //{4,3,5,2,1}; //{4,3,5,1,2}; //{4,5,3,2,1};
+    bool result = sword_finger_offer::is_correct_for_stack(instack, outstack);
+    std::cout << "is correct for stack: "<< std::boolalpha << result << std::endl;
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2421,7 +2452,9 @@ int main() {
     // test_merge_two_list();
     // test_issubtree();
     // test_issymmetrical();
-    test_clockwise_print();
+    // test_clockwise_print();
+    // test_min_stack();
+    test_is_correct_for_stack();
     
 
 
