@@ -97,6 +97,17 @@ void print_binary_tree_with_z(TreeNode* root) ;
 
 void print_binary_tree_with_z_v2(TreeNode* root) ;
 
+bool check_binary_search_tree_order(std::vector<int>& vec);
+
+bool check_bst_dfs(std::vector<int>& vec, int begin, int end);
+
+std::vector<std::vector<int>> sum_path(TreeNode* root, int target);
+
+void sum_path_dfs(std::vector<std::vector<int>>& commbinations, std::vector<int> curr, TreeNode* root, int target);
+
+void sum_path_v2(TreeNode* root, int target);
+void sum_path_dfs_v2(std::vector<int> curr, TreeNode* root, int target);
+
 } // namespace sword_finger_offer
 
 

@@ -2354,6 +2354,34 @@ void test_reverse() {
 
 }
 
+/**
+ * 134. 判断序列是否为二叉平衡树的后续排列
+*/
+void test_check_bst_order() {
+    std::vector<int> vec = {7,4,6,5}; //{5,7,6,9,11,10,8};
+    bool result = sword_finger_offer::check_binary_search_tree_order(vec);
+    std::cout << "check bst order: " << std::boolalpha << result << std::endl;
+}
+
+/**
+ * 135. 打印二叉树中和为某值的路径
+*/
+void test_sum_path(){
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->right->left = new TreeNode(4);
+    // std::vector<std::vector<int>> result = sword_finger_offer::sum_path(root, 8);
+    // for (int i=0; i<result.size(); i++) {
+    //     for (int j=0; j<result[i].size(); j++) {
+    //         std::cout << result[i][j] << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
+    sword_finger_offer::sum_path_v2(root, 3);
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2499,8 +2527,10 @@ int main() {
     // test_clockwise_print();
     // test_min_stack();
     // test_is_correct_for_stack();
-    test_z_print();
+    // test_z_print();
     // test_reverse();
+    // test_check_bst_order();
+    test_sum_path();
     
 
 
