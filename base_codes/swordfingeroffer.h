@@ -89,8 +89,13 @@ public:
     }
 };
 
-// interview 32 判断入栈，出栈序列是否合法
+// interview 31 判断入栈，出栈序列是否合法
 bool is_correct_for_stack(std::vector<int>& instack, std::vector<int>& outstack);
+
+// interview 32 z字形打印二叉树
+void print_binary_tree_with_z(TreeNode* root) ;
+
+void print_binary_tree_with_z_v2(TreeNode* root) ;
 
 } // namespace sword_finger_offer
 

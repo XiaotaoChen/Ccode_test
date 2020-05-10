@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <unordered_set>
 #include <set>
 #include <stack>
@@ -2310,6 +2311,49 @@ void test_is_correct_for_stack() {
     std::cout << "is correct for stack: "<< std::boolalpha << result << std::endl;
 }
 
+/**
+ * 133. z字打印二叉树, 同66
+ * 方法２使用两个栈实现,左右子树的入栈顺序和奇偶行有关
+*/
+void test_z_print() {
+    TreeNode* root = new TreeNode(8);
+    root->left = new TreeNode(6);
+    root->right = new TreeNode(10);
+    root->left->left = new TreeNode(5);
+    root->left->right = new TreeNode(7);
+    root->right->left = new TreeNode(9);
+    root->left->left->left = new TreeNode(1);
+    root->left->left->right = new TreeNode(2);
+    root->left->right->right = new TreeNode(4);
+    // sword_finger_offer::print_binary_tree_with_z(root);
+    sword_finger_offer::print_binary_tree_with_z_v2(root);
+}
+
+/**
+ * 测试vector按照下标赋值，再使用begin, size等函数会有问题．插入数据应该用pushback
+*/
+void test_reverse() {
+    std::vector<int> tmp1;
+    std::vector<int> tmp2;
+    tmp1.reserve(2);
+    // tmp1[0] = 1;
+    // tmp1[1] = 2;
+    tmp1.push_back(1);
+    tmp1.push_back(2);
+
+    std::cout << "tmp1 size: " << tmp1.size() << " cap: " << tmp1.capacity() << std::endl;
+    for (int i=0; i<tmp1.size(); i++) std::cout << tmp1[i] << " ";
+    std::cout << std::endl;
+    std::cout << "tmp1 reverse\n";
+    // std::reverse(tmp1.begin(), tmp1.end());
+    // for (int i=0; i<2; i++) std::cout << tmp1[i] << " ";
+    for (auto iter=tmp1.rbegin(); iter!=tmp1.rend(); iter++) {
+        std::cout << *iter << " ";
+    }
+    std::cout << std::endl;
+
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2454,7 +2498,9 @@ int main() {
     // test_issymmetrical();
     // test_clockwise_print();
     // test_min_stack();
-    test_is_correct_for_stack();
+    // test_is_correct_for_stack();
+    test_z_print();
+    // test_reverse();
     
 
 
