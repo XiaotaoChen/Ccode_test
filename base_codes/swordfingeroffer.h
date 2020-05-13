@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <sstream>
+#include <string>
 #include "./data_structs/base_struct.h"
 #include "./data_structs/base_struct.h"
 
@@ -111,6 +113,17 @@ void sum_path_dfs_v2(std::vector<int> curr, TreeNode* root, int target);
 // interview 36 二叉树转换成双向链表
 void bst2list(TreeNode* root, TreeNode** last);
 TreeNode* get_list_head(TreeNode* root);
+
+// interview 37 二叉树序列化，反序列化
+std::string serialize(TreeNode* root);
+void serialize_dfs(TreeNode* root, std::string& oss);
+TreeNode* deserialize(std::string& oss);
+void deserialize_dfs(std::string& oss, TreeNode* root, int index);
+
+void print_bst(TreeNode* root);
+
+void serialize_ss(TreeNode* root, std::ostream& oss);
+void deserialize_ss(TreeNode** root, std::istream& iss);
 
 } // namespace sword_finger_offer
 

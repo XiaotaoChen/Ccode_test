@@ -8,6 +8,8 @@
 #include <stack>
 #include <queue>
 #include <cstdlib> // rand, qsort
+#include <functional>
+#include <fstream>
 #include "data_structs/base_struct.h"
 #include "algorithm.h"
 #include "sorts.h"
@@ -2405,6 +2407,37 @@ void test_bst2list() {
     std::cout << std::endl;
 }
 
+/**
+ * 137. 序列化，反序列化二叉树, 注意反序列化的时候string的index要在最开始++
+*/
+void test_serialize_deserialize() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(1);
+    root->right = new TreeNode(9);
+    std::string oss = sword_finger_offer::serialize(root);
+    TreeNode* head = sword_finger_offer::deserialize(oss);
+
+    std::cout << "serialized: " << oss << std::endl;
+
+    sword_finger_offer::print_bst(head);
+
+    char* fileName = "test.txt";
+    ofstream fileOut;
+    fileOut.open(fileName);
+    sword_finger_offer::serialize_ss(root, fileOut);
+    fileOut.close();
+
+    head = nullptr;
+    ifstream fileIn;
+    fileIn.open(fileName);
+    sword_finger_offer::deserialize_ss(&head, fileIn);
+    fileIn.close();
+
+    std::cout << "iostream serialize, deserialize:\n";
+    sword_finger_offer::print_bst(head);
+}
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2555,7 +2588,8 @@ int main() {
     // test_reverse();
     // test_check_bst_order();
     // test_sum_path();
-    test_bst2list();
+    // test_bst2list();
+    test_serialize_deserialize();
     
 
 
