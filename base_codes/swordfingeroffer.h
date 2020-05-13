@@ -108,6 +108,10 @@ void sum_path_dfs(std::vector<std::vector<int>>& commbinations, std::vector<int>
 void sum_path_v2(TreeNode* root, int target);
 void sum_path_dfs_v2(std::vector<int> curr, TreeNode* root, int target);
 
+// interview 36 二叉树转换成双向链表
+void bst2list(TreeNode* root, TreeNode** last);
+TreeNode* get_list_head(TreeNode* root);
+
 } // namespace sword_finger_offer
 
 

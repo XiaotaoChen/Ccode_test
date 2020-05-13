@@ -2381,6 +2381,30 @@ void test_sum_path(){
     sword_finger_offer::sum_path_v2(root, 3);
 }
 
+/**
+ * 136. 将二叉树转换成双向链表, 其思路是dfs, 输入为当前节点root,和root节点之前最后一个节点的指针地址，即遍历root->left, root->left=*last; *last->right=root, 遍历root->right.
+ * 注意更新last node的内容时，　不能写成last=*root, 应该写成*last=root, 保证last地址不变．其last地址不能由函数返回，　因为函数中首先有使用last, 再更新last.
+ * 
+*/
+void test_bst2list() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(3);
+    root->right = new TreeNode(7);
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(4);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(8);
+    TreeNode* last = nullptr;
+    sword_finger_offer::bst2list(root, &last);
+    TreeNode* head = sword_finger_offer::get_list_head(last);
+    while (head != nullptr)
+    {
+        std::cout << head->val << " ";
+        head = head->right;
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2530,7 +2554,8 @@ int main() {
     // test_z_print();
     // test_reverse();
     // test_check_bst_order();
-    test_sum_path();
+    // test_sum_path();
+    test_bst2list();
     
 
 
