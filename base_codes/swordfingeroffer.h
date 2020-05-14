@@ -130,6 +130,8 @@ std::vector<std::string> permutation(std::string str);
 
 std::vector<std::string> combinations(std::string str);
 
+std::vector<std::vector<int>> queen_permutation(int num);
+
 } // namespace sword_finger_offer
 
 

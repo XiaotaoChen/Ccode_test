@@ -2439,7 +2439,7 @@ void test_serialize_deserialize() {
 
 
 /**
- * 138. 生成排列
+ * 138. 生成排列,组合．其中组合是将当前idx的字符push 进comb, 并且将历史的comb ＋　str[idx]添加进comb
  * 
 */
 void test_permutation() {
@@ -2451,6 +2451,21 @@ void test_permutation() {
     }
 }
 
+/**
+ * 139. ８皇后问题，　正方体８角和
+*/
+void test_queen_permute() {
+    std::vector<std::vector<int>> result = sword_finger_offer::queen_permutation(8);
+    std::cout << "eight queen size:" << result.size() << std::endl;
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2603,7 +2618,8 @@ int main() {
     // test_sum_path();
     // test_bst2list();
     // test_serialize_deserialize();
-    test_permutation();
+    // test_permutation();
+    test_queen_permute();
 
     
 
