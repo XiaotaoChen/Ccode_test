@@ -2438,6 +2438,19 @@ void test_serialize_deserialize() {
 }
 
 
+/**
+ * 138. 生成排列
+ * 
+*/
+void test_permutation() {
+    std::string str = "abc";
+    // std::vector<std::string> result = sword_finger_offer::permutation(str);
+    std::vector<std::string> result = sword_finger_offer::combinations(str);
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << std::endl;
+    }
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2589,7 +2602,9 @@ int main() {
     // test_check_bst_order();
     // test_sum_path();
     // test_bst2list();
-    test_serialize_deserialize();
+    // test_serialize_deserialize();
+    test_permutation();
+
     
 
 

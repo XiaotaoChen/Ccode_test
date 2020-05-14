@@ -125,6 +125,11 @@ void print_bst(TreeNode* root);
 void serialize_ss(TreeNode* root, std::ostream& oss);
 void deserialize_ss(TreeNode** root, std::istream& iss);
 
+// interview 38 生成排列组合
+std::vector<std::string> permutation(std::string str);
+
+std::vector<std::string> combinations(std::string str);
+
 } // namespace sword_finger_offer
 
 
