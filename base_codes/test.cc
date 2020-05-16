@@ -2463,9 +2463,39 @@ void test_queen_permute() {
         }
         std::cout << std::endl;
     }
-
-
 }
+
+/**
+ * 140. 查找超过一半的数
+*/
+void test_morethanhalf() {
+    std::vector<int> arr = {4,3,2,3};
+    int result = sword_finger_offer::MoreThanHalf(arr);
+    std::cout << "more than half result: " << result << std::endl;
+}
+
+/**
+ * 141. 查找ｋ个最小数. 共四种方法：
+ * 1. partition
+ * 2. 手写最大堆，　注意初始化堆时，从length/2-1 --> 0,调整堆的顺序，后面依次从k->arr.length判断是否入堆
+ * 3. 用make_heap, pop_heap, push_heap等
+ * 4. 使用multiset<int, std::greater>, 直接维护最大堆
+*/
+
+void test_topKminus() {
+    std::vector<int> arr = {3,4,2,5,1, 2};
+    int k = 4;
+    // std::vector<int> result = sword_finger_offer::TopKminus(arr, k);
+    // std::vector<int> result = sword_finger_offer::TopKminus_with_heap(arr, k);
+    // std::vector<int> result = sword_finger_offer::TopKminus_with_makeheap(arr, k);
+    std::vector<int> result = sword_finger_offer::TopKminus_with_set(arr, k);
+    std::cout << "top " << k << " minus: ";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2619,7 +2649,9 @@ int main() {
     // test_bst2list();
     // test_serialize_deserialize();
     // test_permutation();
-    test_queen_permute();
+    // test_queen_permute();
+    // test_morethanhalf();
+    test_topKminus();
 
     
 

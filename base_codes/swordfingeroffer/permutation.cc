@@ -5,13 +5,6 @@
 namespace sword_finger_offer
 {
 
-template<typename T>
-void swap(T& a, T& b) {
-    T tmp = a;
-    a = b;
-    b = tmp;
-}
-
 void permutation_dfs(std::vector<std::string>& commbinations, std::string& str, int idx) {
     if (idx==str.length()-1) {
         commbinations.push_back(str);

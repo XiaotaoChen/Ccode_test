@@ -11,6 +11,13 @@
 namespace sword_finger_offer
 {
 
+template<typename T>
+void swap(T& a, T& b) {
+    T tmp = a;
+    a = b;
+    b = tmp;
+}
+
 // interview 17 打印１到ｎ位最大数的所有可能
 void print1ToMaxNDigits(int n);
 
@@ -131,6 +138,18 @@ std::vector<std::string> permutation(std::string str);
 std::vector<std::string> combinations(std::string str);
 
 std::vector<std::vector<int>> queen_permutation(int num);
+
+
+int partition(std::vector<int>& arr, int begin, int end);
+
+// interview 39 出现次数超过一半的数
+int MoreThanHalf(std::vector<int>& arr);
+
+// interview 40 最小的ｋ个数
+std::vector<int> TopKminus(std::vector<int>& arr, int k);
+std::vector<int> TopKminus_with_heap(std::vector<int>& arr, int k);
+std::vector<int> TopKminus_with_makeheap(std::vector<int>& arr, int k);
+std::vector<int> TopKminus_with_set(std::vector<int>& arr, int k);
 
 } // namespace sword_finger_offer
 
