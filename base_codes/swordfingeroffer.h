@@ -151,6 +151,11 @@ std::vector<int> TopKminus_with_heap(std::vector<int>& arr, int k);
 std::vector<int> TopKminus_with_makeheap(std::vector<int>& arr, int k);
 std::vector<int> TopKminus_with_set(std::vector<int>& arr, int k);
 
+// interview 41 流数据的中位数
+int median_number(std::vector<int>& arr);
+int median_number_with_set(std::vector<int>& arr);
+
+
 } // namespace sword_finger_offer
 
 

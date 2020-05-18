@@ -2496,6 +2496,36 @@ void test_topKminus() {
     std::cout << std::endl;
 }
 
+/**
+ * 142. 流数据的中位数. 
+ * １.使用partition方法，　分别找出median, median+1的数即可，但该方法要求读取数组所有数据．
+ * ２．即时读取，维护最大最小堆．
+ * ３．主要std::push_heap, std::multiset中设置最大堆，最小堆的方法．　multiset通过初始化设置，　默认最小堆，即std::less<T>，　最大堆std::greater<T>; 
+ *        std::push_heap等，默认最大堆，　std::less<T>(). 
+ * 即 std::push_heap默认最大堆，取反用std::greater<T>(), std::multiset默认最小堆，　取反用std::greater<T>
+*/
+void test_median_number() {
+    std::vector<int> arr = {3,2,4,1,5};
+    // int result = sword_finger_offer::median_number(arr);
+    int result = sword_finger_offer::median_number_with_set(arr);
+
+    std::cout << "result: " << result << std::endl;
+}
+
+void test_heap() {
+    std::vector<int> arr;
+    arr.push_back(1);
+    std::push_heap(arr.begin(), arr.end());
+    arr.push_back(2);
+    std::push_heap(arr.begin(), arr.end(), std::greater<int>());
+
+
+
+    std::multiset<int, std::greater<int>> set;
+    set.insert(1);
+    set.insert(2);
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2651,7 +2681,9 @@ int main() {
     // test_permutation();
     // test_queen_permute();
     // test_morethanhalf();
-    test_topKminus();
+    // test_topKminus();
+    // test_median_number();
+    test_heap();
 
     
 
