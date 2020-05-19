@@ -156,6 +156,12 @@ int median_number(std::vector<int>& arr);
 int median_number_with_set(std::vector<int>& arr);
 
 
+// interview 42 连续子数组的最大和
+int continuoussum(std::vector<int>& arr);
+
+// interview 43 连续数字，１出现的次数
+int one_counts(int n);
+
 } // namespace sword_finger_offer
 
 

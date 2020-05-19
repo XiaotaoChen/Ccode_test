@@ -2526,6 +2526,27 @@ void test_heap() {
     set.insert(2);
 }
 
+/**
+ * 143. 连续子串最大和
+*/
+void test_continuoussum() {
+    std::vector<int> arr = {-4,-3,-2,-6,-5};
+    int result = sword_finger_offer::continuoussum(arr);
+    std::cout << "result: " << result << std::endl;
+}
+
+/**
+ * 144. 序列中１出现的次数. 递归思想．　如21345，　可拆成０->1345, 1346->21345两部分，　0->1345可递归求解．
+ * 1346->21345中包含的１个数可分为：最高位的１出现的次数part1和其他位出现的次数part2．如果最高位是１，　则part1=int(str.substr(idx+1)) +1, 否则part1=10**(str.length-idx-1);
+ * 其他位出现的次数part2=最高位的值＊len(str.length-idx-1)*10**(str.length-idx-2). 如21345的part2=2*4*1000.　
+ * 2表示两万个数，后面４位，每一位都包含０－９的遍历．相当于0000->9999重复２遍，　当其中一位为１时，其他三位随意共有1000种可能．即part2 = 2 * 4 * 1000
+*/
+void test_one_counts() {
+    int result = sword_finger_offer::one_counts(1345); // 5, 12, 10,  55, 99, 10000, 21345
+    std::cout << "result: " << result << std::endl;
+}
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2683,7 +2704,9 @@ int main() {
     // test_morethanhalf();
     // test_topKminus();
     // test_median_number();
-    test_heap();
+    // test_heap();
+    // test_continuoussum();
+    test_one_counts();
 
     
 
