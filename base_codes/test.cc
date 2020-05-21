@@ -2547,6 +2547,29 @@ void test_one_counts() {
 }
 
 
+/**
+ * 145. 编辑距离．　共有３种操作．　插入，删除，替换．
+ * dp求解．　求word1的０－＞ｉ，与word2的０－＞j的编辑距离．　共有三种方式到达a[i][j]：
+ * 1. a[i-1][j-1]表示替换，　即word1的第ｉ个字符替换成word2的第ｊ个字符． 如horse, ros, a[5,3]--> a[4,2] hors->ro, 将e替换成s即可
+ * 2. a[i-1][j]表示删除， 因为word1的前ｉ－１个字符已经与word2的ｊ个字符匹配，故删除第i个字符，如hors->ros, 删除e
+ * 3. a[i][j-1]表示插入，因为word1的ｉ个字符已经和word2的j-1个字符匹配，故只能额外插入字符达到a[i][j], 如horse->ro, 插入ｓ
+*/
+void test_mindistance() {
+    std::string word1 = "intention"; // "horse";
+    std::string word2 = "execution"; // "ros";
+    int result = dp::minDistance(word1, word2);
+    std::cout << "result: " << result << std::endl;
+}
+
+/**
+ * 146. 简化ｕnix路径，　使用栈, １．注意substr的用法，　第二个参数是个数，而不是末尾下标; 2.注意连续//会产生空字符串．
+*/
+void test_simplepath() {
+    std::string path = "/a//b////c/d//././/.."; //"/a/../../b/../c//.//"; // "/a/./b/../../c/"; // "/home//foo/"; // "/../"; // "/home/";
+    std::string result = stack_algs::simplepath(path);
+    std::cout << "simple path result: " << result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2677,6 +2700,8 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
+    // test_mindistance();
+    test_simplepath();
     
     //***************sword finger offer ************************
 
@@ -2706,7 +2731,8 @@ int main() {
     // test_median_number();
     // test_heap();
     // test_continuoussum();
-    test_one_counts();
+    // test_one_counts();
+
 
     
 

@@ -39,6 +39,9 @@ int uniquePathsWithObstacles(std::vector<std::vector<int>>& obstacleGrid);
  int maximalRectangle(std::vector<std::vector<char>>& matrix);
 int max_rectangle(std::vector<int>& heights);
 
+// https://leetcode-cn.com/problems/edit-distance/
+int minDistance(std::string& word1, std::string& word2);
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_

@@ -18,6 +18,8 @@ int trap(std::vector<int>& height);
 int longestValidParentheses(std::string s);
 int longestValidParentheses_v2(std::string s);
 
+std::string simplepath(std::string& path);
+
 }
 
 #endif
