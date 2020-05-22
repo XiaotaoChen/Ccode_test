@@ -2570,6 +2570,28 @@ void test_simplepath() {
     std::cout << "simple path result: " << result << std::endl;
 }
 
+/**
+ * 147. 序列中第index的数字. z主要分为3部分：
+ * １. 求得对应位数数字一共的位数，如个位数，总共９位，　二位数：2*90, 3位数：3*900. 
+ * 2. 得到开始的位数的起始点，如1，　１０，　１００
+ * 3. 求得具体数字，第ｉ位的值
+ * 注意：1中求对应位的数字个数要乘上n
+ * 
+*/
+void test_number_of_digit() {
+    int result = sword_finger_offer::numberofindex(190); // 10, 11, 13, 1000, 190
+    std::cout << "number of digit: " << result << std::endl;
+}
+
+/**
+ * 147. 生成最小数, 通过将arr中所有数字转换成string,避免大数问题，　同时转换成对string数组的排序问题，比较string a,b可定义成a+b , b+a的大小比较．升序排序即为最小组合数．
+*/
+void test_mincombination() {
+    std::vector<int> arr = {3, 321, 32};
+    std::string result = sword_finger_offer::mincombination(arr);
+    std::cout << "mincombination result: " << result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2701,7 +2723,7 @@ int main() {
     // test_next_node();
     // test_myqueue();
     // test_mindistance();
-    test_simplepath();
+    // test_simplepath();
     
     //***************sword finger offer ************************
 
@@ -2732,6 +2754,8 @@ int main() {
     // test_heap();
     // test_continuoussum();
     // test_one_counts();
+    // test_number_of_digit();
+    test_mincombination();
 
 
     

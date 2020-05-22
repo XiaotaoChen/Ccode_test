@@ -162,6 +162,12 @@ int continuoussum(std::vector<int>& arr);
 // interview 43 连续数字，１出现的次数
 int one_counts(int n);
 
+// interview 44 数字序列中第ｎ位的数字
+int numberofindex(int index);
+
+// interview 45　得到数字组合的最小值
+std::string mincombination(std::vector<int>& arr);
+
 } // namespace sword_finger_offer
 
 
