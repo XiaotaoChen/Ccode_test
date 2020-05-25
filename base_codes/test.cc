@@ -2592,6 +2592,17 @@ void test_mincombination() {
     std::cout << "mincombination result: " << result << std::endl;
 }
 
+/**
+ * 148. 数字转字符的排列组合数. 简单dp问题, 如果str[i-1:i] <=25, 则dp[i]=dp[i-1]+dp[i-2],
+ * 否则　dp[i]=dp[i-1]
+ * 注意dp[0]应该初始化为１，而不是０，如12, dp[2]=dp[1]+dp[0], 如果dp[0]=0, 结果不对
+*/
+void test_number2ascii() {
+    int number = 11258;
+    int result = sword_finger_offer::number2ascii(number);
+    std::cout << "number2ascii result: "<< result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2755,7 +2766,8 @@ int main() {
     // test_continuoussum();
     // test_one_counts();
     // test_number_of_digit();
-    test_mincombination();
+    // test_mincombination();
+    test_number2ascii();
 
 
     

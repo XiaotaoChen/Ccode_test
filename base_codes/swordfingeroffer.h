@@ -168,6 +168,10 @@ int numberofindex(int index);
 // interview 45　得到数字组合的最小值
 std::string mincombination(std::vector<int>& arr);
 
+
+// interview 46 数字转换成字母
+int number2ascii(int num);
+
 } // namespace sword_finger_offer
 
 
