@@ -172,6 +172,16 @@ std::string mincombination(std::vector<int>& arr);
 // interview 46 数字转换成字母
 int number2ascii(int num);
 
+// interview 47 礼物最大价值
+int giftmaxval(std::vector<std::vector<int>>& gifts);
+
+// interview 48 最长不重复的子字符串
+int longest_substr(std::string str);
+int longest_substr_v2(std::string str);
+
+// interview 49 丑数
+int ugly_number(int index);
+
 } // namespace sword_finger_offer
 
 

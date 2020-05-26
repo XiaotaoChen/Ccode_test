@@ -2603,6 +2603,39 @@ void test_number2ascii() {
     std::cout << "number2ascii result: "<< result << std::endl;
 }
 
+/**
+ * 149. 礼物最大价值, 简单dp[i,j]=max(dp[i-1, j], dp[i, j-1]) + val[i,j]. 其中dp数组可以只使用一行，重复利用
+*/
+void test_giftmaxval() {
+    std::vector<std::vector<int>> arr = {{1, 10, 3, 8}, {12, 2, 9, 6}, {5, 7, 4, 11}, {3, 7, 16, 5}};
+    int result = sword_finger_offer::giftmaxval(arr);
+    std::cout << "git max val result: " << result << std::endl;
+}
+
+/**
+ * 150 最长不重复子串长度. 两种方法：1. 滑窗
+ * ２. dp方法，　使用position[26]记录历史字符最近出现的下标．　
+ * 如果ｉ - position[str[i]-'a'] <= dp[i-1], dp[i]=i - position[str[i]-'a'], 
+ * 否则 dp[i]=dp[i-1] + 1;
+ * 因为只涉及到dp[i],dp[i-1], 可直接使用单个变量计算
+ * 
+*/
+void test_longest_substr() {
+    std::string str = "arabcacfr";
+    // int result = sword_finger_offer::longest_substr(str);
+    int result = sword_finger_offer::longest_substr_v2(str);
+    std::cout << "longest substr result: " << result << std::endl;
+}
+
+/**
+ * 151. 丑数
+ * 记录x2, x3, x5的最小丑数，下一个丑数＝min(mult2*2, mult3*3, mult5*5)
+ * 记录当前最小的丑数要注意是<=, 而不是<, 如while((*mult2)*2<=curr_num) mult2++;
+*/
+void test_ugly_number() {
+    int result = sword_finger_offer::ugly_number(5); // 1,2,3,4,5
+    std::cout << "ugly number result: "<< result << std::endl;
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2767,7 +2800,10 @@ int main() {
     // test_one_counts();
     // test_number_of_digit();
     // test_mincombination();
-    test_number2ascii();
+    // test_number2ascii();
+    // test_giftmaxval();
+    // test_longest_substr();
+    test_ugly_number();
 
 
     
