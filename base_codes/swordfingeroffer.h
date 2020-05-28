@@ -190,6 +190,15 @@ char first_one_char_v3(std::string& str);
 // interview 51 逆序对个数
 int count_reverse_pair(std::vector<int>& arr);
 
+// interview 52 链表中第一个公共节点
+ListNode* first_common_node(ListNode* root1, ListNode* root2);
+
+TreeNode* lastest_common_parent(TreeNode* root, TreeNode* node1, TreeNode* node2);
+
+// interview 53 找出排序数组中某个数字的个数
+int sorted_arr_count(std::vector<int>& arr, int num);
+int sorted_arr_count_v2(std::vector<int>& arr, int num);
+
 } // namespace sword_finger_offer
 
 

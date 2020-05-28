@@ -2660,6 +2660,60 @@ void test_count_reverse_pair() {
     std::cout << "count reverse pair result: " << result << std::endl;
 }
 
+/**
+ * 155. 求得两个链表的第一个公共节点
+*/
+void test_common_node() {
+    ListNode* root = new ListNode(1);
+    root->next = new ListNode(2);
+    root->next->next = new ListNode(3);
+    root->next->next->next = new ListNode(4);
+    ListNode* root2 = new ListNode(5);
+    root2->next = new ListNode(6);
+    // root2->next->next = root;
+    ListNode* common_node = sword_finger_offer::first_common_node(root, root2);
+    if (common_node != nullptr) {
+        std::cout << "test common node result: " << common_node->val << std::endl;
+    }
+    else {
+        std::cout << "test common node result: has no common node\n";
+    }
+}
+
+/**
+ * 156 求二叉树中任意两节点的最小公共父节点. dfs求解．　定义 dfs(root, node1, node2), 如果root等于node1或node2,　则返回root, 
+ * 依次查找dfs(root->left, node1, node2), dfs(root->right, node1, node2)
+ * 如果left存在node1或node2, 且right存在node1或node2,则当前root为parent node, 否则返回left或right
+*/
+void test_treenode_common_parent() {
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
+    TreeNode* parent = sword_finger_offer::lastest_common_parent(root, root->left, root->left->right);
+    if (parent != nullptr) {
+        std::cout << "test treenode common parent result: " << parent->val << std::endl;
+    }
+    else {
+        std::cout << "test treenode common parent result: has no common node\n";
+    }
+}
+
+/**
+ * 157 排序数组中某个数字的个数. 使用partition方法先找出num数字在数组中第一个，最后一个数字的下标．
+ * 注意要考虑num不在数组中的情况，不能直接left==right就返回left, 返回值应该在arr[mid]==num时，才返回．
+*/
+void test_sorted_arr_count() {
+    std::vector<int> arr = {1,1,2,2,2,3,3,5};
+    // int result = sword_finger_offer::sorted_arr_count(arr, 5);
+    int result = sword_finger_offer::sorted_arr_count_v2(arr, 4);
+    std::cout << "test sorted arr count result: " <<  result << std::endl;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2828,7 +2882,10 @@ int main() {
     // test_longest_substr();
     // test_ugly_number();
     // test_first_one_char();
-    test_count_reverse_pair();
+    // test_count_reverse_pair();
+    // test_common_node();
+    // test_treenode_common_parent();
+    test_sorted_arr_count();
 
 
     
