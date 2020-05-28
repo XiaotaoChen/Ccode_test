@@ -2637,6 +2637,29 @@ void test_ugly_number() {
     std::cout << "ugly number result: "<< result << std::endl;
 }
 
+/**
+ * 153. 第一次只出现一次的数.遍历一遍先求得各个字符出现的次数，然后再遍历原始数组，看map中map[ch]是否存在＝＝1. 
+ * 注意第二次确定是否存在１的数，必须遍历原始数组，而不能依次遍历map, 因为map的顺序并不是按照原始数组的先后顺序排列．
+ * 另一种方法是滑窗．当map[begin]>=2时　begin++, 一直map[ｉ]++, 则最后map[begin]的字符即为第一个字符．　注意当map[begin]>=2时，不能删除该元素，若删除，　当其出现次数＞２时，这会有问题．
+ *
+*/
+void test_first_one_char() {
+    std::string str = "dcbcdbc";
+    // char ch = sword_finger_offer::first_one_char(str);
+    // char ch = sword_finger_offer::first_one_char_v2(str);
+    char ch = sword_finger_offer::first_one_char_v3(str);
+    std::cout << "first one char result: " << ch << std::endl;
+}
+
+/**
+ * 154.　逆序对
+*/
+void test_count_reverse_pair() {
+    std::vector<int> arr = {4, 5, 6, 7};
+    int result = sword_finger_offer::count_reverse_pair(arr);
+    std::cout << "count reverse pair result: " << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2803,7 +2826,9 @@ int main() {
     // test_number2ascii();
     // test_giftmaxval();
     // test_longest_substr();
-    test_ugly_number();
+    // test_ugly_number();
+    // test_first_one_char();
+    test_count_reverse_pair();
 
 
     

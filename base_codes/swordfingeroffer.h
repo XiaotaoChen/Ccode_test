@@ -182,6 +182,14 @@ int longest_substr_v2(std::string str);
 // interview 49 丑数
 int ugly_number(int index);
 
+// interview 50 第一次只出现一次的字符
+char first_one_char(std::string& str);
+char first_one_char_v2(std::string& str);
+char first_one_char_v3(std::string& str);
+
+// interview 51 逆序对个数
+int count_reverse_pair(std::vector<int>& arr);
+
 } // namespace sword_finger_offer
 
 
