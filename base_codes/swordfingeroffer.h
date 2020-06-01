@@ -206,6 +206,10 @@ TreeNode* kthNode(TreeNode* root, int k);
 int depthOfTreeNode(TreeNode* root);
 int depthOfTreeNode_v2(TreeNode* root);
 
+bool check_balance_tree(TreeNode* root);
+
+
+
 } // namespace sword_finger_offer
 
 

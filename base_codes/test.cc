@@ -2748,6 +2748,25 @@ void test_depthofBST() {
     std::cout << "depth of bst: " << depth << std::endl;
 }
 
+/**
+ * 160 判断是否为平衡二叉树. 递归判断．递归需要返回两个信息: 1.子数是否为平衡树，2.子树的depth．
+ * 可以定义　bool dfs(treenode* root, int& depth); 
+ * 也可定义　std::pair<bool, int> dfs(treenode* root);
+ * 分别来返回这两个值
+*/
+void test_balance_tree() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(2);
+    // root->right = new TreeNode(7);
+    root->left->left = new TreeNode(1);
+    // root->left->right = new TreeNode(3);
+    // root->right->left = new TreeNode(6);
+    // root->right->right = new TreeNode(8);
+
+    bool result = sword_finger_offer::check_balance_tree(root);
+    std::cout << "balance tree result: " << std::boolalpha << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2921,7 +2940,8 @@ int main() {
     // test_treenode_common_parent();
     // test_sorted_arr_count();
     // test_kthnode();
-    test_depthofBST();
+    // test_depthofBST();
+    test_balance_tree();
 
 
     
