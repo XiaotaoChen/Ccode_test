@@ -2713,6 +2713,40 @@ void test_sorted_arr_count() {
     std::cout << "test sorted arr count result: " <<  result << std::endl;
 }
 
+/**
+ * 158 从二叉树中找出第k大的节点. 先序遍历即可．同时记录k.要对k加引用，保证dfs深层修改的k值能被反映到上层中．
+ * 因为dfs是自顶向下的，而遍历节点是自底向上的，故底层要反馈信息给上层，需要对k加引用．
+*/
+void test_kthnode() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(7);
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(3);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(8);
+    TreeNode* node = sword_finger_offer::kthNode(root, 8);
+    if (node != nullptr) {
+        std::cout << "test kthnode: " << node->val << std::endl;
+    }
+    else {
+        std::cout << "test kthnode is nullptr\n";
+    }
+}
+
+/**
+ * 159 二叉树的深度
+*/
+void test_depthofBST() {
+    TreeNode* root = new TreeNode(5);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(7);
+    // root->left->left = new TreeNode(1);
+    // root->left->right = new TreeNode(3);
+    // int depth = sword_finger_offer::depthOfTreeNode(root);
+    int depth = sword_finger_offer::depthOfTreeNode_v2(root);
+    std::cout << "depth of bst: " << depth << std::endl;
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2885,7 +2919,9 @@ int main() {
     // test_count_reverse_pair();
     // test_common_node();
     // test_treenode_common_parent();
-    test_sorted_arr_count();
+    // test_sorted_arr_count();
+    // test_kthnode();
+    test_depthofBST();
 
 
     

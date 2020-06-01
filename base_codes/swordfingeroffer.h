@@ -199,6 +199,13 @@ TreeNode* lastest_common_parent(TreeNode* root, TreeNode* node1, TreeNode* node2
 int sorted_arr_count(std::vector<int>& arr, int num);
 int sorted_arr_count_v2(std::vector<int>& arr, int num);
 
+// interview 54 第k大的节点
+TreeNode* kthNode(TreeNode* root, int k);
+
+// interview 55 二叉树的深度
+int depthOfTreeNode(TreeNode* root);
+int depthOfTreeNode_v2(TreeNode* root);
+
 } // namespace sword_finger_offer
 
 
