@@ -2794,6 +2794,57 @@ void test_appearOnce_of_three() {
     std::cout << "appear once of three result: " << result << std::endl;
 }
 
+/**
+ * 163. 找出排序数值中和为s的两个数
+*/
+void test_sum_of_s() {
+    std::vector<int> arr = {1,1,2,4,5,7,7,9};
+    int s = 1;
+    std::pair<int, int> p = sword_finger_offer::sum_of_s(arr, s);
+    std::cout << s << " = " << p.first << " + " << p.second << std::endl;
+}
+
+/**
+ * 164 找出和为s的所有连续数字序列
+*/
+void test_sum_of_s_v2() {
+    int s = 4;
+    std::vector<std::vector<int>> result = sword_finger_offer::sum_of_s_v2(s);
+    std::cout << "sum of " << s << std::endl;
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+/**
+ * 165 翻转字符串
+*/
+void test_reverse_str() {
+    std::string str = "I"; //"I am a student.";
+    std::string result = sword_finger_offer::reverse_str(str);
+    std::cout << "reverse str result: " << result << std::endl;
+}
+
+/**
+ * 166 得到数组中窗口为k的所有最大值. 两种方法：1.使用multipset维护一个最大堆，同时删除前idx-2的数，若使用vector+make_heap或自己实现的heap, 删除操作不太好处理;
+ * 2.使用deque，双向队列中只保留windows内最大值的降序排序, 如果当前idx,arr[idx]> dequeue[arr[deque.front()]] deque.pop();
+ * 如果deque.front()的下标超出了当前windows范围，则pop front(), 再push_back当前idx, 当前窗口的最大值即为，　deque.front()
+*/
+void test_max_sequence() {
+    std::vector<int> arr = {2,3,4,6,2,5,1};
+    int windows = 3;
+    // std::vector<int> result = sword_finger_offer::max_sequence(arr, windows);
+    std::vector<int> result = sword_finger_offer::max_sequence_v2(arr, windows);
+    std::cout << "max sequence result:\n";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -2971,7 +3022,11 @@ int main() {
     // test_depthofBST();
     // test_balance_tree();
     // test_appearOnce();
-    test_appearOnce_of_three();
+    // test_appearOnce_of_three();
+    // test_sum_of_s();
+    // test_sum_of_s_v2();
+    // test_reverse_str();
+    test_max_sequence();
 
 
     

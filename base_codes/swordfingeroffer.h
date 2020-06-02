@@ -213,6 +213,18 @@ std::pair<int, int> appearOnce(std::vector<int>& arr);
 int appearOnce_of_three(std::vector<int>& arr);
 int appearOnce_of_three_v2(std::vector<int>& arr);
 
+
+// interview 57 找出排序数组中和为s,的两个数
+std::pair<int, int> sum_of_s(std::vector<int>& arr, int s);
+std::vector<std::vector<int>> sum_of_s_v2(int num);
+
+// interview 58 翻转字符串
+std::string reverse_str(std::string& str);
+
+// interview 59 队列的最大值
+std::vector<int> max_sequence(std::vector<int>& arr, int windows);
+std::vector<int> max_sequence_v2(std::vector<int>& arr, int windows);
+
 } // namespace sword_finger_offer
 
 
