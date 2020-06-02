@@ -2767,6 +2767,34 @@ void test_balance_tree() {
     std::cout << "balance tree result: " << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 161 找出数组中唯一出现一次的两个数字. 因为数组中有两个不同的数，故先找出两个不同数最低比特位不同的位置．
+ * 根据该位置的０，１数值将数组划分为两类．然后对两类数字分别找出唯一出现一次的数．
+ * 注意：符合优先级，＆的优先级低于＝＝，　故划分数组时判断条件为((flag&num)==0), 不可写成(flag&num==0)
+*/
+void test_appearOnce() {
+    std::vector<int> arr = {2,4,3,6,3,2,5,5};
+    std::pair<int, int> result = sword_finger_offer::appearOnce(arr);
+    std::cout << "appear onece result: " << result.first << ", " << result.second << std::endl;
+}
+
+/**
+ * 162. 找出数组中唯一出现一次的数字，其他数字出现三次．
+ * 思路：记录每个比特位中１出现的次数,最后按位％３,得到出现一次的数字．注意:(int&int)得到的结果还是ｉnt,
+ * 判断num&bitmask对应位是否为１的方法不是（num&bitmask）== 1, 其值应该是　(num&bitmask) == bitmask,或写成　(num & bitmask) != 0
+ * 2. 基于上一思路，可以直接使用int one, two, three, 分别记录出现１，２，３次的比特．见题９.
+ * 注意two的更新要考虑历史two的信息，而three则不能考虑历史信息，如当one=0, two=3, three=2, num=1
+ * num=1时，two应该等于two=two|(one&num)=3, 而不是one&num=0, one=one^num=1, three=two&one=1, 而不是three=three|(two&one)=3,
+ * three等于３的话会导致更新two, one出错
+*/
+void test_appearOnce_of_three() {
+    std::vector<int> arr = {1,-5,3,1,3,1,3}; //{1,-5,1,1}; //{1,-5,3,1,3,1,3};
+    // int result = sword_finger_offer::appearOnce_of_three(arr);
+    int result = sword_finger_offer::appearOnce_of_three_v2(arr);
+    std::cout << "appear once of three result: " << result << std::endl;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -2941,7 +2969,9 @@ int main() {
     // test_sorted_arr_count();
     // test_kthnode();
     // test_depthofBST();
-    test_balance_tree();
+    // test_balance_tree();
+    // test_appearOnce();
+    test_appearOnce_of_three();
 
 
     

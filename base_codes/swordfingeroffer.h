@@ -208,7 +208,10 @@ int depthOfTreeNode_v2(TreeNode* root);
 
 bool check_balance_tree(TreeNode* root);
 
-
+// interview 56 数组中出现的1次数的两个数字
+std::pair<int, int> appearOnce(std::vector<int>& arr);
+int appearOnce_of_three(std::vector<int>& arr);
+int appearOnce_of_three_v2(std::vector<int>& arr);
 
 } // namespace sword_finger_offer
 
