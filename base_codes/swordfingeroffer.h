@@ -5,6 +5,7 @@
 #include <stack>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include "./data_structs/base_struct.h"
 #include "./data_structs/base_struct.h"
 
@@ -224,6 +225,9 @@ std::string reverse_str(std::string& str);
 // interview 59 队列的最大值
 std::vector<int> max_sequence(std::vector<int>& arr, int windows);
 std::vector<int> max_sequence_v2(std::vector<int>& arr, int windows);
+
+// interview 60 n个骰子的点数
+std::unordered_map<int, float> probability_n(int n);
 
 } // namespace sword_finger_offer
 

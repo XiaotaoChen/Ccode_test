@@ -2845,6 +2845,18 @@ void test_max_sequence() {
     std::cout << std::endl;
 }
 
+/**
+ * 167 n个骰子出现的数字之和的所有概率. dfs生成所有可能的组合．注意使用vector.reverse后，　然后直接使用[i]下标设值，　begin(), end()会有问题．
+*/
+void test_probability_n() {
+    int n = 1;
+    std::unordered_map<int, float> result = sword_finger_offer::probability_n(n);
+    std::cout << "probability " << n << std::endl;
+    for (auto& p : result) {
+        std::cout << p.first << ": " << p.second << std::endl;
+    }
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3026,7 +3038,8 @@ int main() {
     // test_sum_of_s();
     // test_sum_of_s_v2();
     // test_reverse_str();
-    test_max_sequence();
+    // test_max_sequence();
+    test_probability_n();
 
 
     
