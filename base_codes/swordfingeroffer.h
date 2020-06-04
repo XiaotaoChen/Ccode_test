@@ -229,6 +229,22 @@ std::vector<int> max_sequence_v2(std::vector<int>& arr, int windows);
 // interview 60 n个骰子的点数
 std::unordered_map<int, float> probability_n(int n);
 
+// interview 61 扑克牌中的顺子
+bool isContinuous(std::vector<int>& arr);
+
+// interview 62 圆圈中最后剩下的数字
+int finalNumber(int n, int m);
+int finalNumber_v2(int n, int m);
+
+// interview 63 股票的最大利润
+int maxprofit(std::vector<int>& arr);
+
+// interview 64 1+2+...+n 的结果，　不使用乘除法，ｉf, for等
+int nsum(int n);
+
+// interview 65 不用加减乘除做加法
+int sum_in_bits(int num1, int num2);
+
 } // namespace sword_finger_offer
 
 

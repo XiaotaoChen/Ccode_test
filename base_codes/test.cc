@@ -2857,6 +2857,58 @@ void test_probability_n() {
     }
 }
 
+/**
+ * 168 扑克牌中的顺子. 先对数字进行升序排序．１．找出０的个数; 2. 对非０个数依次求其间隔．　如果间隔总数小于等于０的个数，则可以是顺子；
+ * 注意：1. 求非零数字间隔时要去除第一个非零数字与０的间隔．２．要考虑出现相同数字的情况，即对子
+*/
+void test_is_continuous() {
+    std::vector<int> arr = {2, 4, 7, 0, 0};
+    bool result = sword_finger_offer::isContinuous(arr);
+    std::cout << "test is continuous result: " << std::boolalpha << result << std::endl;
+}
+
+/**
+ * 169 圆圈中最后剩下的数字. 两种方法：1. 模拟法，　模拟该过程，　注意最后一个数并不是删除n-1个数的下标+1, 而应该遍历数组，直到找到该数．
+ * ２. 数学推到公式：　f(n,m) = (f(n-1, m)+m)%n;
+*/
+void test_final_number() {
+    int n=5;
+    int m=3;
+    for (n=1; n<=5; n++) {
+        // int result = sword_finger_offer::finalNumber(n,m);
+        int result = sword_finger_offer::finalNumber_v2(n,m);
+        std::cout << "test final number (" << n << ", " << m <<")" << ": " << result << std::endl;
+    }   
+}
+
+/**
+ * 170 最大股票利润
+*/
+void test_maxprofit() {
+    std::vector<int> arr = {9, 8, 5}; //{9, 11, 8, 5, 7, 12, 16, 4};
+    int result = sword_finger_offer::maxprofit(arr);
+    std::cout << "test max profit: " << result << std::endl;
+}
+
+/**
+ * 171 求１＋２＋....+n　的方法
+*/
+void test_nsum() {
+    int n = 1;
+    int result = sword_finger_offer::nsum(n);
+    std::cout << "test sum of n: " << result << std::endl;
+}
+
+/**
+ * 173 位运算求两数之和. 模拟求和过程．负数也同样适用于
+*/
+void test_sum_of_bits() {
+    int num1 = 5;
+    int num2 = -6;
+    int result = sword_finger_offer::sum_in_bits(num1, num2);
+    std::cout << "test sum of bits: " << result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3039,7 +3091,12 @@ int main() {
     // test_sum_of_s_v2();
     // test_reverse_str();
     // test_max_sequence();
-    test_probability_n();
+    // test_probability_n();
+    // test_is_continuous();
+    // test_final_number();
+    // test_maxprofit();
+    // test_nsum();
+    test_sum_of_bits();
 
 
     
