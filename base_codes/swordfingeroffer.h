@@ -245,6 +245,9 @@ int nsum(int n);
 // interview 65 不用加减乘除做加法
 int sum_in_bits(int num1, int num2);
 
+// interview 66 不用除法，求A[0...n-1]/A[i]
+std::vector<int> multipy(std::vector<int>& arr);
+
 } // namespace sword_finger_offer
 
 

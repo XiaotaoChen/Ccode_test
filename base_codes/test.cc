@@ -2909,6 +2909,22 @@ void test_sum_of_bits() {
     std::cout << "test sum of bits: " << result << std::endl;
 }
 
+/**
+ * 174 不用除法做连乘. 计算A[0...n-1]/A[i]=A[0....i-1] * A[i+1...n-1]
+ * 分别求出heads[i]，表示A[0]到A[i]连乘的结果;
+ * tails[i]表示A[n-1]到A[i]连乘的结果;
+ * 注意: heads[0]应该等于A[0],而不是１，tails[n-1]应该等于A[n-1],而不是１
+*/
+void test_multipy() {
+    std::vector<int> arr = {2,-1,0,-4,3};
+    std::vector<int> result = sword_finger_offer::multipy(arr);
+    std::cout << "test multipy result: ";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << ", ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3096,7 +3112,8 @@ int main() {
     // test_final_number();
     // test_maxprofit();
     // test_nsum();
-    test_sum_of_bits();
+    // test_sum_of_bits();
+    test_multipy();
 
 
     
