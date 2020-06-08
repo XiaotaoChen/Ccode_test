@@ -20,6 +20,10 @@ int maximumGap(std::vector<int>& nums);
 
 int maximumGap_v2(std::vector<int>& nums);
 
+int maximumGap_repeated(std::vector<int>& nums);
+
+int maximumGap_v2_repeated(std::vector<int>& nums);
+
 void merge_two_arr(std::vector<int>& nums, int begin, int mid, int end);
 
 // https://leetcode-cn.com/problems/reverse-pairs/
