@@ -32,6 +32,9 @@ int merge_sort_reverse_pair(std::vector<int>& nums, int begin, int end);
 int partition_qsort(int *arr, int low, int high);
 void qsort_v2(int *arr, int low, int high);
 
+std::vector<int> topKFrequent(std::vector<int>& nums, int k);
+
+std::vector<int> topKFrequent_v2(std::vector<int>& nums, int k);
 
 } // namespace sort
 

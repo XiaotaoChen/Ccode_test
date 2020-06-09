@@ -2927,6 +2927,23 @@ void test_multipy() {
     std::cout << std::endl;
 }
 
+/**
+ * 175 频率最高的前ｋ个数. 这种top k的题目，应该想到用最大最小堆．
+ * 先求得各个元素的出现次数，key->val．然后用最小堆存储ｖal->key的multipset存pair(val,key), 并按照val降序排列．
+*/
+void test_topkFrequent() {
+    std::vector<int> arr = {1,1,1,2,2,3};
+    int k=2;
+    // std::vector<int> result = sort::topKFrequent(arr, k);
+    std::vector<int> result = sort::topKFrequent_v2(arr, k);
+    std::cout << "test topk frequent:";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << ", ";
+    }
+    std::cout << std::endl;
+}
+
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3029,7 +3046,7 @@ int main() {
     // test_subsets();
     // test_find_repeated_dnasequence();
     // test_lru();
-    test_maximum_gap();
+    // test_maximum_gap();
     // test_mystack();
     // test_trie();
     // test_findword();
@@ -3118,7 +3135,8 @@ int main() {
     // test_multipy();
 
 
-    
+    // ******************************** leetcode *********************************
+    test_topkFrequent();
 
 
 
