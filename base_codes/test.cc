@@ -2943,6 +2943,18 @@ void test_topkFrequent() {
     std::cout << std::endl;
 }
 
+/**
+ * 176 求h_index. 两种方法：１. 对indexs进行升序排序．从数组末尾往前遍历，判断arr_size - idx < arr[idx], 直到arr_size - idx >= arr[idx], 结果为arr_size - idx;
+ * 2. 根据数组生成优先级队列．其复杂度略低于排序，得到最大堆，依次pop(), 并ans+1, 知道top()>=ans为止．
+*/
+void test_h_index() {
+    std::vector<int> citations = {3,0,6,1,5};
+    int result = sort::h_index(citations);
+    // int result = sort::h_index_v2(citations);
+    std::cout << "test h index:" << result << std::endl;
+}
+
+
 
 
 int main() {
@@ -3136,7 +3148,8 @@ int main() {
 
 
     // ******************************** leetcode *********************************
-    test_topkFrequent();
+    // test_topkFrequent();
+    test_h_index();
 
 
 

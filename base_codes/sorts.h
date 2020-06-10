@@ -36,6 +36,10 @@ std::vector<int> topKFrequent(std::vector<int>& nums, int k);
 
 std::vector<int> topKFrequent_v2(std::vector<int>& nums, int k);
 
+// https://leetcode-cn.com/problems/h-index/
+int h_index(std::vector<int>& citations);
+int h_index_v2(std::vector<int>& citations);
+
 } // namespace sort
 
 #endif // SORT_ALG_
