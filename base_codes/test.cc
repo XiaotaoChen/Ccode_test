@@ -592,8 +592,9 @@ dp[i][j]与 dp[i+1][j-1]的关系，注意考虑a|a,aba两者情况
 void test_length_palindrome() {
     std::string str = "abaabca"; //"abcdasdfghjkldcba";
     // std::string result = search::longestPalindrome(str);
-    std::string result = dp::longestPalindrome_v2(str);
+    // std::string result = dp::longestPalindrome_v2(str);
     // std::string result = dp::longestPalindrome_v3(str);
+    std::string result = dp::longestPalindrome_v4(str);
     printf("result: %s\n", result.c_str());
 }
 
@@ -1430,7 +1431,8 @@ void test_remove_nth_node() {
 */
 void test_length_substr() {
     std::string str = "pwwkew";
-    int result = binary_pointer::lengthOfLongestSubstring(str);
+    // int result = binary_pointer::lengthOfLongestSubstring(str);
+    int result = binary_pointer::lengthOfLongestSubstring_v2(str);
     printf("result:%d\n", result);
 }
 
@@ -2986,7 +2988,7 @@ int main() {
     // test_add_two_numbers();
     // test_length_of_substr();
     // test_find_mid_num();
-    // test_length_palindrome();
+    test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
     // test_regular_match();
@@ -3149,7 +3151,7 @@ int main() {
 
     // ******************************** leetcode *********************************
     // test_topkFrequent();
-    test_h_index();
+    // test_h_index();
 
 
 

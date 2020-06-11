@@ -65,3 +65,28 @@ std::string dp::longestPalindrome_v3(std::string s) {
     }
     return result;
 }
+
+std::string dp::longestPalindrome_v4(std::string s) {
+    int len = s.length();
+    if (len <=1) return s;
+    bool dp[len][len];
+    std::fill_n(dp[0], len * len, false);
+    // cover 只有单字符的情况
+    int left = 0;
+    int right = 0;
+    int result = 1;
+    for (int i=len-1; i>=0; i--) {
+        dp[i][i] = true;
+        for (int j=i+1; j<len; j++) {
+            if (s[i]==s[j] && (j-i<2 || dp[i+1][j-1])) {
+                dp[i][j] = true;
+                if (result < j-i+1) {
+                    result = j - i +1;
+                    left = i;
+                    right = j;
+                }
+            }
+        }
+    }
+    return s.substr(left, right-left+1);
+}

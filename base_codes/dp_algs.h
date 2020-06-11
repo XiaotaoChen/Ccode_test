@@ -16,6 +16,7 @@ namespace dp {
 // https://leetcode-cn.com/problems/longest-palindromic-substring/
 std::string longestPalindrome_v2(std::string s);
 std::string longestPalindrome_v3(std::string s);
+std::string longestPalindrome_v4(std::string s);
 
 // https://leetcode-cn.com/problems/regular-expression-matching/
 bool regular_match(std::string s, std::string p);

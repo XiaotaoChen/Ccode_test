@@ -10,6 +10,8 @@ namespace binary_pointer
 
 // https://leetcode-cn.com/problems/longest-substring-without-repeating-characters//
 int lengthOfLongestSubstring(std::string s);
+int lengthOfLongestSubstring_v2(std::string s);
+
 
 // https://leetcode-cn.com/problems/minimum-window-substring/
 std::string minWindow(std::string s, std::string t);
