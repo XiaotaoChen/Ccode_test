@@ -626,11 +626,17 @@ void test_my_atoi() {
 31. 正则表达式匹配
 dp求解：dp[i][j]表示s的前i个字符与p的前j个字符是否匹配。
 注意*匹配0个字符的情况。初始化i=0的情况，if p[j]='*' p[j]=p[j-2]
+
+注意: 1. ＊号匹配要满足s[idx]==p[j], 
+     2. 字符下标和dp下标
+     3. 初始化dp[0][i]的时候，考虑*匹配０个字符的情况，
+     如果p[i-1]=='*', dp[0][i]应该等于dp[0][i-2], 而不是直接等于true
 */
 void test_regular_match() {
-    std::string s= "a";
-    std::string p = "a*";
-    bool result = dp::regular_match(s, p);
+    std::string s= "acbbcbcbcbaaacaac"; //"aab"; //"issi"; //"mississippi";
+    std::string p = "ac*.a*ac*.*ab*b*ac"; //"c*a*b"; //"is*"; // "mis*is*p*.";
+    // bool result = dp::regular_match(s, p);
+    bool result = dp::regular_match_v2(s, p);
     printf("result:%d\n", result);
 }
 
@@ -2988,10 +2994,10 @@ int main() {
     // test_add_two_numbers();
     // test_length_of_substr();
     // test_find_mid_num();
-    test_length_palindrome();
+    // test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
-    // test_regular_match();
+    test_regular_match();
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();

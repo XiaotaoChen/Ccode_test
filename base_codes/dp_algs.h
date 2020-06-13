@@ -21,6 +21,7 @@ std::string longestPalindrome_v4(std::string s);
 // https://leetcode-cn.com/problems/regular-expression-matching/
 bool regular_match(std::string s, std::string p);
 bool isLegal(char normal, char match);
+bool regular_match_v2(std::string& s, std::string& p);
 
 // https://leetcode-cn.com/problems/maximal-square/comments/
 int maximalSquare(std::vector<std::vector<char>>& matrix);
