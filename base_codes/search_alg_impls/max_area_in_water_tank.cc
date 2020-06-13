@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 
 #include "../search_algs.h"
 
@@ -54,4 +55,24 @@ int search::maxArea_v2(std::vector<int>& height) {
         res = res > curr ? res : curr;
     }
     return res;
+}
+
+
+int search::maxArea_v3(std::vector<int>& height) {
+    if (height.size()<2) return 0;
+    // if (height.size()==2) return std::min(height[0], height[1]);
+    int left = 0;
+    int right = height.size() -1;
+    int result = 0;
+    while(left < right) {
+        int curr_area = std::min(height[left], height[right]) * (right - left);
+        result = std::max(result, curr_area);
+        if (height[left] < height[right]) {
+            left++;
+        }
+        else {
+            right--;
+        }
+    }
+    return result;
 }

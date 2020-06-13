@@ -673,7 +673,8 @@ void test_maximal_square() {
 void test_max_area_in_water_tank() {
     std::vector<int> arr= {1,8,6,2,5,4,8,3,7}; //{1,2,4,3}; // {1,2}; // {1,8,6,2,5,4,8,3,7};
     // int result = search::maxArea(arr);
-    int result = search::maxArea_v2(arr);
+    // int result = search::maxArea_v2(arr);
+    int result = search::maxArea_v3(arr);
     printf("result:%d\n", result);
 }
 
@@ -880,10 +881,15 @@ for (int i=0; i<n-2; i++) {
     third = n-1;
     if (nums[first]+nums[secod]==target-nums[third])....
 }
+注意：1. 不指向重复元素时，　要判断second 始终小于third. 同时该操作只需要在
+nums[first]+nums[second] == target - nums[third]时做，而不需要在外面也判断，
+因为second+, third--即可达到同样目的．
 */
 void test_three_sum() {
-    std::vector<int> data = {-1, 0, 1, 2, -1, -4};
-    std::vector<std::vector<int>> result = search::threeSum(data);
+    std::vector<int> data = {-1, 0, 1, 2, -1, -4}; //{-2,0,0,2,2}; //{-1, 0, 1, 2, -1, -4};
+    // std::vector<std::vector<int>> result = search::threeSum(data);
+    // std::vector<std::vector<int>> result = search::threeSum_v2(data);
+    std::vector<std::vector<int>> result = search::threeSum_v3(data);
     for (int i=0; i<result.size(); i++) {
         for (int j=0; j<result[i].size(); j++) {
             printf("%d ", result[i][j]);
@@ -2997,7 +3003,7 @@ int main() {
     // test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
-    test_regular_match();
+    // test_regular_match();
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();
@@ -3012,7 +3018,7 @@ int main() {
     // test_generate_matrix();
     // test_match_idx_val();
     // test_mct_from_leaf();
-    // test_three_sum();
+    test_three_sum();
     // test_advantage_count();
     // test_can_jump();
     // test_can_complete_circuit();

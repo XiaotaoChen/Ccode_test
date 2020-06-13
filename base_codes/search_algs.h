@@ -93,6 +93,7 @@ int maxArea(std::vector<int>& height);
 int get_max_area(std::vector<int>& heights, std::vector<int>& idxs, int curr_idx);
 
 int maxArea_v2(std::vector<int>& height);
+int maxArea_v3(std::vector<int>& height);
 
 // https://leetcode-cn.com/problems/integer-to-roman/
 std::string intToRoman(int num);
@@ -135,6 +136,8 @@ void match_idx_val_v2(std::vector<int>& vec, std::vector<int>& result, int left,
 
 // https://leetcode-cn.com/problems/3sum/
 std::vector<std::vector<int>> threeSum(std::vector<int>& nums);
+std::vector<std::vector<int>> threeSum_v2(std::vector<int>& nums);
+std::vector<std::vector<int>> threeSum_v3(std::vector<int>& nums);
 
 // https://leetcode-cn.com/problems/rotate-image/
 void rotate(std::vector<std::vector<int>>& matrix);
