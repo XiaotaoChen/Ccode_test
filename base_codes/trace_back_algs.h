@@ -10,6 +10,7 @@ namespace track_back
 // https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/comments/
 std::vector<std::string> letterCombinations(std::string digits);
 void track_back_for_letter(std::vector<std::string>& combinations, std::string curr, std::string digits);
+std::vector<std::string> letterCombinations_v2(std::string digits);
 
 // https://leetcode-cn.com/problems/generate-parentheses/comments/
 std::vector<std::string> generateParenthesis(int n);
@@ -36,6 +37,7 @@ bool solveSudokuHelper(std::vector<std::vector<char>>& board, int n,
 // https://leetcode-cn.com/problems/combination-sum-ii/
 std::vector<std::vector<int>> combinationSum2(std::vector<int>& candidates, int target);
 void track_back_combination_sum(std::vector<std::vector<int>>& combinations, std::vector<int> curr, std::vector<int>& candidates, int index, int target);
+
 
 } // namespace track_back
 

@@ -20,6 +20,9 @@ int longestValidParentheses_v2(std::string s);
 
 std::string simplepath(std::string& path);
 
+// https://leetcode-cn.com/problems/valid-parentheses/
+bool isValid_parentness(std::string& s);
+
 }
 
 #endif

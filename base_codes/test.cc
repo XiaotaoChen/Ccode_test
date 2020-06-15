@@ -1075,7 +1075,8 @@ void test_find_highest_node() {
 */
 void test_letter_combination() {
     std::string digits = "23";
-    std::vector<std::string> result = track_back::letterCombinations(digits);
+    // std::vector<std::string> result = track_back::letterCombinations(digits);
+    std::vector<std::string> result = track_back::letterCombinations_v2(digits);
     for (int i=0; i<result.size(); i++) {
         printf("%s\n", result[i].c_str());
     }
@@ -2968,7 +2969,14 @@ void test_h_index() {
     std::cout << "test h index:" << result << std::endl;
 }
 
-
+/**
+ * 177 判断有效括号. 注意比较st.top()和当前s[i]字符结果时，要先判断 st.empty()
+*/
+void test_valid_parentness() {
+    std::string s = "{[]}";
+    bool result = stack_algs::isValid_parentness(s);
+    std::cout << "test valid parentness: " << s << " result:" << std::boolalpha << result << std::endl;
+}
 
 
 int main() {
@@ -3018,7 +3026,7 @@ int main() {
     // test_generate_matrix();
     // test_match_idx_val();
     // test_mct_from_leaf();
-    test_three_sum();
+    // test_three_sum();
     // test_advantage_count();
     // test_can_jump();
     // test_can_complete_circuit();
@@ -3164,6 +3172,7 @@ int main() {
     // ******************************** leetcode *********************************
     // test_topkFrequent();
     // test_h_index();
+    test_valid_parentness();
 
 
 
