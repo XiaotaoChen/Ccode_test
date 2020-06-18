@@ -36,6 +36,8 @@ std::vector<int> searchRange(std::vector<int>& nums, int target);
 int dfs_searchrange(std::vector<int>& nums, int target, int left, int right);
 
 
+std::vector<int> searchRange_v2(std::vector<int>& nums, int target);
+
 // https://leetcode-cn.com/problems/search-a-2d-matrix/
 bool dfs_searchmatrix(std::vector<std::vector<int>>& matrix, int start, int end, int target);
 
@@ -49,6 +51,10 @@ int kthsmallest_cnt(std::vector<std::vector<int>> & matrix, int val);
 // search next node
 TreeLinkNode* next_node(TreeLinkNode* node);
 
+// https://leetcode-cn.com/problems/search-insert-position/
+int searchInsert(std::vector<int>& nums, int target);
+
+int searchInsert_v2(std::vector<int>& nums, int target);
 
 }
 

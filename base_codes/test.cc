@@ -1090,7 +1090,8 @@ void test_letter_combination() {
    if (left_num>=right_num) dfs(curr+'(', left_num+1, right_num, n); dfs(curr+')', left_num, irght_num+1, n);
 */
 void test_generate_parenthesis() {
-    std::vector<std::string> result = track_back::generateParenthesis(3);
+    // std::vector<std::string> result = track_back::generateParenthesis(3);
+    std::vector<std::string> result = track_back::generateParenthesis_v2(3);
     for (int i=0; i<result.size(); i++) {
         printf("%s\n", result[i].c_str());
     }
@@ -1544,11 +1545,16 @@ void test_find_substr() {
 2. 也可以使用栈来标记，即匹配有效括号后，
 如果栈顶为空，说明前面所有字符都是正确的括号，则len=i
 如果栈顶不为空，则 len=i-stack.top()
+
+******************
+再刷: 这种括号匹配的用栈，左括号对应下标入栈，右括号则出栈，求出curr_idx - left_idx +1　即为当前匹配的长度，同时，加上前面匹配的长度len[left_idx-1]
+
 */
 void test_longest_valid_parentheses() {
-    std::string s = "()(()";
+    std::string s = ")()())"; //"(()"; //"()()()";
     // int result = stack_algs::longestValidParentheses(s);
-    int result = stack_algs::longestValidParentheses_v2(s);
+    // int result = stack_algs::longestValidParentheses_v2(s);
+    int result = stack_algs::longestValidParentheses_v3(s);
     printf("result:%d\n", result);
 }
 
@@ -1946,7 +1952,8 @@ void test_sub_array_sum() {
 */
 void test_search_range() {
     std::vector<int> nums = {5, 7, 7, 8, 8, 10};
-    std::vector<int> result = binary_search::searchRange(nums, 8);
+    // std::vector<int> result = binary_search::searchRange(nums, 8);
+    std::vector<int> result = binary_search::searchRange_v2(nums, 9);
     printf("result left:%d, right:%d\n", result[0], result[1]);
 }
 
@@ -2978,6 +2985,19 @@ void test_valid_parentness() {
     std::cout << "test valid parentness: " << s << " result:" << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 178. 查询/插入　数字到数组中．二分查找，可以使用dfs, 也可直接while
+ * 因为数组中可能没有target．二分查找不能将区间分为[left, mid-1], [mid+1, right] 应该将其划分为[left, mid], [mid+1, right]
+ * 如[1,3,5,6], target=2, 假设查询区间的右边界一定大于或等于target, 则在mid=(0+3)/2=1时，　(nums[1] < target==false)--> 应该遍历[left, mid]=[0, 1]区间，而不是[left, mid-1]=[0,0]
+ * [left, mid-1]使得区间并不满足右边界一定大于或等于target．
+*/
+void test_searchinsert() {
+    std::vector<int> arr = {1,3,5,6};
+    // int result = binary_search::searchInsert(arr, 0);
+    int result = binary_search::searchInsert_v2(arr, 0);
+    std::cout << "test search insert result: " << result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3172,7 +3192,8 @@ int main() {
     // ******************************** leetcode *********************************
     // test_topkFrequent();
     // test_h_index();
-    test_valid_parentness();
+    // test_valid_parentness();
+    test_searchinsert();
 
 
 

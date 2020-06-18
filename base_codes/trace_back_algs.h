@@ -15,6 +15,8 @@ std::vector<std::string> letterCombinations_v2(std::string digits);
 // https://leetcode-cn.com/problems/generate-parentheses/comments/
 std::vector<std::string> generateParenthesis(int n);
 void track_back_generate_parenthesis(std::vector<std::string>& combinations, std::string curr, int left_count, int right_count, int n);
+std::vector<std::string> generateParenthesis_v2(int n);
+
 
 // https://leetcode-cn.com/problems/sudoku-solver/
 void solveSudoku(std::vector<std::vector<char>>& board);
