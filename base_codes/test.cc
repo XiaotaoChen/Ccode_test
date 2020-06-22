@@ -1242,10 +1242,14 @@ void test_eval_rpn() {
 使用栈维护一个降序队列，当curr_num>stack.top()时，
 栈顶元素为下届，当前面积：left = stack.pop().top()（i-left-1）*(min(curr_num, nums[left])-nums[low_idx])
 直到栈顶元素大于curr_num或为null。
+
+再刷注意点：1. 使用栈维护降序列表，当height[i]>=height[st.top()]时，计算该凹陷区域的面积．因为计算凹陷区域面积栈里必须有两个元素，要分别判断st是否为空
+　　　　　　２．最开始不用单独push 0下标到st中．可以直接整合到for循环中
 */
 void test_trap() {
     std::vector<int> height = {0,1,0,2,1,0,1,3,2,1,2,1}; // {2,1,0,2};
-    int result = stack_algs::trap(height);
+    // int result = stack_algs::trap(height);
+    int result = stack_algs::trap_v2(height);
     printf("result:%d\n", result);
 }
 
@@ -3070,7 +3074,7 @@ int main() {
     // test_zigzag_level_order();
     // test_ladder_length_bfs();
     // test_eval_rpn();
-    // test_trap();
+    test_trap();
     // test_find_k_largest();
     // test_merge_k_list();
     // test_divide();
@@ -3193,7 +3197,7 @@ int main() {
     // test_topkFrequent();
     // test_h_index();
     // test_valid_parentness();
-    test_searchinsert();
+    // test_searchinsert();
 
 
 
