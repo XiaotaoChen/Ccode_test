@@ -141,6 +141,7 @@ std::vector<std::vector<int>> threeSum_v3(std::vector<int>& nums);
 
 // https://leetcode-cn.com/problems/rotate-image/
 void rotate(std::vector<std::vector<int>>& matrix);
+void rotate_v2(std::vector<std::vector<int>>& matrix);
 
 // https://leetcode-cn.com/problems/group-anagrams/
 std::unordered_map<char, int> get_ch_map(std::string& str);

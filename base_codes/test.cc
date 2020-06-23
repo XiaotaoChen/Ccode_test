@@ -2051,10 +2051,12 @@ void test_kthsmallest() {
  * 主要推导出四个点的相对位置．(i, j) --> (j, n-i-1) --> (n-i-1, n-j-1) --> (n-j-1, i)
  * 便于推导：(1)第ｉ行j列的数，旋转的位置的列数为n-i-1, 行数为j; (2) 第三个点关于第一个点中心对称，即（n-i-1, n-j-1）; (3)第四个点关于第二个点中心对称．
  * 注意若行数为单数，最后一个环只有１个元素，不需要转换
+ * 再刷，注意ｉ点：1.注意两层for循环的起始，结束位置．　外层循环应该以环数为主，即0->n/2; 内层循环下标从ｉ－＞n-i-1
 */
 void test_rotate_matrix() {
     std::vector<std::vector<int>> matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}};; //{{1,2,3}, {4,5,6}, {7,8,9}};
-    search::rotate(matrix);
+    // search::rotate(matrix);
+    search::rotate_v2(matrix);
     for (int i=0; i<matrix.size(); i++) {
         for (int j=0; j<matrix[i].size(); j++) {
             printf("%d ", matrix[i][j]);
@@ -3074,7 +3076,7 @@ int main() {
     // test_zigzag_level_order();
     // test_ladder_length_bfs();
     // test_eval_rpn();
-    test_trap();
+    // test_trap();
     // test_find_k_largest();
     // test_merge_k_list();
     // test_divide();
@@ -3128,7 +3130,7 @@ int main() {
     // test_combinationsum();
     // test_searchmatrix();
     // test_kthsmallest();
-    // test_rotate_matrix();
+    test_rotate_matrix();
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
