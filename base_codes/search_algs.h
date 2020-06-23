@@ -148,6 +148,7 @@ std::unordered_map<char, int> get_ch_map(std::string& str);
 std::map<char, int> get_ch_map2(std::string& str);
 std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& strs);
 
+std::vector<std::vector<std::string>> groupAnagrams_v2(std::vector<std::string>& strs);
 
 } // namespace search
 

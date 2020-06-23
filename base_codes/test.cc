@@ -966,7 +966,8 @@ else curr_sum=nums[i];
 */
 void test_max_sub_array() {
     std::vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
-    int result = dp::maxSubArray(nums);
+    // int result = dp::maxSubArray(nums);
+    int result = dp::maxSubArray_v2(nums);
     printf("result:%d\n", result);
 }
 
@@ -2073,7 +2074,8 @@ void test_rotate_matrix() {
 */
 void test_groupAnagrams() {
     std::vector<std::string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    std::vector<std::vector<std::string>> result = search::groupAnagrams(strs);
+    // std::vector<std::vector<std::string>> result = search::groupAnagrams(strs);
+    std::vector<std::vector<std::string>> result = search::groupAnagrams_v2(strs);
     for (int i=0; i<result.size(); i++) {
         for (int j=0; j<result[i].size(); j++) {
             printf("%s ", result[i][j].c_str());
@@ -3004,6 +3006,19 @@ void test_searchinsert() {
     std::cout << "test search insert result: " << result << std::endl;
 }
 
+/**
+ * 179. 合并中间区间
+*/
+void test_merge_intervals() {
+    std::vector<std::vector<int>> intervals = {{1,3},{15, 18},{8, 10}, {2, 6}};
+    std::vector<std::vector<int>> result = binary_pointer::merge_intervals(intervals);
+    std::cout << "test merge intervals:\n";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i][0] << ", " << result[i][1] << " ";
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3130,7 +3145,7 @@ int main() {
     // test_combinationsum();
     // test_searchmatrix();
     // test_kthsmallest();
-    test_rotate_matrix();
+    // test_rotate_matrix();
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
@@ -3200,6 +3215,7 @@ int main() {
     // test_h_index();
     // test_valid_parentness();
     // test_searchinsert();
+    test_merge_intervals();
 
 
 

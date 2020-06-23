@@ -25,6 +25,9 @@ std::vector<int> findSubstring_v2(std::string s, std::vector<std::string>& words
 // https://leetcode-cn.com/problems/subarray-sum-equals-k/
 int subarraySum(std::vector<int>& nums, int k);
 
+// https://leetcode-cn.com/problems/merge-intervals/
+std::vector<std::vector<int>> merge_intervals(std::vector<std::vector<int>>& intervals);
+
 } // namespace binary_pointer
 
 

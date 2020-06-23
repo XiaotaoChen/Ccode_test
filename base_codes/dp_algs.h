@@ -32,6 +32,7 @@ int mctFromLeafValues(std::vector<int>& arr);
 
 // https://leetcode-cn.com/problems/maximum-subarray/
 int maxSubArray(std::vector<int>& nums);
+int maxSubArray_v2(std::vector<int>& nums);
 
 // https://leetcode-cn.com/problems/unique-paths/
 int uniquePaths(int m, int n);
