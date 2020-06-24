@@ -2589,7 +2589,8 @@ void test_one_counts() {
 void test_mindistance() {
     std::string word1 = "intention"; // "horse";
     std::string word2 = "execution"; // "ros";
-    int result = dp::minDistance(word1, word2);
+    // int result = dp::minDistance(word1, word2);
+    int result = dp::minDistance_v2(word1, word2);
     std::cout << "result: " << result << std::endl;
 }
 
@@ -3019,6 +3020,17 @@ void test_merge_intervals() {
     std::cout << std::endl;
 }
 
+/**
+ * 180. 最小路径和, dp求解　dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
+ * 注意初始化第一行，第一列时，dp[i][0] = dp[i-1][0] + grid[i][0], 而不是直接等于grid[i][0];
+ * 
+*/
+void test_minpathsum() {
+    std::vector<std::vector<int>> grids = {{1,3,1},{1,5,1},{4,2,1}};
+    int result = dp::minPathSum(grids);
+    std::cout << "min path sum result: " << result << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3149,7 +3161,7 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
-    // test_mindistance();
+    test_mindistance();
     // test_simplepath();
     
     //***************sword finger offer ************************
@@ -3215,7 +3227,8 @@ int main() {
     // test_h_index();
     // test_valid_parentness();
     // test_searchinsert();
-    test_merge_intervals();
+    // test_merge_intervals();
+    // test_minpathsum();
 
 
 
