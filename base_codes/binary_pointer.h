@@ -15,6 +15,7 @@ int lengthOfLongestSubstring_v2(std::string s);
 
 // https://leetcode-cn.com/problems/minimum-window-substring/
 std::string minWindow(std::string s, std::string t);
+std::string minWindow_v2(std::string s, std::string t);
 
 // https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
 std::vector<int> findSubstring(std::string s, std::vector<std::string>& words);

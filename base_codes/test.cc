@@ -1524,9 +1524,10 @@ void test_swap_pair() {
 滑窗原理。主要T中可能存在重复字符。
 */
 void test_min_window() {
-    std::string s = "a"; //"ADOBECODEBANC";
-    std::string t = "aa"; //"ABC";
-    std::string result = binary_pointer::minWindow(s, t);
+    std::string s = "a"; //"ADOBECODEBANC"; //"aa"; //"ADOBECODEBANC";
+    std::string t = "b"; //"ABC"; //"a"; //"ABC";
+    // std::string result = binary_pointer::minWindow(s, t);
+    std::string result = binary_pointer::minWindow_v2(s, t);
     printf("result:%s\n", result.c_str());
 }
 
@@ -3141,7 +3142,7 @@ int main() {
     // test_str_heap_topk();
     // test_dfs_bstTogst();
     // test_swap_pair();
-    // test_min_window();
+    test_min_window();
     // test_find_substr();
     // test_longest_valid_parentheses();
     // test_multiply();
@@ -3249,7 +3250,7 @@ int main() {
     // test_searchinsert();
     // test_merge_intervals();
     // test_minpathsum();
-    test_sort_color();
+    // test_sort_color();
 
 
 
