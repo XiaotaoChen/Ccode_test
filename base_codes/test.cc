@@ -539,9 +539,13 @@ void test_qsort() {
 
     // sort::qsort(a, 0, len -1);
     // sort::heap_sort(a, 0, len-1);
-    sort::qsort_v2(a, 0, len-1);
+    // sort::qsort_v2(a, 0, len-1);
+
+    std::vector<int> a_vec = std::vector<int>(a, a+len);
+
+    sort::qsort_v3(a_vec);
     for (int i=0; i<len; i++) {
-        printf("%d ", a[i]);
+        printf("%d ", a_vec[i]);
     }
     printf("\n");
 }
@@ -3031,6 +3035,22 @@ void test_minpathsum() {
     std::cout << "min path sum result: " << result << std::endl;
 }
 
+/**
+ * 181. 排序三色旗. 1. 普适性的方法直接使用快排，　分块排序时，要判断low/high与index的大小，　只有low <index，　或high>index才qsort
+ * 2. 因为只有３中种数字．　分别记录０,2数字的最右，最左下标p0, p2; 然后遍历p0+1 ->p2-1; 
+ * 如果vec[curr]==1 curr+1继续遍历;
+ * 如果vec[curr]==0, 则交换vec[curr], vec[p0+1]的值，　然后curr, p0加一, 该两者交换，p0+1的值肯定为１
+ * 如果vec[curr]==2, 则交换vec[curr], vec[p2-1]的值，　然后p2-1, 但curr不能加一．因为p2交换到curr的数字可能为０
+*/
+void test_sort_color() {
+    std::vector<int> arr = {2,0,2,1,1,0};
+    sort::sortColors(arr);
+    std::cout << "sort color result:\n";
+    for (int i=0; i<arr.size(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3161,7 +3181,7 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
-    test_mindistance();
+    // test_mindistance(); 
     // test_simplepath();
     
     //***************sword finger offer ************************
@@ -3229,6 +3249,7 @@ int main() {
     // test_searchinsert();
     // test_merge_intervals();
     // test_minpathsum();
+    test_sort_color();
 
 
 
