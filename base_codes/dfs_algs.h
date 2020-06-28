@@ -2,6 +2,7 @@
 #define DFS_ALGS_
 
 #include <vector>
+#include <string>
 
 #include "data_structs/base_struct.h"
 
@@ -18,6 +19,8 @@ bool inorder_visit(TreeNode* root, TreeNode*& first, TreeNode*& second, TreeNode
 // https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 TreeNode* buildTree(std::vector<int>& preorder, std::vector<int>& inorder);
 TreeNode* dfs_build_tree(std::vector<int>& preorder, std::vector<int>& inorder, int pre_start, int pre_end, int in_start, int in_end);
+
+bool exist(std::vector<std::vector<char>>& board, std::string word);
 
 }
 

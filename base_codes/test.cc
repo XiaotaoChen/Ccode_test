@@ -1669,8 +1669,9 @@ for (int i=0; i<total_count; i++) {
 */
 void test_subsets() {
     std::vector<int> nums = {1,2,3};
-    std::vector<std::vector<int>> result = bits_alg::subsets(nums);
+    // std::vector<std::vector<int>> result = bits_alg::subsets(nums);
     // std::vector<std::vector<int>> result = bits_alg::subsets_v2(nums);
+    std::vector<std::vector<int>> result = track_back::subsets(nums);
     for (int i=0; i<result.size(); i++) {
         printf("%d:", i);
         for (int j=0; j<result[i].size(); j++) {
@@ -3053,6 +3054,20 @@ void test_sort_color() {
     std::cout << std::endl;
 }
 
+/**
+ * 182. 遍历查找数组是否存在board中. dfs 遍历．
+ * 从所有节点为起点．进行dfs, 注意起始点特殊处理visited, 并且dfs的起始点从第二个点开始．
+*/
+void test_exist_board() {
+    std::vector<std::vector<char>> board = {
+        {'A', 'B', 'C', 'E'}, 
+        {'S', 'F', 'C', 'S'},
+        {'A', 'D', 'E', 'E'}};
+    std::string word = "ABCB"; //"SEE"; //"ABCB";
+    bool result = dfs::exist(board, word);
+    std::cout << "test exist board result: " << std::boolalpha << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3142,7 +3157,7 @@ int main() {
     // test_str_heap_topk();
     // test_dfs_bstTogst();
     // test_swap_pair();
-    test_min_window();
+    // test_min_window();
     // test_find_substr();
     // test_longest_valid_parentheses();
     // test_multiply();
@@ -3251,6 +3266,7 @@ int main() {
     // test_merge_intervals();
     // test_minpathsum();
     // test_sort_color();
+    test_exist_board();
 
 
 

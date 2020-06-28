@@ -40,6 +40,8 @@ bool solveSudokuHelper(std::vector<std::vector<char>>& board, int n,
 std::vector<std::vector<int>> combinationSum2(std::vector<int>& candidates, int target);
 void track_back_combination_sum(std::vector<std::vector<int>>& combinations, std::vector<int> curr, std::vector<int>& candidates, int index, int target);
 
+// https://leetcode-cn.com/problems/subsets/
+std::vector<std::vector<int>> subsets(std::vector<int>& nums);
 
 } // namespace track_back
 
