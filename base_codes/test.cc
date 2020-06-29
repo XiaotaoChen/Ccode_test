@@ -649,10 +649,12 @@ void test_regular_match() {
 1.维护一个升序的栈，纪录对于数字的index，当当前数值>stack.top()时，直接push
 2.当小于时，记录以当前栈顶元素为高，i-当前栈顶元素前一个元素的idx
 3.最后依次pop stack中的元素，(len-i)* high
+再刷心得：维护一个升序栈，当前元素小于栈顶元素时，一直pop,并计算area,而不是只pop 一次栈顶元素．
 */
 void test_largest_rectangle_area() {
-    std::vector<int> arr = {4, 1000, 1000, 1000, 1000};  // {7, 2, 1, 4, 5, 1, 3, 3}; // {3, 1, 6, 5, 2, 3}; // {2,1,5,6,2,3};
-    int result = search::largestRectangleArea(arr);
+    std::vector<int> arr = {2,1,5,6,2,3}; //{4, 1000, 1000, 1000, 1000};  // {7, 2, 1, 4, 5, 1, 3, 3}; // {3, 1, 6, 5, 2, 3}; // {2,1,5,6,2,3};
+    // int result = search::largestRectangleArea(arr);
+    int result = stack_algs::largestRectangleArea(arr);
     printf("result:%d\n", result);
 }
 
@@ -997,8 +999,13 @@ void test_unique_path_with_obstacle() {
 从row=0->n即可
 */
 void test_max_rectangle() {
-    std::vector<std::vector<char>> matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
-    int result = dp::maximalRectangle(matrix);
+    std::vector<std::vector<char>> matrix = {
+        {'1','0','1','0','0'},
+        {'1','0','1','1','1'},
+        {'1','1','1','1','1'},
+        {'1','0','0','1','0'}};
+    // int result = dp::maximalRectangle(matrix);
+    int result = stack_algs::maximalRectangle(matrix);
     printf("result:%d\n", result);
 }
 
@@ -1090,7 +1097,7 @@ void test_letter_combination() {
 /*
 60. 回溯法生成合法括号：
 1. 判断当前字符串中左括号的个数始终>=右括号的个数即合法，其他均不合法。
-2. if (left_num>n||right_num>n) return;
+2. if (left_num>n||right_nst.push(tmp->left);um>n) return;
    if (left_num==n&&right_num==n) collection result;
    if (left_num>=right_num) dfs(curr+'(', left_num+1, right_num, n); dfs(curr+')', left_num, irght_num+1, n);
 */
@@ -3068,6 +3075,24 @@ void test_exist_board() {
     std::cout << "test exist board result: " << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 183. 迭代对二叉树进行中序遍历. 使用栈模拟递归．即按照递归的顺序将节点push到stack中．一般为两重循环．
+ * while(!st.empty() || ptr) { // 避免st空或右子树为空的情况
+ *  while (ptr) {st.push(ptr), ptr=ptr->left}; top=st.top(); st.pop(); ptr=top->right;
+ * }
+*/
+void test_inorder_travel() {
+    TreeNode* root = new TreeNode(1);
+    root->right = new TreeNode(2);
+    root->right->left = new TreeNode(3);
+    std::vector<int> result = stack_algs::inorderTraversal(root);
+    std::cout << "test inorder travel:";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i] << ", ";
+    }
+    std::cout << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3266,7 +3291,8 @@ int main() {
     // test_merge_intervals();
     // test_minpathsum();
     // test_sort_color();
-    test_exist_board();
+    // test_exist_board();
+    test_inorder_travel();
 
 
 

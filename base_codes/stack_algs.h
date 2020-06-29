@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "data_structs/base_struct.h"
 
 namespace stack_algs {
 
@@ -25,6 +26,15 @@ std::string simplepath(std::string& path);
 
 // https://leetcode-cn.com/problems/valid-parentheses/
 bool isValid_parentness(std::string& s);
+
+// https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+int largestRectangleArea(std::vector<int>& heights);
+
+// https://leetcode-cn.com/problems/maximal-rectangle/
+int maximalRectangle(std::vector<std::vector<char>>& matrix);
+
+// https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+std::vector<int> inorderTraversal(TreeNode* root);
 
 }
 
