@@ -49,6 +49,9 @@ int minDistance_v2(std::string& word1, std::string& word2);
 // https://leetcode-cn.com/problems/minimum-path-sum/
 int minPathSum(std::vector<std::vector<int>>& grid);
 
+// https://leetcode-cn.com/problems/unique-binary-search-trees/
+int numTrees(int n);
+
 
 } // namespace dp
 

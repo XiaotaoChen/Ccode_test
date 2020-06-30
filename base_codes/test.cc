@@ -3093,6 +3093,17 @@ void test_inorder_travel() {
     std::cout << std::endl;
 }
 
+/**
+ * 184. 求二叉搜索树的组合数, dfs或dp求解．　dp[i,j] = sum (dp[i,k-1] * dp[k+1][j];) k=i-->j
+*/
+void test_num_tree() {
+    int n = 3;
+    // int result = dfs::numTrees(n);
+    int result = dp::numTrees(n);
+    std::cout << "test num tree result: " << result << std::endl;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3292,7 +3303,8 @@ int main() {
     // test_minpathsum();
     // test_sort_color();
     // test_exist_board();
-    test_inorder_travel();
+    // test_inorder_travel();
+    test_num_tree();
 
 
 

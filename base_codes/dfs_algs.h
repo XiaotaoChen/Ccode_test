@@ -22,6 +22,9 @@ TreeNode* dfs_build_tree(std::vector<int>& preorder, std::vector<int>& inorder, 
 
 bool exist(std::vector<std::vector<char>>& board, std::string word);
 
+// https://leetcode-cn.com/problems/unique-binary-search-trees/
+int numTrees(int n);
+
 }
 
 #endif // DFS_ALGS_
