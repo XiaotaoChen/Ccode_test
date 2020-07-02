@@ -11,6 +11,7 @@ namespace dfs {
 // https://leetcode-cn.com/problems/validate-binary-search-tree/
 bool isValidBST(TreeNode* root);
 bool dfs_isValidBST(TreeNode* root, long min_val, long max_val);
+bool isValidBST_V2(TreeNode* root);;
 
 // https://leetcode-cn.com/problems/recover-binary-search-tree/
 void recoverTree(TreeNode* root);

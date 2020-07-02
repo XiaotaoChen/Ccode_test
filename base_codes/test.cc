@@ -1133,6 +1133,11 @@ if (node->val >low_threshold && node->val < high_threshold) {
     dfs(node->left, low_threshold, node->val) 
     && dfs(node->right, node->val, high_threshold)
 }
+再刷感想：1.自底向上判断二叉树是否符合要求．传入low, high两个参数的引用，得到子树的low, high值，然后判断left.high < root->val, right.low > root->val即可．
+　　　　　　该方法逻辑稍微有点复杂．
+　　　　　2.自顶向下的方法更直观．假设二叉树的range为[low, high], 其左子树若合法，则range必须在[low, root->val], 其右子树若合法，则range必须在[root->val, high]内，
+　　　　　　即只需判断if (root->val > low && root->val < high) 即可, 然后判断　左子树，　右子树．
+
 */
 void test_dfs_isvalidtree() {
     TreeNode* root = new TreeNode(2);
@@ -1140,7 +1145,8 @@ void test_dfs_isvalidtree() {
     root->right = new TreeNode(3);
     // root->right->left = new TreeNode(3);
     // root->right->right = new TreeNode(6);
-    bool result = dfs::isValidBST(root);
+    // bool result = dfs::isValidBST(root);
+    bool result = dfs::isValidBST_V2(root);
     printf("result:%d\n", result);
 }
 
@@ -3168,7 +3174,7 @@ int main() {
     // test_letter_combination();
     // test_generate_parenthesis();
     // test_combination_sum();
-    // test_dfs_isvalidtree();
+    test_dfs_isvalidtree();
     // test_recover_tree();
     // test_build_tree();
     // test_is_symmetric();
@@ -3304,7 +3310,7 @@ int main() {
     // test_sort_color();
     // test_exist_board();
     // test_inorder_travel();
-    test_num_tree();
+    // test_num_tree();
 
 
 
