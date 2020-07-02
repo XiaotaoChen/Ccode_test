@@ -19,7 +19,8 @@ SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc) $(w
 		  $(wildcard merge_set_alg_impls/*.cc) $(wildcard listnode_alg_impls/*.cc) $(wildcard binary_pointer_alg_impls/*.cc) \
 		  $(wildcard str_alg_impls/*.cc) $(wildcard topoloical_sort/*.cc) $(wildcard memory_alg_impls/*.cc) $(wildcard hash_alg_impls/*.cc) \
 		  $(wildcard bits_alg_impls/*.cc) $(wildcard design_alg_impls/*.cc) $(wildcard dict_tree_alg_impls/*.cc) $(wildcard line_tree_alg_impls/*.cc) \
-		  $(wildcard minimization_alg_impls/*.cc) $(wildcard random_sample_alg_impls/*.cc) $(wildcard geometric_alg_impls/*.cc) $(wildcard swordfingeroffer/*.cc)
+		  $(wildcard minimization_alg_impls/*.cc) $(wildcard random_sample_alg_impls/*.cc) $(wildcard geometric_alg_impls/*.cc) $(wildcard swordfingeroffer/*.cc) \
+		  $(wildcard queue_algs/*.cc)
 
 SRC = test.cc $(SRC_COM)
 

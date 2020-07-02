@@ -21,11 +21,19 @@ bool inorder_visit(TreeNode* root, TreeNode*& first, TreeNode*& second, TreeNode
 TreeNode* buildTree(std::vector<int>& preorder, std::vector<int>& inorder);
 TreeNode* dfs_build_tree(std::vector<int>& preorder, std::vector<int>& inorder, int pre_start, int pre_end, int in_start, int in_end);
 
+TreeNode* buildTree_V2(std::vector<int>& preorder, std::vector<int>& inorder);
+
+
 bool exist(std::vector<std::vector<char>>& board, std::string word);
 
 // https://leetcode-cn.com/problems/unique-binary-search-trees/
 int numTrees(int n);
 
+
+// https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
+void flatten(TreeNode* root);
+void flatten_V2(TreeNode* root);
+void flatten_V3(TreeNode* root);
 }
 
 #endif // DFS_ALGS_

@@ -39,6 +39,7 @@
 #include "random_sample_algs.h"
 #include "geometric_algs.h"
 #include "swordfingeroffer.h"
+#include "queue_algs.h"
 
 using namespace std;
 
@@ -1173,8 +1174,17 @@ void test_recover_tree() {
 void test_build_tree() {
     std::vector<int> preorder = {3,9,20,15,7};
     std::vector<int> inorder = {9,3,15,20,7};
-    TreeNode* root = dfs::buildTree(preorder, inorder);
+    // TreeNode* root = dfs::buildTree(preorder, inorder);
+    TreeNode* root = dfs::buildTree_V2(preorder, inorder);
+    std::vector<std::vector<int>> result = queue_alg::levelOrder(root);
 
+    std::cout << "test_build_tree result:\n";
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j < result[i].size(); j++) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout<<std::endl;
+    }
 }
 
 /*
@@ -1195,10 +1205,11 @@ void test_is_symmetric() {
     root->right = new TreeNode(2);
     root->left->left = new TreeNode(3);
     root->left->right = new TreeNode(4);
-    root->right->left = new TreeNode(3);
-    root->right->right = new TreeNode(4);
+    root->right->left = new TreeNode(4);
+    root->right->right = new TreeNode(3);
 
-    bool result = bfs::isSymmetric(root);
+    // bool result = bfs::isSymmetric(root);
+    bool result = bfs::isSymmetric_V2(root);
     printf("result:%d\n", result);
 }
 
@@ -3109,6 +3120,50 @@ void test_num_tree() {
     std::cout << "test num tree result: " << result << std::endl;
 }
 
+/**
+ * 185. 将二叉树按层输出
+*/
+void test_levelorder() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    root->right->right = new TreeNode(7);
+    std::vector<std::vector<int>> result = queue_alg::levelOrder(root);
+
+    std::cout << "test level order result:\n";
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j < result[i].size(); j++) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout<<std::endl;
+    }
+}
+
+/**
+ * 186. 将二叉树转换成链表. 三种思路
+ * １．TreeNode* flatten_dfs(TreeNode*, TreeNode*&), 依次flatten左子树，右子树，并返回当前树的头，尾，则root->right=dfs(root->left, pre), pre->right = dfs(root->right, pre), 此时要注意左子树为空的情况，pre=root.
+ * 2. 同样dfs,分别先flatten　左右子树．　但不记录last node，在root->left不为空的情况下，while循环遍历找出左子树的最右节点last．则last->right = root->right; root->right=  root->left; root->left=nullptr;
+ * 3. 迭代计算．转换成链表，其实就是当左子树不为空时，将左子树放到右子树，　然后原来的右子树放到左子树的最右节点．然后root=root->right遍历，直到root为空
+*/
+void test_flatten() {
+    TreeNode* root = new TreeNode(3);
+    // root->left = new TreeNode(9);
+    root->right = new TreeNode(20);
+    root->right->left = new TreeNode(15);
+    // root->right->right = new TreeNode(7);
+    // dfs::flatten(root);
+    // dfs::flatten_V2(root);
+    dfs::flatten_V3(root);
+
+    std::cout << "test flatten result:\n";
+    while(root!=nullptr) {
+        std::cout << root->val << " ";
+        root = root->right;
+    }
+    std::cout << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3174,7 +3229,7 @@ int main() {
     // test_letter_combination();
     // test_generate_parenthesis();
     // test_combination_sum();
-    test_dfs_isvalidtree();
+    // test_dfs_isvalidtree();
     // test_recover_tree();
     // test_build_tree();
     // test_is_symmetric();
@@ -3311,8 +3366,8 @@ int main() {
     // test_exist_board();
     // test_inorder_travel();
     // test_num_tree();
-
-
-
+    // test_levelorder();
+    test_flatten();
+    
     return 0;
 }

@@ -12,6 +12,8 @@ namespace bfs {
 bool isSymmetric(TreeNode* root);
 bool isMirror(TreeNode* root1, TreeNode* root2);
 
+bool isSymmetric_V2(TreeNode* root);
+
 // https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
 std::vector<std::vector<int>> zigzagLevelOrder(TreeNode* root);
 
