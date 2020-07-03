@@ -3164,6 +3164,25 @@ void test_flatten() {
     std::cout << std::endl;
 }
 
+/**
+ * 187. 求最大股票收益. 记录历史收益pre, 如果pre>=0, 则累加prices[i]-prices[i-1]
+ * 否则，　pre=prices[i]-prices[i-1]
+*/
+void test_max_profit() {
+    std::vector<int> arr = {7,1,5,3,6,4};
+    int result = search::maxProfit_v4(arr);
+    std::cout << "test max profit result:" << result << std::endl;
+}
+
+void test_tmp() {
+    int a = INT32_MIN;
+    int mina = - INT32_MIN;
+    int maxa = INT32_MAX;
+    int minmaxa = - INT32_MAX;
+    std::cout << "a :" << hex << a << ", mina: " << hex << mina 
+              <<", maxa: " << hex << maxa << ", minmaxa: " << hex << minmaxa << std::endl;
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3367,7 +3386,9 @@ int main() {
     // test_inorder_travel();
     // test_num_tree();
     // test_levelorder();
-    test_flatten();
+    // test_flatten();
+    // test_max_profit();
+    test_tmp();
     
     return 0;
 }

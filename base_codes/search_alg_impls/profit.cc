@@ -52,7 +52,7 @@ int search::maxProfit_v3(std::vector<int> &prices) {
     int len = prices.size();
     if (len<2) return 0;
     int buy1, sell1, buy2, sell2;
-    buy1 = -INT_MIN;
+    buy1 = INT_MIN;
     sell1 = 0;
     buy2 = INT_MIN;
     sell2 = 0;

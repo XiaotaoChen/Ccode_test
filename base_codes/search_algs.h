@@ -43,6 +43,9 @@ int maxProfit_v2(std::vector<int> &prices);
 
 int maxProfit_v3(std::vector<int> &prices);
 
+// https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
+int maxProfit_v4(std::vector<int>& prices);
+
 // https://www.nowcoder.com/practice/fdbd05d647084fcf9be78444e231998b
 void populating_next_right_pointers_in_each_node(TreeLinkNode *root);
 
