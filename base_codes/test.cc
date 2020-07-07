@@ -368,12 +368,15 @@ void test_is_palindrome() {
 18. 求二叉树最大的路径之和。dfs
 当前节点的最大路径之和=val + left_node_result + right_node_result;
 return val + max(left_node_result, right_node_result);
+再刷感想：1.dfs过程中要计算两个值：１．包含当前节点的单边path的最大值，２．包含当前节点的最大路径之和．
+２．因为是可以选择任意节点，所以只有在路径大于零时才将该路径并入，单边path,最大路径和都需要比较左右子树的路径大小是否＞０
 */
 void test_maxPathSum() {
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(3);
-    int result = search::binary_tree::maxPathSum(root);
+    // int result = search::binary_tree::maxPathSum(root);
+    int result = search::binary_tree::maxPathSum_V2(root);
     printf("result:%d\n", result);
 }
 
@@ -1369,6 +1372,8 @@ void test_find_median_num() {
 /*
 75. 将外边界为O的字符的连通区域。
 使用stack/queue 递归求解即可
+再刷感想：想着dfs从矩阵边界查找＇O'的区域, 将其置为'A'，然后遍历矩阵，其他＇O＇的变成＇X＇, 'A'->'O'即可．
+　　　　　其实不用dfs, 直接队列或栈遍历即可．
 */
 void test_merge_set() {
     std::vector<std::vector<char>> board={
@@ -1421,9 +1426,11 @@ for (int i=0;i<n;i++) {
 find_root(nums, x): return nums[x]==nums? x: nums[x] = find_root(nums, nums[x]);
 */
 void test_longest_consecutive2() {
-    std::vector<int> data = {100, 4, 200, 1, 3, 2};
+    std::vector<int> data = {1,2,0,1}; //{100, 4, 200, 1, 3, 2};
     // int result = merge_set::longestConsecutive(data);
-    int result = merge_set::longestConsecutive_v2(data);
+    // int result = merge_set::longestConsecutive_v2(data);
+    // int result = merge_set::longestConsecutive_V3(data);
+    int result = merge_set::longestConsecutive_V4(data);
     printf("result:%d\n", result);
 }
 
@@ -3263,7 +3270,7 @@ int main() {
     // test_find_median_num();
     // test_merge_set();
     // test_num_island();
-    // test_longest_consecutive2();
+    test_longest_consecutive2();
     // test_bi_node();
     // test_remove_nth_node();
     // test_length_substr();
@@ -3388,7 +3395,7 @@ int main() {
     // test_levelorder();
     // test_flatten();
     // test_max_profit();
-    test_tmp();
+    // test_tmp();
     
     return 0;
 }

@@ -34,6 +34,7 @@ namespace binary_tree {
     // https://www.nowcoder.com/practice/da785ea0f64b442488c125b441a4ba4a?tpId=46&tqId=29056&rp=2&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking
     int maxPathSum(TreeNode *root);
     int maxPathSum_dfs(TreeNode *root, int &result);
+    int maxPathSum_V2(TreeNode *root);
 }
 
 int maxProfit(std::vector<int> &prices);
