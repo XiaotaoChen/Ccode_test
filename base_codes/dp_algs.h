@@ -53,6 +53,8 @@ int minPathSum(std::vector<std::vector<int>>& grid);
 int numTrees(int n);
 
 
+std::vector<std::string> wordBreak(std::string s, std::unordered_set<std::string> &dict); 
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_

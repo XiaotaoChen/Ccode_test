@@ -144,6 +144,8 @@ void test_sortListNode(){
 7. 求得字符串由dicts中子串拆分的所有可能。
 (1) dp[n]数组保存0到i的子串是否可由dicts中的构成。两重for循环(i=1->n-1, j=0->i) if (dp[j] && s.substr(j, i-j+1) in dict) dp[i]=true
 (2) 根据dp由n反推到0，得到所有的子串。dfs(idx, dp[], result): for (i=idx-1->0) {if dp[i] && s.substr(i, idx-i+1) in dict} result[i]=result[idx] + substr, dfs(i-1, dp, result);
+再刷感想：1. 使用dp求得０->i是否可由dicts中的字符串组成，并记录其前一个节点下标，如dp[6]从dp[3]得到，则traces[6].push_back(3);
+        2. 根据dp flags 和traces, 可以构建整个字符串的结果．注意区分０，和第０个元素．为直观起见，在０的时候单独判断，而不是new len+1个空间区分
 */
 void test_wordBreak(){
     string s = "catsanddog";
@@ -155,6 +157,7 @@ void test_wordBreak(){
     // printf("result:%d\n", result);
     // vector<string> result = wordBreak_v2(s, dicts);
     vector<string> result = wordBreak_v3(s, dicts);
+    vector<string> result = dp::wordBreak(s, dicts);
     for(int i=0; i<result.size(); i++) {
         printf("%s\n", result[i].c_str());
     }
@@ -3197,7 +3200,7 @@ int main() {
     // test_max_point_on_a_line();
     // test_sortListNode();
     // test_postorderTraversal();
-    // test_wordBreak();
+    test_wordBreak();
     // test_randomListNode();
     // test_singleNumber();
     // test_candy();
@@ -3270,7 +3273,7 @@ int main() {
     // test_find_median_num();
     // test_merge_set();
     // test_num_island();
-    test_longest_consecutive2();
+    // test_longest_consecutive2();
     // test_bi_node();
     // test_remove_nth_node();
     // test_length_substr();
