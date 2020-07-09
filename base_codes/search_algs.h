@@ -121,6 +121,8 @@ int treeSum(TreeNode* root, std::map<int, int>& freq, int& max_freq, std::vector
 std::string simplifyPath(std::string path);
 std::vector<std::string> splitstr(std::string path);
 
+std::string simplifyPath_V2(std::string path);
+
 ListNode* reverseBetween(ListNode* head, int m, int n);
 
 

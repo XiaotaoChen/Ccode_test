@@ -17,11 +17,13 @@ namespace dp {
 std::string longestPalindrome_v2(std::string s);
 std::string longestPalindrome_v3(std::string s);
 std::string longestPalindrome_v4(std::string s);
+std::string longestPalindrome_v5(std::string s);
 
 // https://leetcode-cn.com/problems/regular-expression-matching/
 bool regular_match(std::string s, std::string p);
 bool isLegal(char normal, char match);
 bool regular_match_v2(std::string& s, std::string& p);
+bool regular_match_v3(std::string& s, std::string& p);
 
 // https://leetcode-cn.com/problems/maximal-square/comments/
 int maximalSquare(std::vector<std::vector<char>>& matrix);
@@ -57,6 +59,8 @@ std::vector<std::string> wordBreak(std::string s, std::unordered_set<std::string
 
 // https://leetcode-cn.com/problems/word-break/
 bool wordBreak_single(std::string s, std::vector<std::string>& wordDict);
+
+int palindrome_minCut(std::string& str);
 
 } // namespace dp
 

@@ -34,6 +34,9 @@ int numTrees(int n);
 void flatten(TreeNode* root);
 void flatten_V2(TreeNode* root);
 void flatten_V3(TreeNode* root);
+
+std::vector<std::vector<std::string>> palindrome_partition(std::string str);
+
 }
 
 #endif // DFS_ALGS_
