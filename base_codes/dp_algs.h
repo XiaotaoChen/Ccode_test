@@ -55,6 +55,9 @@ int numTrees(int n);
 
 std::vector<std::string> wordBreak(std::string s, std::unordered_set<std::string> &dict); 
 
+// https://leetcode-cn.com/problems/word-break/
+bool wordBreak_single(std::string s, std::vector<std::string>& wordDict);
+
 } // namespace dp
 
 #endif // DYNAMIC_PROGRAMMING_ALG_

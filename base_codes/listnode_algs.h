@@ -19,6 +19,9 @@ ListNode* swapPairs(ListNode* head);
 ListNode* reverseKGroup(ListNode* head, int k);
 ListNode* reverse_listnode(ListNode* pre, ListNode* end);
 
+
+// https://leetcode-cn.com/problems/linked-list-cycle-ii/
+ListNode *detectCycle(ListNode *head);
 }
 
 #endif

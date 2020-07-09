@@ -156,7 +156,7 @@ void test_wordBreak(){
     // bool result = wordBreak(s, dicts);
     // printf("result:%d\n", result);
     // vector<string> result = wordBreak_v2(s, dicts);
-    vector<string> result = wordBreak_v3(s, dicts);
+    // vector<string> result = wordBreak_v3(s, dicts);
     vector<string> result = dp::wordBreak(s, dicts);
     for(int i=0; i<result.size(); i++) {
         printf("%s\n", result[i].c_str());
@@ -3193,6 +3193,46 @@ void test_tmp() {
               <<", maxa: " << hex << maxa << ", minmaxa: " << hex << minmaxa << std::endl;
 }
 
+/**
+ * 188. 找出数组中单个数字
+*/
+void test_single_number() {
+    std::vector<int> arr = {1,2,2};
+    int result = bits_alg::singleNumber(arr);
+    std::cout << "single number is: " << result << std::endl;
+}
+
+/**
+ * 189. 判断单词划分，　同７
+*/
+void test_wordBreak_simple(){
+    string s = "catsanddog";
+    std::vector<std::string> dicts = {"cat", "cats", "and", "sand", "dog"};
+    bool result = dp::wordBreak_single(s, dicts);
+    std::cout << "simple wordbreak: "  << result << std::endl;
+}
+
+/**
+ * 190. 找出循环链表中的开始节点
+ * 思路：用步数为１，２分别找出相同点，然后以ｓｔｅｐ１走到第一个公共节点．
+ * 注意：链表只有一个单独节点的情况．要额外判断．
+*/
+void test_detectcycle() {
+    ListNode* head = new ListNode(3);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(0);
+    head->next->next->next = new ListNode(-4);
+    head->next->next->next->next = head->next;
+    ListNode* result = listnode_alg::detectCycle(head);
+    if (result!=nullptr) {
+        std::cout << "test detect cycle result: " << result->val << std::endl;
+    }
+    else {
+        std::cout << "test detect cycle result is nullptr\n";
+    }
+
+}
+
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3200,7 +3240,7 @@ int main() {
     // test_max_point_on_a_line();
     // test_sortListNode();
     // test_postorderTraversal();
-    test_wordBreak();
+    // test_wordBreak();
     // test_randomListNode();
     // test_singleNumber();
     // test_candy();
@@ -3399,6 +3439,9 @@ int main() {
     // test_flatten();
     // test_max_profit();
     // test_tmp();
+    // test_single_number();
+    // test_wordBreak_simple();
+    test_detectcycle();
     
     return 0;
 }

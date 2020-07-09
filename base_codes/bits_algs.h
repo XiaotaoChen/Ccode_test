@@ -13,5 +13,8 @@ std::vector<std::vector<int>> subsets_v2(std::vector<int>& nums);
 // https://leetcode-cn.com/problems/repeated-dna-sequences/
 std::vector<std::string> findRepeatedDnaSequences(std::string s);
 
+// https://leetcode-cn.com/problems/single-number/
+int singleNumber(std::vector<int>& nums);
+
 } // namespace bits_alg
 
