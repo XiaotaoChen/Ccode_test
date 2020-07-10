@@ -47,6 +47,7 @@ int max_rectangle(std::vector<int>& heights);
 // https://leetcode-cn.com/problems/edit-distance/
 int minDistance(std::string& word1, std::string& word2);
 int minDistance_v2(std::string& word1, std::string& word2);
+int minDistance_v3(std::string& word1, std::string& word2);
 
 // https://leetcode-cn.com/problems/minimum-path-sum/
 int minPathSum(std::vector<std::vector<int>>& grid);

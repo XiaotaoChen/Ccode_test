@@ -283,7 +283,8 @@ void test_clone_graph() {
 */
 void test_palidrome() {
     string str = "aab";
-    vector<vector<string> > result = palindrome_partition(str);
+    // vector<vector<string> > result = palindrome_partition(str);
+    vector<vector<string> > result = dfs::palindrome_partition(str);
     printf("result size:%lu\n", result.size());
     for (vector<string> v_iter: result) {
         for (string iter: v_iter) {
@@ -295,11 +296,13 @@ void test_palidrome() {
 
 /*
 14. 最小回文子串的数量：两重循环，i=0->n;j=i->n; if (s.sub(i, j-i+1) is palindrome) dp[j]=min(dp[j],dp[i]+1)
+再刷感想：1. 使用dp求解．如果str[i]!=str[j], dp[i,j] = min(dp[i,j], dp[i][k]+dp[k+1][j]), 如果str[i]==str[j] dp[i,j]=dp[i+1,j-1], 注意j-1>2
 */
 void test_palidrome_min_cut() {
     string str = "leet";
     // int result = palindrome_minCut(str);
-    int result = palindrome_minCut_v2(str);
+    // int result = palindrome_minCut_v2(str);
+    int result = dp::palindrome_minCut(str);
     printf("result:%d\n", result);
 }
 
@@ -357,7 +360,7 @@ void test_longest_consecutive() {
 
 /*
 17. 去掉空格，标点符号，屏蔽大小写差异，判断是否为回文串。
-（1）遍历字符串去掉空格，标点符号；
+（1）遍历字符串去掉空格，标点符号；interview 48 最长不重复的子字符串
 （2）转成小写字符，std::transform(begin(), end(), ::tolower);
 （3）判断是否为回文串，即str==std::string(str.rbegin(), str.rend())
 */
@@ -591,7 +594,7 @@ void test_find_mid_num() {
     std::vector<int> a={1, 3};
     std::vector<int> b={2};
     // double result = search::findMedianSortedArrays(a, b);
-    double result = search::findMedianSortedArrays_v2(a, b);
+    double result = search::findMedianSortedArrays_v2(a, b); 
     printf("result:%f \n", result);
 }
 
@@ -605,7 +608,8 @@ void test_length_palindrome() {
     // std::string result = search::longestPalindrome(str);
     // std::string result = dp::longestPalindrome_v2(str);
     // std::string result = dp::longestPalindrome_v3(str);
-    std::string result = dp::longestPalindrome_v4(str);
+    // std::string result = dp::longestPalindrome_v4(str);
+    std::string result = dp::longestPalindrome_v5(str);
     printf("result: %s\n", result.c_str());
 }
 
@@ -642,12 +646,17 @@ dp求解：dp[i][j]表示s的前i个字符与p的前j个字符是否匹配。
      2. 字符下标和dp下标
      3. 初始化dp[0][i]的时候，考虑*匹配０个字符的情况，
      如果p[i-1]=='*', dp[0][i]应该等于dp[0][i-2], 而不是直接等于true
+
+再刷感想：1. 必须有dp[n+1,m+1]即匹配０个元素的状态，否则无法处理s＝＂＂，p=".*"这种
+　　　　　２．匹配０个字符情况下特殊处理，且返回值为dp[n][m]
+        3. 在匹配>=1个字符时，s[idx]与p[j]要match
 */
 void test_regular_match() {
-    std::string s= "acbbcbcbcbaaacaac"; //"aab"; //"issi"; //"mississippi";
-    std::string p = "ac*.a*ac*.*ab*b*ac"; //"c*a*b"; //"is*"; // "mis*is*p*.";
+    std::string s= ""; //"aab"; //"acbbcbcbcbaaacaac"; //"aab"; //"issi"; //"mississippi";
+    std::string p = ".*"; //""c*a*b"; //"ac*.a*ac*.*ab*b*ac"; //"c*a*b"; //"is*"; // "mis*is*p*.";
     // bool result = dp::regular_match(s, p);
-    bool result = dp::regular_match_v2(s, p);
+    // bool result = dp::regular_match_v2(s, p);
+    bool result = dp::regular_match_v3(s, p);
     printf("result:%d\n", result);
 }
 
@@ -779,10 +788,12 @@ void test_requent_tree_sum() {
 1. 以‘/’划分字符子串得到items。
 2. 遍历items，依次将item压入栈中，当出现'..'时pop；
 3. 依次弹出item，result = '/' + item + result;
+再刷感想：注意分词时别漏了最后一个词．
 */
 void test_simple_path() {
     std::string path = "/a//b////c/d//././/.."; //"/a/../../b/../c//.//"; // "/a/./b/../../c/"; // "/home//foo/"; // "/../"; // "/home/";
-    std::string result = search::simplifyPath(path);
+    // std::string result = search::simplifyPath(path);
+    std::string result = search::simplifyPath_V2(path);
     printf("result:%s\n", result.c_str());
 }
 
@@ -1489,7 +1500,8 @@ void test_remove_nth_node() {
 void test_length_substr() {
     std::string str = "pwwkew";
     // int result = binary_pointer::lengthOfLongestSubstring(str);
-    int result = binary_pointer::lengthOfLongestSubstring_v2(str);
+    // int result = binary_pointer::lengthOfLongestSubstring_v2(str);
+    int result = binary_pointer::lengthOfLongestSubstring_v3(str);
     printf("result:%d\n", result);
 }
 
@@ -1556,12 +1568,15 @@ void test_swap_pair() {
 /*
 83. 记录S中包含T所有字符的最小子串。
 滑窗原理。主要T中可能存在重复字符。
+再刷感想：1. 根据unique_cnt==0的时候左滑窗口，注意left已经过了起始点了，开始的节点应该在left-1
+        2. 要记录最小len情况下left的下标，　而不是curr_left会一直到最后．
 */
 void test_min_window() {
-    std::string s = "a"; //"ADOBECODEBANC"; //"aa"; //"ADOBECODEBANC";
-    std::string t = "b"; //"ABC"; //"a"; //"ABC";
+    std::string s = "ADOBECODEBANC"; //"aa"; //"ADOBECODEBANC";
+    std::string t = "ABC"; //"a"; //"ABC";
     // std::string result = binary_pointer::minWindow(s, t);
-    std::string result = binary_pointer::minWindow_v2(s, t);
+    // std::string result = binary_pointer::minWindow_v2(s, t);
+    std::string result = binary_pointer::minWindow_v3(s, t);
     printf("result:%s\n", result.c_str());
 }
 
@@ -1592,13 +1607,15 @@ void test_find_substr() {
 
 ******************
 再刷: 这种括号匹配的用栈，左括号对应下标入栈，右括号则出栈，求出curr_idx - left_idx +1　即为当前匹配的长度，同时，加上前面匹配的长度len[left_idx-1]
+再刷感想：返回结果时，不是直接返回dp[n-1], 应该有个result变量记录最长的长度．
 
 */
 void test_longest_valid_parentheses() {
     std::string s = ")()())"; //"(()"; //"()()()";
     // int result = stack_algs::longestValidParentheses(s);
     // int result = stack_algs::longestValidParentheses_v2(s);
-    int result = stack_algs::longestValidParentheses_v3(s);
+    // int result = stack_algs::longestValidParentheses_v3(s);
+    int result = stack_algs::longestValidParentheses_v4(s);
     printf("result:%d\n", result);
 }
 
@@ -2625,12 +2642,14 @@ void test_one_counts() {
  * 1. a[i-1][j-1]表示替换，　即word1的第ｉ个字符替换成word2的第ｊ个字符． 如horse, ros, a[5,3]--> a[4,2] hors->ro, 将e替换成s即可
  * 2. a[i-1][j]表示删除， 因为word1的前ｉ－１个字符已经与word2的ｊ个字符匹配，故删除第i个字符，如hors->ros, 删除e
  * 3. a[i][j-1]表示插入，因为word1的ｉ个字符已经和word2的j-1个字符匹配，故只能额外插入字符达到a[i][j], 如horse->ro, 插入ｓ
+ * 再刷感想：1. 注意word1[i]==word2[j]时，dp[i][j]直接等于dp[i-1][j-1]
 */
 void test_mindistance() {
     std::string word1 = "intention"; // "horse";
     std::string word2 = "execution"; // "ros";
     // int result = dp::minDistance(word1, word2);
-    int result = dp::minDistance_v2(word1, word2);
+    // int result = dp::minDistance_v2(word1, word2);
+    int result = dp::minDistance_v3(word1, word2);
     std::cout << "result: " << result << std::endl;
 }
 
@@ -3363,7 +3382,7 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
-    // test_mindistance(); 
+    test_mindistance(); 
     // test_simplepath();
     
     //***************sword finger offer ************************
@@ -3441,7 +3460,7 @@ int main() {
     // test_tmp();
     // test_single_number();
     // test_wordBreak_simple();
-    test_detectcycle();
+    // test_detectcycle();
     
     return 0;
 }
