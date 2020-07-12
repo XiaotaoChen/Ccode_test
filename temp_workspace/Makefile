@@ -1,4 +1,4 @@
-SRC_COM = $(wildcard ./*.cc) 
+SRC_COM = $(wildcard ./*.cc) $(wildcard ./algorithm_impls/*.cc)
 
 SRC = $(SRC_COM)
 
