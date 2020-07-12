@@ -40,6 +40,7 @@
 #include "geometric_algs.h"
 #include "swordfingeroffer.h"
 #include "queue_algs.h"
+#include "hot_100.h"
 
 using namespace std;
 
@@ -3249,7 +3250,172 @@ void test_detectcycle() {
     else {
         std::cout << "test detect cycle result is nullptr\n";
     }
+}
 
+/*********************************************************************************/
+/********************************** hot 100 **************************************/
+/*********************************************************************************/
+/**
+ * 1. 第ｋ个最大值
+*/
+void test_findkthlargest_hot_100() {
+    std::vector<int> arr = {3,2,1,5,6,4};
+    int k=2;
+    // int result = hot_100::findKthLargest(arr, k);
+    int result = hot_100::findKthLargest_min_heap(arr, k);
+    std::cout << "test findkthlargest result: " << result << std::endl;
+}
+
+/**
+ * 2. 滑动窗口最大值
+ * 注意使用双向队列．　存放ｋ窗口中降序下标．
+ * １．当当前节点值大于dequeue.back时，pop_back,而不是判断当前节点值大于dequeue.front()
+ * ２．判断当前front最大值是否超过了k时，也要判断dequeue是否为空，因为k=1时，初始化queue时是空的
+*/
+void test_max_sliding_window_hot_100() {
+    std::vector<int>  nums = {1,3,1,2,0,5}; //{1,3,-1,-3,5,3,6,7};
+    int k = 3;
+    std::vector<int> result = hot_100::maxSlidingWindow(nums, k);
+    std::cout << "test max sliding windos:" ;
+    for (int i=0; i<result.size(); i++) std::cout << result[i] << " ";
+    std::cout << std::endl;
+}
+
+/**
+ * 3. 搜索二维矩阵
+ * 从左下角开始搜，如果［row_idx, col_idx］ > target, 往上走row_idx--; 否则col_idx++;
+ * 注意row_idx可能出现小于０的情况，而不会出现＞row的情况
+*/
+void test_searchMatrix_hot_100() {
+    std::vector<std::vector<int>> matrix = {{-1, 3}}; // {{1,4,7}, {2,5,8},{3,6,9}};
+    int target = 1; //5;
+    bool result = hot_100::searchMatrix(matrix, target);
+    std::cout << "test search matrix result: " << std::boolalpha << result << std::endl;
+}
+
+/**
+ * 4. 完全平方数.　完全0/1背包问题
+ * 注意初始化的时候dp[0]=0, 其他为INT_MAX, 然后遍历寻找最小值
+*/
+void test_numsquare_hot_100() {
+    int n =13;
+    int result = hot_100::numSquares(n);
+    std::cout << "test numsquare result: " << result << std::endl;
+}
+
+/**
+ * 5. 最长上升子序列
+ * 1. 刚开始以为是用栈，求得包含当前值的升序序列，但该种方法忽略了历史最有子序列．
+ * ２．使用ｄｐ方法，如果nums[i]大于nums[j]则dp[i]可以由dp[j]+1得到，
+ * 然后从０到ｉ－１遍历j得到０－＞ｉ的最长升序子序列
+ * ３．　结果并不是返回dp[n-1],而应该记录整个过程的最大值．
+*/
+void test_lengthofLIS_hot_100() {
+    std::vector<int> arr = {1,3,6,7,9,4,10,5,6}; //{10,9,2,5,3,7,101,18};
+    // int result = hot_100::lengthOfLIS(arr);
+    int result = hot_100::lengthOfLIS_V2(arr);
+    std::cout << "test length of LIS result: " << result << std::endl;
+
+}
+
+/**
+ * 6. 根据身高重建队列
+*/
+void test_reconstruct_queue_hot_100() {
+    std::vector<std::vector<int>> people = {{7,0},{4,4},{7,1},{5,0},{6,1},{5,2}};
+    std::vector<std::vector<int>> result = hot_100::reconstructQueue(people);
+    std::cout << "test reconstruct queue:\n";
+    for (int i=0; i<result.size(); i++) {
+        std::cout << result[i][0] << ", " << result[i][1] << std::endl;
+    }
+}
+
+/**
+ * 7. 路径总和
+ * 思路：　dfs求解．刚开始只考虑到一层ｄｆｓ，导致逻辑有点错误．
+ * １．　dfs(root->left, target, cnt), dfs(root->right, target , cnt)
+ * 然后　dfs(root->left, target - root->val, cnt), 
+ *      dfs(root->right, target-root->val, cnt)
+ * 该重dfs其实是结果等于target或target-root->val的结果．而不是结果为target的结果．
+ * 应该两层dfs. 第一层　
+ * dfs(root, sum, cnt), 
+ * dfs(root->left, sum, cnt), 
+ * dfs(root->right, sum, cnt)
+ * 第二层dfs:
+ * dfs_two(root->left, sum-root->val, cnt)
+ * dfs_two(root->right, sum-root->val, cnt)
+ * 
+*/
+void test_pathsum_hot_100() {
+    TreeNode* root = new TreeNode(10);
+    root->left = new TreeNode(5);
+    root->right = new TreeNode(-3);
+    root->left->left = new TreeNode(3);
+    root->left->right = new TreeNode(2);
+    root->right->right = new TreeNode(11);
+    root->left->left->left = new TreeNode(3);
+    root->left->left->right = new TreeNode(-2);
+    root->left->right->right = new TreeNode(1);
+    int target = 8;
+    int result = hot_100::pathSum(root, target);
+    std::cout << "test pathsum result: " << result << std::endl;
+}
+
+/**
+ * 8. 找到消失的数字. 通过将nums中的数字映射成下标idx=(nums[i]-1)%n, 然后将nums[idx]+=n, 
+ * 最后遍历nums, 若nums[i]　<=n, 则ｉ＋１没出现在原始数组中
+ * 
+ * */
+void test_find_disappearedNumbers_hot_100() {
+    std::vector<int> nums = {4,3,2,7,8,2,3,1};
+    std::vector<int> result = hot_100::findDisappearedNumbers(nums);
+    std::cout << "test find disappeared numbers: ";
+    for (int i=0; i<result.size(); i++) std::cout << result[i] << " ";
+    std::cout << std::endl;
+}
+
+/**
+ * 9. 观测每日温度
+*/
+void test_daily_temperatures_hot_100() {
+    std::vector<int> T = {73,74,75,71,69,72,76,73};
+    std::vector<int> result = hot_100::dailyTemperatures(T);
+    std::cout << "test daily temperatures:";
+    for (int i=0; i<result.size(); i++) std::cout << result[i] << " ";
+    std::cout << std::endl;
+}
+
+/**
+ * 10. 股票最大收益. dp＋状态转换
+ * dp[i][0] 表示第i天结束，处于可以买入的状态的收益的最大值
+ * dp[i][1] 表示第i天结束，手中有股票的状态的收益的最大值
+ * dp[i][2] 表示第i天结束，处于冷冻期的收益的最大值
+ * 注意初始化不应该全为０，　应该为INT_MIN, dp[0][0]=0
+*/
+void test_max_profit_hot_100() {
+    std::vector<int> prices = {1,2,3,0,2};
+    int result = hot_100::maxProfit(prices);
+    std::cout << "test max profit: " << result << std::endl;
+}
+
+/**
+ * 11. 戳气球dp求解，　状态转移方程　dp[i][j] = max(dp[i][j], dp[i][k]+dp[k][j]+points[i]*points[k]*points[j])
+ * 注意是求points的ｉ,j,k数字乘积，而不是k,k-1,k+1
+*/
+void test_max_coins_hot_100() {
+    std::vector<int> nums = {3,1,5,8};
+    int result = hot_100::maxCoins(nums);
+    std::cout << "test max coins: "<< result << std::endl;
+}
+
+/**
+ * 12. 最短无序连续子数组. 使用单调栈，分别找出前后从未出过栈的下标．即求得出栈的下标中，最小，最大下标．
+ * 则len = r - l +1
+*/
+void test_find_unsorted_sub_array_hot_100() {
+    std::vector<int> nums = {2,6,4,8,10,9,15};
+    int  result = hot_100::findUnsortedSubarray(nums);
+    std::cout <<  "test find unsorted subarray result: " << result << std::endl;
 }
 
 
@@ -3382,7 +3548,7 @@ int main() {
     // test_groupAnagrams();
     // test_next_node();
     // test_myqueue();
-    test_mindistance(); 
+    // test_mindistance(); 
     // test_simplepath();
     
     //***************sword finger offer ************************
@@ -3461,6 +3627,20 @@ int main() {
     // test_single_number();
     // test_wordBreak_simple();
     // test_detectcycle();
+
+    // ***************************** hot 100 *************************************
+    // test_findkthlargest_hot_100();
+    // test_max_sliding_window_hot_100();
+    // test_searchMatrix_hot_100();
+    // test_numsquare_hot_100();
+    // test_lengthofLIS_hot_100();
+    // test_reconstruct_queue_hot_100();
+    // test_pathsum_hot_100();
+    // test_find_disappearedNumbers_hot_100();
+    // test_daily_temperatures_hot_100();
+    // test_max_profit_hot_100();
+    // test_max_coins_hot_100();
+    test_find_unsorted_sub_array_hot_100();
     
     return 0;
 }

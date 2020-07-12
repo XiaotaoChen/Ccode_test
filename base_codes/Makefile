@@ -20,7 +20,7 @@ SRC_COM = $(wildcard algorithm_impls/*.cc) $(wildcard search_alg_impls/*.cc) $(w
 		  $(wildcard str_alg_impls/*.cc) $(wildcard topoloical_sort/*.cc) $(wildcard memory_alg_impls/*.cc) $(wildcard hash_alg_impls/*.cc) \
 		  $(wildcard bits_alg_impls/*.cc) $(wildcard design_alg_impls/*.cc) $(wildcard dict_tree_alg_impls/*.cc) $(wildcard line_tree_alg_impls/*.cc) \
 		  $(wildcard minimization_alg_impls/*.cc) $(wildcard random_sample_alg_impls/*.cc) $(wildcard geometric_alg_impls/*.cc) $(wildcard swordfingeroffer/*.cc) \
-		  $(wildcard queue_algs/*.cc)
+		  $(wildcard queue_algs/*.cc) $(wildcard hot_100/*.cc)
 
 SRC = test.cc $(SRC_COM)
 
