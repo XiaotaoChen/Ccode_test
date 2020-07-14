@@ -2,12 +2,39 @@
 #define ALGORITHM_IMPLS
 
 #include <vector>
+#include <climits>
+#include <algorithm>
+#include <list>
+#include <unordered_map>
 #include "./base_struct.h"
 
 namespace algorithms
 {
 // https://leetcode-cn.com/problems/path-sum-iii/
 int pathSum(TreeNode* root, int sum);
+
+// https://leetcode-cn.com/problems/triangle/
+int minimumTotal(std::vector<std::vector<int> >& triangle);
+
+// https://leetcode-cn.com/problems/merge-two-sorted-lists/
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2);
+
+// https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+int maxDepth(TreeNode* root);
+
+class LRUCache {
+public:
+    LRUCache():capacity(10){}
+    LRUCache(int capacity): capacity(capacity){}
+    int get(int key);
+    void put(int key, int value);
+
+private:
+    int capacity;
+    std::list<std::pair<int, int> > list;
+    std::unordered_map<int, std::list<std::pair<int,int> >::iterator > mp;
+
+};
 
 } // namespace algorithms
 
