@@ -108,6 +108,33 @@ void test_lru_cache() {
     std::cout << "get 4 value: "<< val << std::endl;
 }
 
+/**
+ * 6. 最大连续子数组乘积
+ * dp[i]表示0到i到数组中，包含i个元素到子数组乘积。要分别记录最大，最小乘积。
+*/
+void test_max_product() {
+    std::vector<int> nums = {-2,0,-1}; //{2,3,-2,4};
+    int result = algorithms::maxProduct(nums);
+    std::cout << "test max product result: " << result << std::endl;
+}
+
+/**
+ * 7. 排序链表
+*/
+void test_sort_list() {
+    ListNode* head = new ListNode(4);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(1);
+    head->next->next->next = new ListNode(3);
+    ListNode* sortedhead = algorithms::sortList(head);
+    std::cout << "test sort list result: ";
+    while(sortedhead!=nullptr) {
+        std::cout << sortedhead->val << " ";
+        sortedhead = sortedhead->next;
+    }
+    std::cout << std::endl;
+}
+
 int main() {
     // point p1 = point(1,2);
     // p1.print();
@@ -116,7 +143,9 @@ int main() {
     // test_minimum_total();
     // test_merge_two_list();
     // test_max_depth();
-    test_lru_cache();
+    // test_lru_cache();
+    // test_max_product();
+    test_sort_list();
 
     return 0;
 }

@@ -36,6 +36,12 @@ private:
 
 };
 
+// https://leetcode-cn.com/problems/maximum-product-subarray/
+int maxProduct(std::vector<int>& nums);
+
+// https://leetcode-cn.com/problems/sort-list/
+ListNode* sortList(ListNode* head);
+
 } // namespace algorithms
 
 
