@@ -42,6 +42,12 @@ int maxProduct(std::vector<int>& nums);
 // https://leetcode-cn.com/problems/sort-list/
 ListNode* sortList(ListNode* head);
 
+// https://leetcode-cn.com/problems/invert-binary-tree/
+TreeNode* invertTree(TreeNode* root);
+
+// https://leetcode-cn.com/problems/palindrome-linked-list/
+bool isPalindrome(ListNode* head);
+
 } // namespace algorithms
 
 

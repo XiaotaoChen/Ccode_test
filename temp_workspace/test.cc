@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <queue>
 #include "./algorithms.h"
 #include "./base_struct.h"
 
@@ -135,6 +136,48 @@ void test_sort_list() {
     std::cout << std::endl;
 }
 
+/**
+ * 8. 翻转二叉树
+*/
+void test_inverted_tree() {
+    TreeNode* root = new TreeNode(4);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(7);
+    root->left->left = new TreeNode(1);
+    root->left->right = new TreeNode(3);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(9);
+
+    TreeNode* head = algorithms::invertTree(root);
+
+    std::cout << "test inverted tree result:\n";
+    std::queue<TreeNode*> qu;
+    TreeNode* curr;
+    qu.push(root);
+    while(!qu.empty()) {
+        int size = qu.size();
+        for (int i=0; i<size; i++) {
+            curr = qu.front(); qu.pop();
+            if (curr->left!=nullptr) qu.push(curr->left);
+            if (curr->right!=nullptr) qu.push(curr->right);
+            std::cout << curr->val << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+/**
+ * 9. 回文链表
+*/
+void test_is_palindrome() {
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    // head->next->next = new ListNode(2);
+    // head->next->next->next = new ListNode(1);
+    bool result = algorithms::isPalindrome(head);
+    std::cout << "test ispalindrome result: " << std::boolalpha << result << std::endl;
+}
+
 int main() {
     // point p1 = point(1,2);
     // p1.print();
@@ -145,7 +188,9 @@ int main() {
     // test_max_depth();
     // test_lru_cache();
     // test_max_product();
-    test_sort_list();
+    // test_sort_list();
+    // test_inverted_tree();
+    test_is_palindrome();
 
     return 0;
 }
