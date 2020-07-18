@@ -47,6 +47,13 @@ int maxCoins(std::vector<int>& nums);
 // https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/
 int findUnsortedSubarray(std::vector<int>& nums);
 
+// https://leetcode-cn.com/problems/house-robber-iii/
+int rob(TreeNode* root);
+
+
+// https://leetcode-cn.com/problems/counting-bits/
+std::vector<int> countBits(int num);
+
 } // namespace hot_100
 
 

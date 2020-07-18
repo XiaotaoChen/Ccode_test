@@ -3418,6 +3418,29 @@ void test_find_unsorted_sub_array_hot_100() {
     std::cout <<  "test find unsorted subarray result: " << result << std::endl;
 }
 
+/**
+ * 13. 二叉树＋dp求解大家劫舍
+*/
+void test_rob() {
+    TreeNode* root = new TreeNode(3);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->right = new TreeNode(3);
+    root->right->right = new TreeNode(1);
+    int result = hot_100::rob(root);
+    std::cout << "test rob result: " << result << std::endl;
+}
+
+/**
+ * 14. 比特位计数，dp求解，奇数比特位数等于dp[i-1]+1, 偶数=dp[i>>1]
+*/
+void test_count_bits() {
+    int num = 5;
+    std::vector<int> result = hot_100::countBits(num);
+    std::cout << "test count bits result: ";
+    for (int i=0; i<result.size(); i++) std::cout << result[i] << " ";
+    std::cout << std::endl;
+}
 
 int main() {
     // test_minmum_depth_binary_tree();
@@ -3640,7 +3663,9 @@ int main() {
     // test_daily_temperatures_hot_100();
     // test_max_profit_hot_100();
     // test_max_coins_hot_100();
-    test_find_unsorted_sub_array_hot_100();
+    // test_find_unsorted_sub_array_hot_100();
+    // test_rob();
+    test_count_bits();
     
     return 0;
 }
