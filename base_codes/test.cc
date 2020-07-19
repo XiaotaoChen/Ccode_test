@@ -3442,6 +3442,18 @@ void test_count_bits() {
     std::cout << std::endl;
 }
 
+/**
+ * 15. 字符串解码. 两种方法：栈方法或dfs
+ * １．栈方法需要分别记录重复次数，和字符子串．注意记录的重复子串为上一层的结果，而不是当前重复子串的内容．注意num可能大于10
+ * 2. dfs(s, index), 如果遇到s[ｉndex]=='['，则dfs(s, ++index). 并且res+= tmp_dfs_result * num. 注意num要重置０
+*/
+void test_decode_string() {
+    std::string s = "3[a]2[bc]";; //"100[leetcode]"; //"3[a]2[bc]";
+    // std::string result = hot_100::decodeString(s);
+    std::string result = hot_100::decodeString_V2(s);
+    std::cout << "test decode string result: " << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3665,7 +3677,8 @@ int main() {
     // test_max_coins_hot_100();
     // test_find_unsorted_sub_array_hot_100();
     // test_rob();
-    test_count_bits();
+    // test_count_bits();
+    test_decode_string();
     
     return 0;
 }

@@ -2,6 +2,7 @@
 #define HOT_100_IMPLS
 
 #include <vector>
+#include <string>
 #include "./data_structs/base_struct.h"
 
 namespace hot_100
@@ -53,6 +54,12 @@ int rob(TreeNode* root);
 
 // https://leetcode-cn.com/problems/counting-bits/
 std::vector<int> countBits(int num);
+
+// https://leetcode-cn.com/problems/decode-string/
+std::string decodeString(std::string s);
+std::string decodeString_V2(std::string s);
+
+
 
 } // namespace hot_100
 
