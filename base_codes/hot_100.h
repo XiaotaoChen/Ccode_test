@@ -59,6 +59,10 @@ std::vector<int> countBits(int num);
 std::string decodeString(std::string s);
 std::string decodeString_V2(std::string s);
 
+// https://leetcode-cn.com/problems/partition-equal-subset-sum/
+bool canPartition(std::vector<int>& nums);
+bool canPartition_V2(std::vector<int>& nums);
+bool canPartition_V3(std::vector<int>& nums);
 
 
 } // namespace hot_100

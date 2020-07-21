@@ -3454,6 +3454,24 @@ void test_decode_string() {
     std::cout << "test decode string result: " << result << std::endl;
 }
 
+/**
+ * 16. 分割等和子集．　dfs．或０，１背包问题.
+ * 1. dfs定义如下bool dfs(nums, index, target); 如果nums[idx]==target, return ture
+ * 如果nums[idx] <target, return dfs(nums, index+1,target-nums[idx]) || dfs(nums, index+1, target)
+ * 表示第ｉndex下标的数字取或不取．
+ * ２．dp求解．dp[i][j] = dp[i-1][j] || dp[i-1][j - nums[i]]　表示第ｉ个数取或不取．
+ * 注意是dp[i-1][j-nums[i]] 而不是　dp[i][j-nums[i]]，　dp[i][0]=true,表示前ｉ个数，达到０是否可行．
+ * 3.由于dp[i][j]只与前一行dp[i-1]结果有关，可以直接定义dp[j]交替使用．此时遍历应该从j=target->0,
+ * 这样可避免dp[j]=dp[j]||dp[j-nums[idx]]时，dp[j-nums[idx]]始终表示上一层的结果而不是统一层的结果．
+*/
+void test_can_partition() {
+    std::vector<int> nums = {1,2,5}; //{1,5,11,5};
+    // bool result = hot_100::canPartition(nums);
+    // bool result = hot_100::canPartition_V2(nums);
+    bool result = hot_100::canPartition_V3(nums);
+    std::cout << "test can partition result: " << std::boolalpha << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3678,7 +3696,8 @@ int main() {
     // test_find_unsorted_sub_array_hot_100();
     // test_rob();
     // test_count_bits();
-    test_decode_string();
+    // test_decode_string();
+    test_can_partition();
     
     return 0;
 }
