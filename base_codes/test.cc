@@ -3472,6 +3472,16 @@ void test_can_partition() {
     std::cout << "test can partition result: " << std::boolalpha << result << std::endl;
 }
 
+/**
+ * 17 任务调度器
+*/
+void test_leastInterval() {
+    std::vector<char> tasks = {'A', 'A', 'A', 'B', 'B', 'B'};
+    int n =2;
+    int result = hot_100::leastInterval(tasks, n);
+    std::cout << "test least interval result: " << result << std::endl;
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3697,7 +3707,8 @@ int main() {
     // test_rob();
     // test_count_bits();
     // test_decode_string();
-    test_can_partition();
+    // test_can_partition();
+    test_leastInterval();
     
     return 0;
 }

@@ -65,6 +65,9 @@ bool canPartition_V2(std::vector<int>& nums);
 bool canPartition_V3(std::vector<int>& nums);
 
 
+// https://leetcode-cn.com/problems/task-scheduler/
+int leastInterval(std::vector<char>& tasks, int n);
+
 } // namespace hot_100
 
 
