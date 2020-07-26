@@ -68,6 +68,9 @@ bool canPartition_V3(std::vector<int>& nums);
 // https://leetcode-cn.com/problems/task-scheduler/
 int leastInterval(std::vector<char>& tasks, int n);
 
+// https://leetcode-cn.com/problems/palindromic-substrings/
+int countSubstrings(std::string s);
+
 } // namespace hot_100
 
 

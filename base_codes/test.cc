@@ -41,6 +41,7 @@
 #include "swordfingeroffer.h"
 #include "queue_algs.h"
 #include "hot_100.h"
+#include "thot_50.h"
 
 using namespace std;
 
@@ -2424,7 +2425,7 @@ void test_z_print() {
 /**
  * 测试vector按照下标赋值，再使用begin, size等函数会有问题．插入数据应该用pushback
 */
-void test_reverse() {
+void test_reversetest_reverse() {
     std::vector<int> tmp1;
     std::vector<int> tmp2;
     tmp1.reserve(2);
@@ -3482,6 +3483,46 @@ void test_leastInterval() {
     std::cout << "test least interval result: " << result << std::endl;
 }
 
+/**
+ * 18. 得到回文子串
+*/
+void test_count_substring () {
+    std::string s = "aaa";
+    int result = hot_100::countSubstrings(s);
+    std::cout << "test count substring result: " << result << std::endl;
+}
+
+/**
+ * 19. 最长递增序列
+*/
+void test_longest_increasing_path() {
+    std::vector<std::vector<int>> matrix = {{9,9,4}, {6,6,8}, {2,1,1}};
+    int result = thot_50::longestIncreasingPath(matrix);
+    std::cout << "test longest increasing path result: " << result << std::endl;
+}
+
+/**
+ * 20. 整数反转
+*/
+void test_reverse_thot50() {
+    int n = 123;
+    int result = thot_50::reverse(n);
+    std::cout << "test reverse result: " << result << std::endl;
+}
+
+/**
+ * 21. 全排列
+*/
+void test_permute_thot50() {
+    std::vector<int> nums = {1,2,3};
+    std::vector<std::vector<int>> result = thot_50::permute(nums);
+    std::cout << "test permute thot50 result:\n";
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0;j<result[i].size(); j++) std::cout << result[i][j] << " ";
+        std::cout << std::endl;
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3625,7 +3666,7 @@ int main() {
     // test_reverse_list();
     // test_merge_two_list();
     // test_issubtree();
-    // test_issymmetrical();
+    // test_issymmetrical();test_longest_increasing_path
     // test_clockwise_print();
     // test_min_stack();
     // test_is_correct_for_stack();
@@ -3668,7 +3709,7 @@ int main() {
     // test_final_number();
     // test_maxprofit();
     // test_nsum();
-    // test_sum_of_bits();
+    // test_sum_of_bits();test_longest_increasing_path
     // test_multipy();
 
 
@@ -3708,7 +3749,13 @@ int main() {
     // test_count_bits();
     // test_decode_string();
     // test_can_partition();
-    test_leastInterval();
+    // test_leastInterval();
+    // test_count_substring();
+
+    // ******************************** thot 50 *************************************
+    // test_longest_increasing_path();
+    // test_reverse_thot50();
+    test_permute_thot50();
     
     return 0;
 }
