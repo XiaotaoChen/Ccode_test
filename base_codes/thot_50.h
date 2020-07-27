@@ -12,4 +12,7 @@ int reverse(int x);
 std::vector<std::vector<int>> permute(std::vector<int>& nums);
 
 
+// https://leetcode-cn.com/problems/subsets/
+std::vector<std::vector<int>> subsets(std::vector<int>& nums);
+
 } // namespace thot_50

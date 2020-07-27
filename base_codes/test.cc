@@ -3523,6 +3523,20 @@ void test_permute_thot50() {
     }
 }
 
+/**
+ * 22. 求子集. dfs求解．一定要主要递归的下标为i+1, 而不是index+1, 然后push back的数组也不是nums[index],
+ * 而是nums[i]
+*/
+void test_subset_thot50() {
+    std::vector<int> nums = {1,2,3};
+    std::vector<std::vector<int>> result = thot_50::subsets(nums);
+    std::cout << "test subsets result:\n";
+    for (int i=0; i<result.size(); i++) {
+        for (int j=0; j<result[i].size(); j++) std::cout << result[i][j] << " ";
+        std::cout << std::endl;
+    }
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3755,7 +3769,8 @@ int main() {
     // ******************************** thot 50 *************************************
     // test_longest_increasing_path();
     // test_reverse_thot50();
-    test_permute_thot50();
+    // test_permute_thot50();
+    test_subset_thot50();
     
     return 0;
 }
