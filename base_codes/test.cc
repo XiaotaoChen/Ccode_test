@@ -652,13 +652,15 @@ dp求解：dp[i][j]表示s的前i个字符与p的前j个字符是否匹配。
 再刷感想：1. 必须有dp[n+1,m+1]即匹配０个元素的状态，否则无法处理s＝＂＂，p=".*"这种
 　　　　　２．匹配０个字符情况下特殊处理，且返回值为dp[n][m]
         3. 在匹配>=1个字符时，s[idx]与p[j]要match
+再刷感想：1. p[j]!='*'时，s[i－１]与p[j－１]匹配时，dp[i][j]=dp[i-1][j-1]，而不是直接为true
 */
 void test_regular_match() {
-    std::string s= ""; //"aab"; //"acbbcbcbcbaaacaac"; //"aab"; //"issi"; //"mississippi";
-    std::string p = ".*"; //""c*a*b"; //"ac*.a*ac*.*ab*b*ac"; //"c*a*b"; //"is*"; // "mis*is*p*.";
+    std::string s= "aa"; //"aab"; //"acbbcbcbcbaaacaac"; //"aab"; //"issi"; //"mississippi";
+    std::string p = "a"; //"c*a*b"; //"ac*.a*ac*.*ab*b*ac"; //"c*a*b"; //"is*"; // "mis*is*p*.";
     // bool result = dp::regular_match(s, p);
     // bool result = dp::regular_match_v2(s, p);
-    bool result = dp::regular_match_v3(s, p);
+    // bool result = dp::regular_match_v3(s, p);
+    bool result = dp::regular_match_v4(s, p);
     printf("result:%d\n", result);
 }
 
@@ -3569,7 +3571,7 @@ int main() {
     // test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
-    // test_regular_match();
+    test_regular_match();
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();
@@ -3770,7 +3772,7 @@ int main() {
     // test_longest_increasing_path();
     // test_reverse_thot50();
     // test_permute_thot50();
-    test_subset_thot50();
+    // test_subset_thot50();
     
     return 0;
 }
