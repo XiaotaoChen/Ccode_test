@@ -2598,9 +2598,11 @@ void test_topKminus() {
  * 即 std::push_heap默认最大堆，取反用std::greater<T>(), std::multiset默认最小堆，　取反用std::greater<T>
 */
 void test_median_number() {
-    std::vector<int> arr = {3,2,4,1,5};
+    std::vector<int> arr = {3,2,4,1,5,6};
     // int result = sword_finger_offer::median_number(arr);
-    int result = sword_finger_offer::median_number_with_set(arr);
+    // int result = sword_finger_offer::median_number_with_set(arr);
+    // float result = sword_finger_offer::median_number_V2(arr);
+    float result = sword_finger_offer::median_number_V3(arr);
 
     std::cout << "result: " << result << std::endl;
 }
@@ -2926,14 +2928,19 @@ void test_reverse_str() {
 
 /**
  * 166 得到数组中窗口为k的所有最大值. 两种方法：1.使用multipset维护一个最大堆，同时删除前idx-2的数，若使用vector+make_heap或自己实现的heap, 删除操作不太好处理;
- * 2.使用deque，双向队列中只保留windows内最大值的降序排序, 如果当前idx,arr[idx]> dequeue[arr[deque.front()]] deque.pop();
+ * 2.使用deque，双向队列中只保留windows内最大值的降序排序, 如果当前idx,arr[idx]> dequeue[arr[deque.back()]] deque.pop();
  * 如果deque.front()的下标超出了当前windows范围，则pop front(), 再push_back当前idx, 当前窗口的最大值即为，　deque.front()
+ * 
+ * 再刷感想：
+ * 在当前idx下比较arr[list.back()] <= arr[idx]，　而不是 list.front(), 且使用while而不是if
 */
 void test_max_sequence() {
     std::vector<int> arr = {2,3,4,6,2,5,1};
     int windows = 3;
     // std::vector<int> result = sword_finger_offer::max_sequence(arr, windows);
-    std::vector<int> result = sword_finger_offer::max_sequence_v2(arr, windows);
+    // std::vector<int> result = sword_finger_offer::max_sequence_v2(arr, windows);
+    // std::vector<int> result = sword_finger_offer::max_sequence_v3(arr, windows);
+    std::vector<int> result = sword_finger_offer::max_sequence_v4(arr, windows);
     std::cout << "max sequence result:\n";
     for (int i=0; i<result.size(); i++) {
         std::cout << result[i] << " ";
@@ -3539,6 +3546,12 @@ void test_subset_thot50() {
     }
 }
 
+void test_vector_compare() {
+    std::vector<int> arr = {3,2,1,4,5};
+    // std::qsort(arr.begin(), arr.end(), std::less<int, int>);
+
+}
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3571,7 +3584,7 @@ int main() {
     // test_length_palindrome();
     // test_z_convert();
     // test_my_atoi();
-    test_regular_match();
+    // test_regular_match();
     // test_largest_rectangle_area();
     // test_maximal_square();
     // test_max_area_in_water_tank();
@@ -3696,7 +3709,7 @@ int main() {
     // test_queen_permute();
     // test_morethanhalf();
     // test_topKminus();
-    // test_median_number();
+    test_median_number();
     // test_heap();
     // test_continuoussum();
     // test_one_counts();

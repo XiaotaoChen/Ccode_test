@@ -1,6 +1,8 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <iostream>
 #include "./move_rvalue_feature.h"
 #include "./singleton.h"
 
@@ -77,9 +79,63 @@ void test_singleton() {
 
 }
 
+template<typename T>
+bool compare(const T a, const T b) {
+    return a < b;
+}
+
+template<typename T>
+int compare_q(const void* a, const void* b) {
+    return *static_cast<const T*>(a) < *static_cast<const T*>(b);
+}
+
+void test_vector() {
+    std::vector<int> arr = {2,1,4,3,5};
+    
+    std::sort(arr.begin(), arr.end(), std::less<int>());
+    std::cout << "sort with less: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+    
+    std::sort(arr.begin(), arr.end(), std::greater<int>());
+    
+    std::cout << "sort with greater: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+
+    std::sort(arr.begin(), arr.end(), compare<int>);
+    std::cout << "sort with compare: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+
+    auto func = [](const int a, const int b)->bool {return a > b;};
+    std::sort(arr.begin(), arr.end(), func);
+    std::cout << "sort with lambda func: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+
+    // std::qsort(&arr[0], arr.size(), sizeof(int), std::less<int>);
+    std::qsort(&arr[0], arr.size(), sizeof(int), compare_q<int>);
+    std::cout << "qsort with less: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+
+
+    std::cout << "make_heap with less: ";
+    std::make_heap(arr.begin(), arr.end(), std::less<int>());
+    std::cout << arr.front() << std::endl;
+
+    
+    std::cout << "make_heap with greater: ";
+    std::make_heap(arr.begin(), arr.end(), std::greater<int>());
+    std::cout << arr.front() << std::endl;
+
+}
+
 
 int main() {
     // test_move_feature();
     // test_emplace_back();
-    test_singleton();
+    // test_singleton();
+    test_vector();
 }

@@ -156,6 +156,9 @@ std::vector<int> TopKminus_with_set(std::vector<int>& arr, int k);
 int median_number(std::vector<int>& arr);
 int median_number_with_set(std::vector<int>& arr);
 
+float median_number_V2(std::vector<int>& arr);
+float median_number_V3(std::vector<int>& arr);
+
 
 // interview 42 连续子数组的最大和
 int continuoussum(std::vector<int>& arr);
@@ -225,6 +228,9 @@ std::string reverse_str(std::string& str);
 // interview 59 队列的最大值
 std::vector<int> max_sequence(std::vector<int>& arr, int windows);
 std::vector<int> max_sequence_v2(std::vector<int>& arr, int windows);
+
+std::vector<int> max_sequence_v3(std::vector<int>& arr, int windows);
+std::vector<int> max_sequence_v4(std::vector<int>& arr, int windows);
 
 // interview 60 n个骰子的点数
 std::unordered_map<int, float> probability_n(int n);
