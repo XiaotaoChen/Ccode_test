@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <queue>
+#include <set>
 #include "./algorithms.h"
 #include "./base_struct.h"
 
@@ -178,6 +179,29 @@ void test_is_palindrome() {
     std::cout << "test ispalindrome result: " << std::boolalpha << result << std::endl;
 }
 
+void test_sort() {
+    std::vector<int> arr = {3,2,4,5,1};
+    algorithms::qsort(arr, 0, arr.size()-1);
+    std::cout << "test sort result: ";
+    for (int i=0; i<arr.size(); i++) std::cout << arr[i] << " ";
+    std::cout << std::endl;
+}
+
+void test_heap() {
+    std::vector<int> arr = {3,2,1,5,4};
+    std::vector<int> min_heap;
+    std::multiset<int, std::less<int>> mt;
+    for (int i=0; i<arr.size(); i++) {
+        min_heap.push_back(arr[i]);
+        std::push_heap(min_heap.begin(), min_heap.end(), std::greater<int>());
+        std::cout << i << ":" << min_heap[0] << std::endl;
+
+
+        mt.insert(arr[i]);
+        std::cout << i << ": " << *mt.begin() << std::endl;
+    }
+}
+
 int main() {
     // point p1 = point(1,2);
     // p1.print();
@@ -190,7 +214,9 @@ int main() {
     // test_max_product();
     // test_sort_list();
     // test_inverted_tree();
-    test_is_palindrome();
+    // test_is_palindrome();
+    // test_sort();
+    test_heap();
 
     return 0;
 }

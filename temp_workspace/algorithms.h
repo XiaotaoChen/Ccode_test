@@ -48,6 +48,11 @@ TreeNode* invertTree(TreeNode* root);
 // https://leetcode-cn.com/problems/palindrome-linked-list/
 bool isPalindrome(ListNode* head);
 
+void qsort(std::vector<int>& arr, int begin, int end);
+int partition(std::vector<int>& arr, int begin, int end);
+
+
+
 } // namespace algorithms
 
 
