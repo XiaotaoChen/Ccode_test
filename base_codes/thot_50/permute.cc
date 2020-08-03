@@ -28,4 +28,28 @@ std::vector<std::vector<int>> permute(std::vector<int>& nums) {
     return result;
 }
 
+void swap(int& a, int& b) {
+    int tmp = a;
+    a = b;
+    b = tmp;
+}
+
+void permute_v2_dfs(std::vector<std::vector<int>>& combinations, std::vector<int>& nums, int index) {
+    if (index == nums.size()-1) {
+        combinations.push_back(nums);
+        return;
+    }
+    for (int i=index; i<nums.size(); i++) {
+        swap(nums[index], nums[i]);
+        permute_v2_dfs(combinations, nums, index+1);
+        swap(nums[index], nums[i]);
+    }
+}
+
+std::vector<std::vector<int>> permute_v2(std::vector<int>& nums) {
+    std::vector<std::vector<int>> result;
+    permute_v2_dfs(result, nums, 0);
+    return result;
+}
+
 } // namespace thot_50

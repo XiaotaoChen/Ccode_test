@@ -14,6 +14,7 @@ int findKthLargest_min_heap(std::vector<int>& nums, int k);
 
 // https://leetcode-cn.com/problems/sliding-window-maximum/
 std::vector<int> maxSlidingWindow(std::vector<int>& nums, int k);
+std::vector<int> maxSlidingWindow_v2(std::vector<int>& nums, int k);
 
 // https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
 bool searchMatrix(std::vector<std::vector<int>>& matrix, int target);

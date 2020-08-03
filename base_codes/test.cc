@@ -3285,7 +3285,8 @@ void test_findkthlargest_hot_100() {
 void test_max_sliding_window_hot_100() {
     std::vector<int>  nums = {1,3,1,2,0,5}; //{1,3,-1,-3,5,3,6,7};
     int k = 3;
-    std::vector<int> result = hot_100::maxSlidingWindow(nums, k);
+    // std::vector<int> result = hot_100::maxSlidingWindow(nums, k);
+    std::vector<int> result = hot_100::maxSlidingWindow_v2(nums, k);
     std::cout << "test max sliding windos:" ;
     for (int i=0; i<result.size(); i++) std::cout << result[i] << " ";
     std::cout << std::endl;
@@ -3524,7 +3525,8 @@ void test_reverse_thot50() {
 */
 void test_permute_thot50() {
     std::vector<int> nums = {1,2,3};
-    std::vector<std::vector<int>> result = thot_50::permute(nums);
+    // std::vector<std::vector<int>> result = thot_50::permute(nums);
+    std::vector<std::vector<int>> result = thot_50::permute_v2(nums);
     std::cout << "test permute thot50 result:\n";
     for (int i=0; i<result.size(); i++) {
         for (int j=0;j<result[i].size(); j++) std::cout << result[i][j] << " ";
@@ -3538,7 +3540,8 @@ void test_permute_thot50() {
 */
 void test_subset_thot50() {
     std::vector<int> nums = {1,2,3};
-    std::vector<std::vector<int>> result = thot_50::subsets(nums);
+    // std::vector<std::vector<int>> result = thot_50::subsets(nums);
+    std::vector<std::vector<int>> result = thot_50::subsets_v2(nums);
     std::cout << "test subsets result:\n";
     for (int i=0; i<result.size(); i++) {
         for (int j=0; j<result[i].size(); j++) std::cout << result[i][j] << " ";
@@ -3546,10 +3549,11 @@ void test_subset_thot50() {
     }
 }
 
-void test_vector_compare() {
-    std::vector<int> arr = {3,2,1,4,5};
-    // std::qsort(arr.begin(), arr.end(), std::less<int, int>);
-
+void test_generate_parenthesis_thot50() {
+    int n = 3;
+    std::vector<std::string> result = thot_50::legal_partness(n);
+    std::cout << "test generate parenthesis result:\n";
+    for (int i=0; i<result.size(); i++) std::cout << result[i] << std::endl;
 }
 
 int main() {
@@ -3709,7 +3713,7 @@ int main() {
     // test_queen_permute();
     // test_morethanhalf();
     // test_topKminus();
-    test_median_number();
+    // test_median_number();
     // test_heap();
     // test_continuoussum();
     // test_one_counts();
@@ -3785,7 +3789,8 @@ int main() {
     // test_longest_increasing_path();
     // test_reverse_thot50();
     // test_permute_thot50();
-    // test_subset_thot50();
-    
+    test_subset_thot50();
+    // test_generate_parenthesis_thot50();
+
     return 0;
 }

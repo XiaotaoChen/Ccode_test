@@ -4,7 +4,7 @@
 #include <map>
 #include <unordered_set>
 
-#include "../search.h"
+#include "../search_algs.h"
 
 namespace search
 {

@@ -1,5 +1,5 @@
 #include <vector>
-#include "../search.h"
+#include "../search_algs.h"
 
 namespace search
 {
