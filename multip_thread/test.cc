@@ -3,7 +3,7 @@
 #include <mutex>                // std::mutex, std::unique_lock
 #include <condition_variable>    // std::condition_variable
 #include "./producer_consumer.h"
-// #include "./simple_example.h"
+#include "./simple_example.h"
 #include "./thread_safe_queue.h"
 #include "./threadpool.h"
 
@@ -118,13 +118,30 @@ void test_threadpool() {
     pool.shutdown();
 }
 
+void test_mulitpthread() {
+    int producer_num = 4;
+    int consumer_num = 1;
+    std::thread producers[producer_num];
+    std::thread consumers[consumer_num];
+    for (int i=0; i<producer_num; i++) {
+        producers[i] = std::thread(multip_thread::producer, i);
+    }
+    for (int i=0; i<consumer_num; i++) {
+        consumers[i] = std::thread(multip_thread::consumer, i, producer_num);
+    }
+
+    for (int i=0; i<producer_num; i++) producers[i].join();
+    for (int i=2; i<consumer_num; i++) consumers[i].join();
+}
+
 
 int main()
 {
     // test_simple_example();
     // test_oneproducer_oneconsumer();
     // test_thread_safe_queue();
-    test_threadpool();
+    // test_threadpool();
+    test_mulitpthread();
 
 
 

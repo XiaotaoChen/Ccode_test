@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <set>
 #include <iostream>
 #include "./move_rvalue_feature.h"
 #include "./singleton.h"
@@ -132,10 +133,20 @@ void test_vector() {
 
 }
 
+void test_multipset() {
+    std::vector<int> arr = {3,2,1,4,5};
+    std::multiset<int, std::less<int>> st;
+    for (int i=0; i < arr.size(); i++) {
+        st.insert(arr[i]);
+        std::cout << "min heap " << i << ": " << *st.begin() << std::endl;
+    }
+}
+
 
 int main() {
     // test_move_feature();
     // test_emplace_back();
     // test_singleton();
-    test_vector();
+    // test_vector();
+    test_multipset();
 }
