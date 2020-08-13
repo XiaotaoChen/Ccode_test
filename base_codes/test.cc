@@ -3557,6 +3557,25 @@ void test_generate_parenthesis_thot50() {
     for (int i=0; i<result.size(); i++) std::cout << result[i] << std::endl;
 }
 
+/**
+ * 23. 高楼仍鸡蛋
+ * 方法1. 设dp[i,j]表示共i个鸡蛋，j层楼需要仍的次数；则dp[i,j]=min(max(dp[i-1,j-1],dp[i,j-k])+1) for k in [1,j]
+ * 其中dp[i-1,k-1]表示在第k层仍，蛋碎了; dp[i, j-k]表示蛋没碎，剩下j-k层楼；
+ * 注意初始化dp[i,0]=0, for(i=1->K, j=1->N; k->1->j)dp[i,j]加一时要判断是否超过表示范围。
+ * 方法2: 根据dp[i-1][k]单调不减，dp[i][j-k]单调不增，可用二分法求得最中间的left,right
+ * 最后直接dp[i,j]=min(max(dp[i-1][left-1], dp[i][j-left]), max(dp[i-1][right-1], dp[i][j-right])) + 1;
+ * 方法3:定义新的更新状态dp[i,j]表示i个鸡蛋，仍j次，最多可用确定多高的楼层，则当dp[K,j]==N时，j即为结果
+ * dp[i,j] = dp[i][m-1] + dp[i-1][m-1] + 1
+ * 详见分析： https://leetcode-cn.com/problems/super-egg-drop/solution/ji-ben-dong-tai-gui-hua-jie-fa-by-labuladong/
+*/
+void test_superEggDrop() {
+    int K = 2;
+    int N = 6;
+    int result = thot_50::superEggDrop_v3(K, N);
+    std::cout << "test superEggDrop result: " << result << std::endl;
+}
+
+
 int main() {
     // test_minmum_depth_binary_tree();
     // test_reverse_polish_notation();
@@ -3790,8 +3809,9 @@ int main() {
     // test_longest_increasing_path();
     // test_reverse_thot50();
     // test_permute_thot50();
-    test_subset_thot50();
+    // test_subset_thot50();
     // test_generate_parenthesis_thot50();
+    test_superEggDrop();
 
     return 0;
 }

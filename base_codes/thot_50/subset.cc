@@ -5,7 +5,7 @@
 namespace thot_50
 {
 
-void subset_dfs(std::vector<std::vector<int>>& combinations, std::vector<int>& curr, std::vector<int>& nums, int index) {
+void subset_dfs(std::vector<std::vector<int> >& combinations, std::vector<int>& curr, std::vector<int>& nums, int index) {
      combinations.push_back(curr);
      for (int i=index; i<nums.size(); i++) {
          curr.push_back(nums[i]);
@@ -14,14 +14,14 @@ void subset_dfs(std::vector<std::vector<int>>& combinations, std::vector<int>& c
      }
 }
 
-std::vector<std::vector<int>> subsets(std::vector<int>& nums) {
-     std::vector<std::vector<int>> result;
+std::vector<std::vector<int> > subsets(std::vector<int>& nums) {
+     std::vector<std::vector<int> > result;
      std::vector<int> curr;
      subset_dfs(result, curr, nums, 0);
      return result;
 }
 
-void subsets_v2_dfs(std::vector<std::vector<int>>& combinations, std::vector<int> curr, std::vector<int>& nums, int index) {
+void subsets_v2_dfs(std::vector<std::vector<int> >& combinations, std::vector<int> curr, std::vector<int>& nums, int index) {
      if (index == nums.size()) return;
      for (int i=index; i<nums.size(); i++) {
           curr.push_back(nums[i]);
@@ -31,9 +31,8 @@ void subsets_v2_dfs(std::vector<std::vector<int>>& combinations, std::vector<int
      }
 }
 
-
-std::vector<std::vector<int>> subsets_v2(std::vector<int>& nums) {
-     std::vector<std::vector<int>> result;
+std::vector<std::vector<int> > subsets_v2(std::vector<int>& nums) {
+     std::vector<std::vector<int> > result;
      std::vector<int> curr;
      result.push_back(curr);
      subsets_v2_dfs(result, curr, nums, 0);
