@@ -62,6 +62,11 @@ template <typename T>
 void read_data_binary(T* data_ptr, int size, std::string src_file) {
     std::ifstream ifs(src_file, std::ios::binary | std::ios::in);
     if (ifs.is_open()) {
+        ifs.seekg (0, ifs.end);
+        int length = ifs.tellg();
+        std::cout << src_file << " byte length: " << length << ", reset offset: " << length - sizeof(T) * size << std::endl;
+        ifs.seekg(length - sizeof(T) * size, ifs.beg);
+        
         ifs.read((char*)data_ptr, sizeof(T) * size);
         ifs.close();
     }
