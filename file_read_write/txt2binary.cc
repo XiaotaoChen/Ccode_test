@@ -91,7 +91,7 @@ int main(int argc, const char* argv[])  {
     std::cout << "dst_code_file_path: " << dst_code_file_path << "\ndst_codebooks_file_path: " << dst_codebooks_file_path << std::endl;
 
 
-    int codebooks_size = 256 * 8;
+    int codebooks_size = 128 * 8;
     int codes_size = 1000002 * 8;
     float* codebooks = new float[codebooks_size];
     uint8_t* codes_int8 = new uint8_t[codes_size];
