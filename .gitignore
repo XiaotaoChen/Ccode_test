@@ -9,4 +9,4 @@
 
 ./*/test
 ./*/*.out
-./*/test.dSYM
+./*/test.dSYM/
