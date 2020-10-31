@@ -5,7 +5,6 @@
 #include <set>
 #include <iostream>
 #include "./move_rvalue_feature.h"
-#include "./singleton.h"
 
 /**
  * 1. 类复制构造函数与move+右值引用。 右值主要是为了避免中间结果重复的拷贝，
@@ -47,37 +46,6 @@ void test_emplace_back() {
     vect2.emplace_back("cxt", 13);
     // vect2.emplace_back(move_feature::person("cxt", 14));
     // vect2.emplace_back(per);
-}
-
-/**
- * 3. 单例模式
-*/
-void test_singleton() {
-    static singleton_imp::Singleton1* ins  = singleton_imp::Singleton1::getInstance();
-    static singleton_imp::Singleton1* ins2  = singleton_imp::Singleton1::getInstance();
-    printf("Singleton1 ins, ins2: %p, %p\n", ins, ins2);
-
-    static singleton_imp::Singleton1_plus* s1_p_ins  = singleton_imp::Singleton1_plus::getInstance().get();
-    static singleton_imp::Singleton1_plus* s1_p_ins2  = singleton_imp::Singleton1_plus::getInstance().get();
-    printf("Singleton1_plus ins, ins2: %p, %p\n", s1_p_ins, s1_p_ins2);
-
-    static singleton_imp::Singleton2* s2_ins  = singleton_imp::Singleton2::getInstance();
-    static singleton_imp::Singleton2* s2_ins2  = singleton_imp::Singleton2::getInstance();
-    printf("Singleton2 ins, ins2: %p, %p\n", s2_ins, s2_ins2);
-
-    static singleton_imp::Singleton3* s3_ins  = singleton_imp::Singleton3::getInstance();
-    static singleton_imp::Singleton3* s3_ins2  = singleton_imp::Singleton3::getInstance();
-    printf("Singleton3 ins, ins2: %p, %p\n", s3_ins, s3_ins2);
-
-    static singleton_imp::Singleton4* s4_ins  = singleton_imp::Singleton4::getInstance();
-    static singleton_imp::Singleton4* s4_ins2  = singleton_imp::Singleton4::getInstance();
-    printf("Singleton4 ins, ins2: %p, %p\n", s4_ins, s4_ins2);
-
-    static move_feature::person* per = singleton_imp::Singleton5<move_feature::person>::getInstance();
-    static move_feature::person* per2 = singleton_imp::Singleton5<move_feature::person>::getInstance();
-    printf("template per: %p, per2: %p\n", per, per2);
-    (*per).show(); (*per2).show();
-
 }
 
 template<typename T>
@@ -146,7 +114,6 @@ void test_multipset() {
 int main() {
     // test_move_feature();
     // test_emplace_back();
-    // test_singleton();
     // test_vector();
     test_multipset();
 }
