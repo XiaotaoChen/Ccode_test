@@ -1,0 +1,6 @@
+project(Pro)
+add_definitions(-O3 -Ofast -ffast-math)
+add_definitions(-Wall -Wextra -Wno-unused-function)
+add_definitions(-std=c++11 -fPIC)
+file(GLOB pro_SRC "pro.cpp")
+add_library(pro STATIC ${pro_SRC})
